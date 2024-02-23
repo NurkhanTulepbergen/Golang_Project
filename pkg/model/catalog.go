@@ -8,13 +8,13 @@ import (
 )
 
 type Product struct {
-	ID          int     `json:"id"`
-	CreatedAt   string  `json:"createdAt"`
-	UpdatedAt   string  `json:"updatedAt"`
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	Price       float64 `json:"price"`
-	Quantity    int     `json:"quantity"`
+	Id             string  `json:"id"`
+	CreatedAt      string  `json:"createdAt"`
+	UpdatedAt      string  `json:"updatedAt"`
+	Title          string  `json:"title"`
+	Description    string  `json:"description"`
+	Price          float64 `json:"price"`
+	AvailableStock uint    `json:"availableStock"`
 }
 
 type ProductModel struct {
@@ -26,21 +26,21 @@ type ProductModel struct {
 func (m ProductModel) Insert(product *Product) error {
 	// Insert a new product into the database.
 	query := `
-		INSERT INTO products (name, description, price, quantity) 
+		INSERT INTO products (title, description, price, available_stock) 
 		VALUES ($1, $2, $3, $4) 
 		RETURNING id, created_at, updated_at
 		`
-	args := []interface{}{product.Name, product.Description, product.Price, product.Quantity}
+	args := []interface{}{product.Title, product.Description, product.Price, product.AvailableStock}
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	return m.DB.QueryRowContext(ctx, query, args...).Scan(&product.ID, &product.CreatedAt, &product.UpdatedAt)
+	return m.DB.QueryRowContext(ctx, query, args...).Scan(&product.Id, &product.CreatedAt, &product.UpdatedAt)
 }
 
-func (m ProductModel) Get(id int) (*Product, error) {
+func (m ProductModel) Get(id string) (*Product, error) {
 	// Retrieve a specific product based on its ID.
 	query := `
-		SELECT id, created_at, updated_at, name, description, price, quantity
+		SELECT id, created_at, updated_at, title, description, price, available_stock
 		FROM products
 		WHERE id = $1
 		`
@@ -49,7 +49,7 @@ func (m ProductModel) Get(id int) (*Product, error) {
 	defer cancel()
 
 	row := m.DB.QueryRowContext(ctx, query, id)
-	err := row.Scan(&product.ID, &product.CreatedAt, &product.UpdatedAt, &product.Name, &product.Description, &product.Price, &product.Quantity)
+	err := row.Scan(&product.Id, &product.CreatedAt, &product.UpdatedAt, &product.Title, &product.Description, &product.Price, &product.AvailableStock)
 	if err != nil {
 		return nil, err
 	}
@@ -60,18 +60,18 @@ func (m ProductModel) Update(product *Product) error {
 	// Update a specific product in the database.
 	query := `
 		UPDATE products
-		SET name = $1, description = $2, price = $3, quantity = $4
+		SET title = $1, description = $2, price = $3, available_stock = $4
 		WHERE id = $5
 		RETURNING updated_at
 		`
-	args := []interface{}{product.Name, product.Description, product.Price, product.Quantity, product.ID}
+	args := []interface{}{product.Title, product.Description, product.Price, product.AvailableStock, product.Id}
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
 	return m.DB.QueryRowContext(ctx, query, args...).Scan(&product.UpdatedAt)
 }
 
-func (m ProductModel) Delete(id int) error {
+func (m ProductModel) Delete(id string) error {
 	// Delete a specific product from the database.
 	query := `
 		DELETE FROM products
