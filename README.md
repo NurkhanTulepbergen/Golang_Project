@@ -1,2 +1,6 @@
 # Golang_Project
-JANA shop 
+##JANA shop 
+POST /menus
+GET /menus/:id
+PUT /menus/:id
+DELETE /menus/:id
