@@ -1,2 +1,2 @@
 # Golang_Project
-NaJa shop 
+NAJA shop 
