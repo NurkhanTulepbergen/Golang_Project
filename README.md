@@ -2,7 +2,7 @@
 
 # JANA Shop
 
-Проект JANA Shop представляет собой веб-приложение для управления меню магазина.
+The JANA Shop project is a web application for managing the store menu.
 
 ## Описание
 
@@ -13,23 +13,23 @@ JANA Shop предоставляет следующие возможности:
 - Обновление существующего меню
 - Удаление меню из системы
 
-## Использование
+## Usage
 
-Для запуска проекта выполните следующие шаги:
+To run the project, follow these steps:
 
-1. Установите необходимые зависимости:
+1. Install the necessary dependencies:
 
     ```bash
     go mod tidy
     ```
 
-2. Запустите проект:
+2. Run the project:
 
     ```bash
     go run main.go
     ```
 
-Это запустит проект на локальном сервере.
+This will run the project on a local server.
 
 ## Маршруты API
 
@@ -38,11 +38,7 @@ JANA Shop предоставляет следующие возможности:
 - `PUT /menus/:id`: Обновление существующего меню
 - `DELETE /menus/:id`: Удаление меню
 
-## Вклад
+## Contribution
 
-Мы приветствуем вклад! Если вы хотите внести вклад в проект, пожалуйста, создайте новую ветку и отправьте запрос на объединение (pull request).
-
-## Лицензия
-
-Этот проект лицензируется по лицензии [Укажите вашу лицензию, например, MIT]. См. файл `LICENSE` для получения дополнительной информации.
+We appreciate contribution! If you would like to contribute to the project, please create a new branch and submit a pull request.
 
