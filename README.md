@@ -30,7 +30,7 @@ To run the project, follow these steps:
     ```
 
 This will run the project on a local server.
-# REST API 
+# API Routes 
 
 ## Create a New User
 
