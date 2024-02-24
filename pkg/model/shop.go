@@ -23,16 +23,21 @@ type ShopModel struct {
 
 var shops = []Shop{
 	{
-		Id:          "1",
-		Title:       "Shop 1",
-		Description: "Description for Shop 1",
-		Type:        "Clothes",
+		ID          string    `json:"id"`
+		Name        string    `json:"name"`
+		Description string    `json:"description"`
+		Location    string    `json:"location"`
+		Owner       *User     `json:"owner"`
+
 	},
 	{
-		Id:          "2",
-		Title:       "Shop 2",
-		Description: "Description for Shop 2",
-		Type:        "Food",
+		ID          string  `json:"id"`
+		Name        string  `json:"name"`
+		Description string  `json:"description"`
+		Price       float64 `json:"price"`
+		Quantity    int     `json:"quantity"`
+		Category    string  `json:"category"`
+		Remainder   int      `json:"remainder"`
 	},
 	// Add other shops as needed
 }
