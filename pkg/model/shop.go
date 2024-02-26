@@ -21,23 +21,17 @@ type ShopModel struct {
 	ErrorLog *log.Logger
 }
 
+type Tmp struct {
+	Shop
+	ShopModel
+}
+
 var shops = []Shop{
 	{
-		ID          string    `json:"id"`
-		Name        string    `json:"name"`
-		Description string    `json:"description"`
-		Location    string    `json:"location"`
-		Owner       *User     `json:"owner"`
-
+		
 	},
 	{
-		ID          string  `json:"id"`
-		Name        string  `json:"name"`
-		Description string  `json:"description"`
-		Price       float64 `json:"price"`
-		Quantity    int     `json:"quantity"`
-		Category    string  `json:"category"`
-		Remainder   int      `json:"remainder"`
+		
 	},
 	// Add other shops as needed
 }
