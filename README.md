@@ -25,7 +25,7 @@ To run the project, follow these steps:
     ```
 
 This will run the project on a local server.
-# API Routes 
+# REST API 
 
 ## Create a New User
 
