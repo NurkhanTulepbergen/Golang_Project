@@ -21,30 +21,50 @@ type ShopModel struct {
 	ErrorLog *log.Logger
 }
 
-type Tmp struct {
-	Shop
-	ShopModel
-}
-
-var shops = []Shop{
-	{
-		
-	},
-	{
-		
-	},
-	// Add other shops as needed
-}
-
-func GetShops() []Shop {
-	return shops
-}
-
-func GetShop(id string) (*Shop, error) {
-	for _, s := range shops {
-		if s.Id == id {
-			return &s, nil
-		}
+func (m *ShopModel) AddShop(shop Shop) error {
+	_, err := m.DB.Exec("INSERT INTO shop (created_at, updated_at, title, description) VALUES (NOW(), NOW(), $1, $2)",
+		shop.Title, shop.Description)
+	if err != nil {
+		m.ErrorLog.Println("Error adding shop:", err)
+		return err
 	}
-	return nil, errors.New("Shop not found")
+	m.InfoLog.Println("Shop added successfully")
+	return nil
+}
+func (m *ShopModel) GetShopByID(id string) (*Shop, error) {
+	var shop Shop
+	err := m.DB.QueryRow("SELECT id, created_at, updated_at, title, description FROM shop WHERE id = $1", id).
+		Scan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, errors.New("Shop not found")
+		}
+		m.ErrorLog.Println("Error getting shop:", err)
+		return nil, err
+	}
+	return &shop, nil
+}
+func (m *ShopModel) GetAllShops() ([]Shop, error) {
+	rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description FROM shop")
+	if err != nil {
+		m.ErrorLog.Println("Error getting shops:", err)
+		return nil, err
+	}
+	defer rows.Close()
+
+	var shops []Shop
+	for rows.Next() {
+		var shop Shop
+		if err := rows.Scan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description); err != nil {
+			m.ErrorLog.Println("Error scanning shop:", err)
+			return nil, err
+		}
+		shops = append(shops, shop)
+	}
+	if err := rows.Err(); err != nil {
+		m.ErrorLog.Println("Error iterating rows:", err)
+		return nil, err
+	}
+
+	return shops, nil
 }

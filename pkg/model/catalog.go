@@ -7,7 +7,6 @@ import (
 	"time"
 )
 
-// Product represents a product entity.
 type Product struct {
 	ID             string  `json:"id"`
 	CreatedAt      string  `json:"createdAt"`
@@ -18,14 +17,12 @@ type Product struct {
 	AvailableStock uint    `json:"availableStock"`
 }
 
-// ProductModel represents the model for interacting with the Product entity.
 type ProductModel struct {
 	DB       *sql.DB
 	InfoLog  *log.Logger
 	ErrorLog *log.Logger
 }
 
-// Insert inserts a new product into the database.
 func (m ProductModel) Insert(product *Product) error {
 	query := `
 		INSERT INTO products (title, description, price, available_stock, created_at, updated_at) 
@@ -45,7 +42,6 @@ func (m ProductModel) Insert(product *Product) error {
 	return nil
 }
 
-// Get retrieves a specific product based on its ID from the database.
 func (m ProductModel) Get(id string) (*Product, error) {
 	query := `
 		SELECT id, created_at, updated_at, title, description, price, available_stock
@@ -55,7 +51,6 @@ func (m ProductModel) Get(id string) (*Product, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	// Execute the query and scan the result into a new product struct
 	var product Product
 	err := m.DB.QueryRowContext(ctx, query, id).Scan(&product.ID, &product.CreatedAt, &product.UpdatedAt, &product.Title, &product.Description, &product.Price, &product.AvailableStock)
 	if err != nil {
@@ -69,7 +64,6 @@ func (m ProductModel) Get(id string) (*Product, error) {
 	return &product, nil
 }
 
-// Update updates an existing product record in the database.
 func (m ProductModel) Update(product *Product) error {
 	query := `
 		UPDATE products
@@ -90,7 +84,6 @@ func (m ProductModel) Update(product *Product) error {
 	return nil
 }
 
-// Delete deletes a specific product record from the database.
 func (m ProductModel) Delete(id string) error {
 	query := `
 		DELETE FROM products

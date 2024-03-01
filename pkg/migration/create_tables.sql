@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS products
     description     text,
     price int
 );
-create table if not exists category
+create table if not exists shop
 (
     id              bigserial PRIMARY KEY,
     created_at      timestamp(0) with time zone NOT NULL DEFAULT NOW(),
