@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/lib/pq"
+	"log"
 )
 
 const (
@@ -207,79 +208,30 @@ func createCategory(title, description string) {
 	fmt.Printf("Product with ID %d added\n", id)
 }
 
-func deleteCategory(id1 int) {
-	// Database connection string for PostgreSQL
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
-
-	// Establishing a connection to the database
-	db, err := sql.Open("postgres", psqlInfo)
-	if err != nil {
-		panic(err)
-	}
-	defer db.Close()
-
-	deleteStmt := `DELETE FROM category WHERE id = $1`
-	// Executing the delete query for the product with the specified ID
-	_, err = db.Exec(deleteStmt, id1)
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("Product with ID %d deleted\n", id1)
-}
-
-func viewCategory() {
-	// Database connection string for PostgreSQL
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
-
-	// Establishing a connection to the database
-	db, err := sql.Open("postgres", psqlInfo)
-	if err != nil {
-		panic(err)
-	}
-	defer db.Close()
-
+func viewCategory(db *sql.DB) {
 	rows, err := db.Query("SELECT id, title, description FROM category")
 	if err != nil {
-		panic(err)
+		log.Fatal("Ошибка выполнения запроса:", err)
 	}
 	defer rows.Close()
 
-	// Iterating through each row of the query result
 	for rows.Next() {
 		var id int
 		var title, description string
-		// Reading values from the current row's columns
 		if err := rows.Scan(&id, &title, &description); err != nil {
-			panic(err)
+			log.Fatal("Ошибка сканирования результата:", err)
 		}
-		// Displaying information about the product
 		fmt.Printf("ID: %d, Title: %s, Description: %s\n", id, title, description)
 	}
-	// Checking for errors after the loop ends
 	if err := rows.Err(); err != nil {
-		panic(err)
+		log.Fatal("Ошибка после завершения цикла:", err)
 	}
 }
 
-//-------------------------------------------------------------------------------------------------------
-
-func main() {
-	//// Строка подключения к базе данных PostgreSQL
-	//psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-	//	"password=%s dbname=%s sslmode=disable",
-	//	host, port, user, password, dbname)
-	//
-	//// Установка соединения с базой данных
-	//db, err := sql.Open("postgres", psqlInfo)
-	//if err != nil {
-	//	panic(err)
-	//}
-	//defer db.Close()
-	viewCategory()
-	deleteCategory(2)
-	viewCategory()
+func deleteCategory(db *sql.DB, id int) {
+	_, err := db.Exec("DELETE FROM category WHERE id = $1", id)
+	if err != nil {
+		log.Fatal("Ошибка выполнения запроса:", err)
+	}
+	fmt.Printf("Категория с ID %d удалена\n", id)
 }
