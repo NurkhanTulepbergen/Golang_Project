@@ -9,7 +9,6 @@ import (
 type Models struct {
 	Product ProductModel
 	Shop    ShopModel
-	// Добавьте другие модели, если необходимо
 }
 
 func NewModels(db *sql.DB) Models {
