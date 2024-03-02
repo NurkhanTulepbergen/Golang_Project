@@ -52,7 +52,7 @@ This will run the project on a local server.
   - Body: Success message.
 
     ```bash
-    curl -X POST -H "Content-Type: application/json" -d '{"username":"newuser", "email":"newuser@example.com", "password":"securepassword", "address":"123 Main St"}' http://localhost:8080/users
+    curl -X POST -H "Content-Type: application/json" -d '{"username":"newuser", "email":"newuser@example.com", "password":"securepassword", "address":"123 Main St"}' http://localhost:2003/users
     ```
 
 ## Get Shop by ID
@@ -115,7 +115,7 @@ This will run the project on a local server.
 
 ---
 
-This documentation provides details on the API routes for creating a new user, getting menu information by ID, updating an existing menu, and deleting a menu. Adjust the examples and details based on your specific project requirements.
+This documentation provides details on the API routes for creating a new user, getting shop information by ID, updating an existing shop, and deleting a shop. Adjust the examples and details based on your specific project requirements.
 
   
 ## Contribution
