@@ -55,38 +55,37 @@ This will run the project on a local server.
     curl -X POST -H "Content-Type: application/json" -d '{"username":"newuser", "email":"newuser@example.com", "password":"securepassword", "address":"123 Main St"}' http://localhost:8080/users
     ```
 
-## Get Menu by ID
+## Get Shop by ID
 
 - **Endpoint:**
-  - `GET /menus/:id`
+  - `GET /shop/:id`
 
 - **Description:**
-  - Retrieve information about a menu by providing its ID.
+  - Retrieve information about a shop by providing its ID.
 
 - **Response:**
   - Status Code: 200 OK
   - Body: JSON object containing menu information.
 
     ```bash
-    curl http://localhost:8080/menus/1
+    curl http://localhost:2003/shop/1
     ```
 
 ## Update Existing Menu
 
 - **Endpoint:**
-  - `PUT /menus/:id`
+  - `PUT /shop/:id`
 
 - **Description:**
-  - Update an existing menu.
+  - Update an existing shop.
 
 - **Request Body:**
-  - JSON object containing updated menu information.
+  - JSON object containing updated shop information.
 
     ```json
     {
-      "name": "Updated Menu",
+      "name": "Updated Shop",
       "items": ["Item 1", "Item 2", "Item 3"],
-      "price": 29.99
     }
     ```
 
@@ -95,23 +94,23 @@ This will run the project on a local server.
   - Body: Success message.
 
     ```bash
-    curl -X PUT -H "Content-Type: application/json" -d '{"name":"Updated Menu", "items":["Item 1", "Item 2", "Item 3"], "price":29.99}' http://localhost:8080/menus/1
+    curl -X PUT -H "Content-Type: application/json" -d '{"name":"Updated Shop", "items":["Item 1", "Item 2", "Item 3"]}' http://localhost:2003/shop/1
     ```
 
 ## Delete Menu
 
 - **Endpoint:**
-  - `DELETE /menus/:id`
+  - `DELETE /shop/:id`
 
 - **Description:**
-  - Delete a menu by providing its ID.
+  - Delete a shop by providing its ID.
 
 - **Response:**
   - Status Code: 200 OK
   - Body: Success message.
 
     ```bash
-    curl -X DELETE http://localhost:8080/menus/1
+    curl -X DELETE http://localhost:2003/shop/1
     ```
 
 ---
