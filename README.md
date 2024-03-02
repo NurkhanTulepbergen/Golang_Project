@@ -71,7 +71,7 @@ This will run the project on a local server.
     curl http://localhost:2003/shop/1
     ```
 
-## Update Existing Menu
+## Update Existing Shop
 
 - **Endpoint:**
   - `PUT /shop/:id`
@@ -97,7 +97,7 @@ This will run the project on a local server.
     curl -X PUT -H "Content-Type: application/json" -d '{"name":"Updated Shop", "items":["Item 1", "Item 2", "Item 3"]}' http://localhost:2003/shop/1
     ```
 
-## Delete Menu
+## Delete Shop
 
 - **Endpoint:**
   - `DELETE /shop/:id`
