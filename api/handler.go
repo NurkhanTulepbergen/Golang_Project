@@ -43,13 +43,34 @@ func (api *API) Shops(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
+	//создание обьекта shop для вызова в методе addShop
+	//shopToAdd := model.Shop{
+	//	Title:       "Example Shop",
+	//	Description: "This is an example shop.",
+	//}
 
+	//// Вызов метода AddShop для добавления магазина
+	//err := api.ShopModel.AddShop(shopToAdd)
+	//if err != nil {
+	//	http.Error(w, "Failed to add shop", http.StatusInternalServerError)
+	//	return
+	//}
+
+	//Удаление магазина по id
+	//err := api.ShopModel.DeleteShopByID(2)
+	//if err != nil {
+	//	http.Error(w, "Failed to add shop", http.StatusInternalServerError)
+	//	return
+	//}
+
+	// Получение всех магазинов
 	shops, err := api.ShopModel.GetAllShops()
 	if err != nil {
 		http.Error(w, "Failed to retrieve shops", http.StatusInternalServerError)
 		return
 	}
 
+	// Формирование ответа в формате JSON
 	response := Response{
 		Shops: shops,
 	}

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	_ "github.com/lib/pq"
 	"log"
+	"time"
 )
 
 const (
@@ -12,11 +13,11 @@ const (
 	port     = 5432
 	user     = "postgres"
 	password = "Nurkhan05"
-	dbname   = "ayazhanchert"
+	dbname   = "jana"
 )
 
 // -------------------------------------------------------------------------------------------------------
-func createUser(name1, password1 string) { // добавление юзера к базе данных
+func createUser(name, password string) { // добавление юзера к базе данных
 	// Строка подключения к базе данных PostgreSQL
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
@@ -30,17 +31,19 @@ func createUser(name1, password1 string) { // добавление юзера к
 	defer db.Close()
 
 	var id int // Объявляем переменную id для сохранения возвращаемого значения из запроса
-	insertStmt := `INSERT INTO "user"(name, password) VALUES($1, $2) RETURNING id`
+	insertStmt := `INSERT INTO users(name, password, created_at, updated_at) VALUES($1, $2, $3, $4) RETURNING id`
+	// Получаем текущее время для created_at и updated_at
+	currentTime := time.Now()
 	// Выполняем запрос и сканируем результат в переменную id
-	err = db.QueryRow(insertStmt, name1, password1).Scan(&id)
+	err = db.QueryRow(insertStmt, name, password, currentTime, currentTime).Scan(&id)
 	if err != nil {
 		panic(err)
 	}
 	// Используем формат вывода %d для вывода значения id
-	fmt.Printf("Добавлен user с id: %d\n", id)
+	fmt.Printf("Добавлен пользователь с id: %d\n", id)
 }
 
-func deleteUser(id1 int) { // удаление юзера с базы данных
+func deleteUser(id int) { // удаление юзера с базы данных
 	// Строка подключения к базе данных PostgreSQL
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
@@ -53,10 +56,8 @@ func deleteUser(id1 int) { // удаление юзера с базы данны
 	}
 	defer db.Close()
 
-	var id int // Объявляем переменную id для сохранения возвращаемого значения из запроса
-
-	deleteStmt := `DELETE FROM "user" WHERE id = $1`
-	_, err = db.Exec(deleteStmt, id1)
+	deleteStmt := `DELETE FROM users WHERE id = $1`
+	_, err = db.Exec(deleteStmt, id)
 	if err != nil {
 		panic(err)
 	}
@@ -76,7 +77,7 @@ func viewUsers() {
 	}
 	defer db.Close()
 
-	rows, err := db.Query("SELECT \"user\".id, name, password FROM \"user\"")
+	rows, err := db.Query("SELECT id, created_at, updated_at, name, password FROM users")
 	if err != nil {
 		panic(err)
 	}
@@ -85,13 +86,14 @@ func viewUsers() {
 	// Проходимся по каждой строке результата запроса
 	for rows.Next() {
 		var id int
+		var createdAt, updatedAt time.Time
 		var name, password string
 		// Считываем значения столбцов из текущей строки
-		if err := rows.Scan(&id, &name, &password); err != nil {
+		if err := rows.Scan(&id, &createdAt, &updatedAt, &name, &password); err != nil {
 			panic(err)
 		}
 		// Выводим информацию о пользователе
-		fmt.Printf("ID: %d, Name: %s, Password: %s\n", id, name, password)
+		fmt.Printf("ID: %d, Created At: %s, Updated At: %s, Name: %s, Password: %s\n", id, createdAt, updatedAt, name, password)
 	}
 	// Проверяем наличие ошибок после завершения цикла
 	if err := rows.Err(); err != nil {

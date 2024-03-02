@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS user
+CREATE TABLE IF NOT EXISTS users
 (
     id          bigserial PRIMARY KEY,
     created_at  timestamp(0) with time zone NOT NULL DEFAULT NOW(),
@@ -34,5 +34,5 @@ CREATE TABLE IF NOT EXISTS category_and_products
     FOREIGN KEY (category)
         REFERENCES products(id),
     FOREIGN KEY (products)
-        REFERENCES category(id)
+        REFERENCES shop(id)
 );

@@ -44,6 +44,16 @@ func (m *ShopModel) GetShopByID(id string) (*Shop, error) {
 	}
 	return &shop, nil
 }
+func (m *ShopModel) DeleteShopByID(id int) error {
+	// Выполняем SQL-запрос для удаления магазина по его ID
+	_, err := m.DB.Exec("DELETE FROM shop WHERE id = $1", id)
+	if err != nil {
+		m.ErrorLog.Println("Error deleting shop:", err)
+		return err
+	}
+	m.InfoLog.Println("Shop deleted successfully")
+	return nil
+}
 func (m *ShopModel) GetAllShops() ([]Shop, error) {
 	rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description FROM shop")
 	if err != nil {
