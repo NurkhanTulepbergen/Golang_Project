@@ -57,7 +57,7 @@ This will run the project on a local server.
 ## Add Shop
 
 - **Endpoint:**
-  - `POST /shop`
+  - `POST /addshop`
 
 - **Description:**
   - This endpoint allows you to add a new shop to the database.
@@ -65,7 +65,12 @@ This will run the project on a local server.
 - **Response:**
   - Status Code: 201 Created
   - Body: JSON object containing the newly created shop's information.
-### Request Body
+    
+    ```bash
+    curl -X POST -H "Content-Type: application/json" -d '{"title":"Example Shop","description":"This is a description of Example Shop."}' http://localhost:2003/shop
+    ```
+    
+## Request Body
 
 The request body should be a JSON object with the following fields:
 
@@ -79,9 +84,10 @@ Example:
     "title": "Example Shop",
     "description": "This is a description of Example Shop."
 }
-    ```bash
-    curl http://localhost:2003/shop/1
-    ```
+```
+
+
+
 ## Get Shop by ID
 
 - **Endpoint:**
