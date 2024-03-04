@@ -54,7 +54,34 @@ This will run the project on a local server.
     ```bash
     curl -X POST -H "Content-Type: application/json" -d '{"username":"newuser", "email":"newuser@example.com", "password":"securepassword", "address":"123 Main St"}' http://localhost:2003/users
     ```
+## Add Shop
 
+- **Endpoint:**
+  - `POST /shop`
+
+- **Description:**
+  - This endpoint allows you to add a new shop to the database.
+
+- **Response:**
+  - Status Code: 201 Created
+  - Body: JSON object containing the newly created shop's information.
+### Request Body
+
+The request body should be a JSON object with the following fields:
+
+- **title**: The title of the shop (required).
+- **description**: A description of the shop (optional).
+
+Example:
+
+```json
+{
+    "title": "Example Shop",
+    "description": "This is a description of Example Shop."
+}
+    ```bash
+    curl http://localhost:2003/shop/1
+    ```
 ## Get Shop by ID
 
 - **Endpoint:**
@@ -68,7 +95,8 @@ This will run the project on a local server.
   - Body: JSON object containing menu information.
 
     ```bash
-    curl http://localhost:2003/shop/1
+    curl -X POST -H "Content-Type: application/json" -d '{"title":"Example Shop","description":"This is a description of Example Shop."}' http://localhost:2003/shop
+
     ```
 
 ## Update Existing Shop
