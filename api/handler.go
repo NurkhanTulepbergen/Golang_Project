@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 type Response struct {
@@ -26,6 +27,8 @@ func (api *API) StartServer() {
 	log.Println("creating routes")
 	router.HandleFunc("/health-check", api.HealthCheck).Methods("GET")
 	router.HandleFunc("/shop", api.Shops).Methods("GET")
+	router.HandleFunc("/addshop", api.AddShops).Methods("POST")
+	router.HandleFunc("/shop/{id}", api.DeletionByID).Methods("DELETE")
 	http.Handle("/", router)
 	http.ListenAndServe(":2003", router)
 }
@@ -77,4 +80,58 @@ func (api *API) Shops(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
+}
+func (api *API) AddShops(w http.ResponseWriter, r *http.Request) {
+	log.Println("addShop endpoint accessed")
+
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Decode the incoming JSON data into a model.Shop struct
+	var newShop model.Shop
+	err := json.NewDecoder(r.Body).Decode(&newShop)
+	if err != nil {
+		http.Error(w, "Failed to decode request body", http.StatusBadRequest)
+		return
+	}
+
+	// Call the AddShop method of the ShopModel to add the new shop
+	err = api.ShopModel.AddShop(newShop)
+	if err != nil {
+		http.Error(w, "Failed to add shop", http.StatusInternalServerError)
+		return
+	}
+
+	// Respond with success message
+	w.WriteHeader(http.StatusCreated)
+	fmt.Fprintf(w, "Shop added successfully")
+}
+func (api *API) DeletionByID(w http.ResponseWriter, r *http.Request) {
+	log.Println("deleteShopByID endpoint accessed")
+
+	if r.Method != http.MethodDelete {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Extract the shop ID from the request URL
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(w, "Invalid shop ID", http.StatusBadRequest)
+		return
+	}
+
+	// Call the DeleteShopByID method of the ShopModel to delete the shop
+	err = api.ShopModel.DeleteShopByID(id)
+	if err != nil {
+		http.Error(w, "Failed to delete shop", http.StatusInternalServerError)
+		return
+	}
+
+	// Respond with success message
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Shop deleted successfully")
 }

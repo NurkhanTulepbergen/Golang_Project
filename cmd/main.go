@@ -5,10 +5,9 @@ import (
 	"Golang_Project/pkg/model"
 	"database/sql"
 	"fmt"
+	_ "github.com/lib/pq"
 	"log"
 	"os"
-
-	_ "github.com/lib/pq"
 )
 
 const (

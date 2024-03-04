@@ -22,15 +22,23 @@ type ShopModel struct {
 }
 
 func (m *ShopModel) AddShop(shop Shop) error {
+	// Check if the shop data is valid
+	if shop.Title == "" || shop.Description == "" {
+		return errors.New("title and description are required fields")
+	}
+
+	// Perform the database insertion
 	_, err := m.DB.Exec("INSERT INTO shop (created_at, updated_at, title, description) VALUES (NOW(), NOW(), $1, $2)",
 		shop.Title, shop.Description)
 	if err != nil {
 		m.ErrorLog.Println("Error adding shop:", err)
 		return err
 	}
+
 	m.InfoLog.Println("Shop added successfully")
 	return nil
 }
+
 func (m *ShopModel) GetShopByID(id string) (*Shop, error) {
 	var shop Shop
 	err := m.DB.QueryRow("SELECT id, created_at, updated_at, title, description FROM shop WHERE id = $1", id).
