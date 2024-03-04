@@ -67,7 +67,7 @@ This will run the project on a local server.
   - Body: JSON object containing the newly created shop's information.
     
     ```bash
-    curl -X POST -H "Content-Type: application/json" -d '{"title":"Example Shop","description":"This is a description of Example Shop."}' http://localhost:2003/shop
+    curl -X POST -H "Content-Type: application/json" -d '{"title":"Example Shop","description":"This is a description of Example Shop."}' http://localhost:2003/addshop
     ```
     
 ## Request Body
@@ -101,7 +101,7 @@ Example:
   - Body: JSON object containing menu information.
 
     ```bash
-    curl -X POST -H "Content-Type: application/json" -d '{"title":"Example Shop","description":"This is a description of Example Shop."}' http://localhost:2003/shop
+    curl -X POST -H "Content-Type: application/json" -d '{"title":"Example Shop","description":"This is a description of Example Shop."}' http://localhost:2003/shop/1
 
     ```
 
