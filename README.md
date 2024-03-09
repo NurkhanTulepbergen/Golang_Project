@@ -66,7 +66,7 @@ This will run the project on a local server.
 ## Add Shop
 
 - **Endpoint:**
-  - `POST /addshop`
+  - `POST /shop`
 
 - **Description:**
   - This endpoint allows you to add a new shop to the database.
@@ -76,7 +76,7 @@ This will run the project on a local server.
   - Body: JSON object containing the newly created shop's information.
     
     ```bash
-    curl -X POST -H "Content-Type: application/json" -d '{"title":"Example Shop","description":"This is a description of Example Shop."}' http://localhost:2003/addshop
+    curl -X POST -H "Content-Type: application/json" -d '{"title":"Example Shop","description":"This is a description of Example Shop."}' http://localhost:2003/shop
     ```
     
 ## Request Body
@@ -94,8 +94,6 @@ Example:
     "description": "This is a description of Example Shop."
 }
 ```
-
-
 
 ## Get Shop by ID
 
