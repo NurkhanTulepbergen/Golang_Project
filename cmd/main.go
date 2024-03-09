@@ -39,3 +39,5 @@ func main() {
 	api := api.NewAPI(shopModel)
 	api.StartServer()
 }
+
+//its work because Aza chert

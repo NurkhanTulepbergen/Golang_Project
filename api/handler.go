@@ -30,6 +30,7 @@ func (api *API) StartServer() {
 	router.HandleFunc("/shop", api.AddShops).Methods("POST")
 	router.HandleFunc("/shop/{id}", api.DeletionByID).Methods("DELETE")
 	router.HandleFunc("/shop/{id}", api.UpdateByID).Methods("PUT")
+	router.HandleFunc("/shop/{id}", api.GetByID).Methods("GET")
 	http.Handle("/", router)
 	http.ListenAndServe(":2003", router)
 }
@@ -171,4 +172,36 @@ func (api *API) UpdateByID(w http.ResponseWriter, r *http.Request) {
 	// Respond with success message
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "Shop updated successfully")
+}
+
+func (api *API) GetByID(w http.ResponseWriter, r *http.Request) {
+	log.Println("getShopByID endpoint accessed")
+
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Extract the shop ID from the request URL
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	// Call the GetShopByID method of the ShopModel to retrieve the shop information
+	shop, err := api.ShopModel.GetShopByID(id)
+	if err != nil {
+		http.Error(w, "Failed to get shop", http.StatusInternalServerError)
+		return
+	}
+
+	// Encode the shop information to JSON
+	jsonResponse, err := json.Marshal(shop)
+	if err != nil {
+		http.Error(w, "Failed to encode shop data", http.StatusInternalServerError)
+		return
+	}
+
+	// Respond with the shop information
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonResponse)
 }
