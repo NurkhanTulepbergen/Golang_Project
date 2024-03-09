@@ -27,8 +27,9 @@ func (api *API) StartServer() {
 	log.Println("creating routes")
 	router.HandleFunc("/health-check", api.HealthCheck).Methods("GET")
 	router.HandleFunc("/shop", api.Shops).Methods("GET")
-	router.HandleFunc("/addshop", api.AddShops).Methods("POST")
+	router.HandleFunc("/shop", api.AddShops).Methods("POST")
 	router.HandleFunc("/shop/{id}", api.DeletionByID).Methods("DELETE")
+	router.HandleFunc("/shop/{id}", api.UpdateByID).Methods("PUT")
 	http.Handle("/", router)
 	http.ListenAndServe(":2003", router)
 }
@@ -134,4 +135,40 @@ func (api *API) DeletionByID(w http.ResponseWriter, r *http.Request) {
 	// Respond with success message
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "Shop deleted successfully")
+}
+
+func (api *API) UpdateByID(w http.ResponseWriter, r *http.Request) {
+	log.Println("updateShopByID endpoint accessed")
+
+	if r.Method != http.MethodPut {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Extract the shop ID from the request URL
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		http.Error(w, "Invalid shop ID", http.StatusBadRequest)
+		return
+	}
+
+	// Decode the request body to get the updated shop data
+	var updatedShop model.Shop
+	err = json.NewDecoder(r.Body).Decode(&updatedShop)
+	if err != nil {
+		http.Error(w, "Failed to decode request body", http.StatusBadRequest)
+		return
+	}
+
+	// Call the UpdateShopByID method of the ShopModel to update the shop
+	err = api.ShopModel.UpdateShopByID(id, updatedShop)
+	if err != nil {
+		http.Error(w, "Failed to update shop", http.StatusInternalServerError)
+		return
+	}
+
+	// Respond with success message
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Shop updated successfully")
 }

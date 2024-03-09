@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"log"
+	"time"
 )
 
 type Shop struct {
@@ -62,6 +63,18 @@ func (m *ShopModel) DeleteShopByID(id int) error {
 	m.InfoLog.Println("Shop deleted successfully")
 	return nil
 }
+
+func (m *ShopModel) UpdateShopByID(id int, newData Shop) error {
+	_, err := m.DB.Exec("UPDATE shop SET title = $1, description = $2, updated_at = $3 WHERE id = $4",
+		newData.Title, newData.Description, time.Now(), id)
+	if err != nil {
+		m.ErrorLog.Println("Error updating shop:", err)
+		return err
+	}
+	m.InfoLog.Println("Shop updated successfully")
+	return nil
+}
+
 func (m *ShopModel) GetAllShops() ([]Shop, error) {
 	rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description FROM shop")
 	if err != nil {
