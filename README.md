@@ -66,7 +66,7 @@ This will run the project on a local server.
 ## Add Shop
 
 - **Endpoint:**
-  - `POST /addshop`
+  - `POST /shop`
 
 - **Description:**
   - This endpoint allows you to add a new shop to the database.
