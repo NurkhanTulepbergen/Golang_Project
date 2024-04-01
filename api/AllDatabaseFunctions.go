@@ -201,7 +201,7 @@ func createCategory(title, description string) {
 	defer db.Close()
 
 	var id int
-	insertStmt := `INSERT INTO category(title, description) VALUES($1, $2) RETURNING id`
+	insertStmt := `INSERT INTO shop(title, description) VALUES($1, $2) RETURNING id`
 	// Executing the query and scanning the result into the id variable
 	err = db.QueryRow(insertStmt, title, description).Scan(&id)
 	if err != nil {
@@ -211,7 +211,7 @@ func createCategory(title, description string) {
 }
 
 func viewCategory(db *sql.DB) {
-	rows, err := db.Query("SELECT id, title, description FROM category")
+	rows, err := db.Query("SELECT id, title, description FROM shop")
 	if err != nil {
 		log.Fatal("Ошибка выполнения запроса:", err)
 	}
@@ -231,7 +231,7 @@ func viewCategory(db *sql.DB) {
 }
 
 func deleteCategory(db *sql.DB, id int) {
-	_, err := db.Exec("DELETE FROM category WHERE id = $1", id)
+	_, err := db.Exec("DELETE FROM shop WHERE id = $1", id)
 	if err != nil {
 		log.Fatal("Ошибка выполнения запроса:", err)
 	}

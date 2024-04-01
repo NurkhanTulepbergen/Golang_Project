@@ -10,13 +10,13 @@ import (
 	"os"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "Nurkhan05"
-	dbname   = "jana"
-)
+//const (
+//	host     = "localhost"
+//	port     = 5432
+//	user     = "postgres"
+//	password = "adminkbtu"
+//	dbname   = "jana"
+//)
 
 func main() {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
@@ -35,9 +35,12 @@ func main() {
 		InfoLog:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
 		ErrorLog: log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
 	}
+	productModel := &model.ProductModel{
+		DB:       db,
+		InfoLog:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
+		ErrorLog: log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
+	}
 
-	api := api.NewAPI(shopModel)
+	api := api.NewAPI(shopModel, productModel)
 	api.StartServer()
 }
-
-//its work because Aza chert
