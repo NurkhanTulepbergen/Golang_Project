@@ -49,6 +49,29 @@ func (api *API) HealthCheck(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello there")
 }
 
+//func (api *API) Shops(w http.ResponseWriter, r *http.Request) {
+//	log.Println("getAllShops endpoint accessed")
+//
+//	if r.Method != http.MethodGet {
+//		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+//		return
+//	}
+//
+//	// Получение всех магазинов
+//	shops, err := api.ShopModel.GetAllShops()
+//	if err != nil {
+//		http.Error(w, "Failed to retrieve shops", http.StatusInternalServerError)
+//		return
+//	}
+//	// Формирование ответа в формате JSON
+//	response := Response{
+//		Shops: shops,
+//	}
+//	w.Header().Set("Content-Type", "application/json")
+//	w.WriteHeader(http.StatusOK)
+//	json.NewEncoder(w).Encode(response)
+//}
+
 func (api *API) Shops(w http.ResponseWriter, r *http.Request) {
 	log.Println("getAllShops endpoint accessed")
 
@@ -63,14 +86,19 @@ func (api *API) Shops(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to retrieve shops", http.StatusInternalServerError)
 		return
 	}
+
 	// Формирование ответа в формате JSON
-	response := Response{
+	response := struct {
+		Shops []model.Shop `json:"shops"`
+	}{
 		Shops: shops,
 	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
 }
+
 func (api *API) AddShops(w http.ResponseWriter, r *http.Request) {
 	log.Println("addShop endpoint accessed")
 
@@ -193,6 +221,29 @@ func (api *API) GetByID(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonResponse)
 }
+
+//	func (api *API) Products(w http.ResponseWriter, r *http.Request) {
+//		log.Println("getAllProducts endpoint accessed")
+//
+//		if r.Method != http.MethodGet {
+//			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+//			return
+//		}
+//
+//		// Получение всех магазинов
+//		products, err := api.ProductModel.GetAllProduct()
+//		if err != nil {
+//			http.Error(w, "Failed to retrieve shops", http.StatusInternalServerError)
+//			return
+//		}
+//		// Формирование ответа в формате JSON
+//		response := Response{
+//			Products: products,
+//		}
+//		w.Header().Set("Content-Type", "application/json")
+//		w.WriteHeader(http.StatusOK)
+//		json.NewEncoder(w).Encode(response)
+//	}
 func (api *API) Products(w http.ResponseWriter, r *http.Request) {
 	log.Println("getAllProducts endpoint accessed")
 
@@ -201,20 +252,25 @@ func (api *API) Products(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Получение всех магазинов
+	// Retrieve all products
 	products, err := api.ProductModel.GetAllProduct()
 	if err != nil {
-		http.Error(w, "Failed to retrieve shops", http.StatusInternalServerError)
+		http.Error(w, "Failed to retrieve products", http.StatusInternalServerError)
 		return
 	}
-	// Формирование ответа в формате JSON
-	response := Response{
+
+	// Formulate the response in JSON format
+	response := struct {
+		Products []model.Product `json:"products"`
+	}{
 		Products: products,
 	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
 }
+
 func (api *API) AddProducts(w http.ResponseWriter, r *http.Request) {
 	log.Println("addProducts endpoint accessed")
 
