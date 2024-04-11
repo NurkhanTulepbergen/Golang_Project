@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS shop
     created_at      timestamp(0) with time zone NOT NULL DEFAULT NOW(),
     updated_at      timestamp(0) with time zone NOT NULL DEFAULT NOW(),
     title           text NOT NULL,
-    description     text
+    description     text,
+    type text
     );
 
 CREATE TABLE IF NOT EXISTS shop_and_products

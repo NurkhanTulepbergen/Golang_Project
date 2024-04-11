@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"sort"
 	"strconv"
 )
 
@@ -80,25 +81,67 @@ func (api *API) Shops(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Получение всех магазинов
-	shops, err := api.ShopModel.GetAllShops()
+	// Разбор параметров запроса для заполнения объекта Filters
+	// Для простоты давайте предположим, что параметры запроса используются для фильтрации
+
+	queryParams := r.URL.Query()
+	typeFilter := queryParams.Get("type")
+	page, _ := strconv.Atoi(queryParams.Get("page"))
+	pageSize, _ := strconv.Atoi(queryParams.Get("pageSize"))
+	sortBy := queryParams.Get("sortBy")
+	sortOrder := queryParams.Get("sortOrder")
+
+	// Создание объекта Filters с разобранными параметрами
+	filters := model.Filters{
+		Type:     typeFilter,
+		Page:     page,
+		PageSize: pageSize,
+		SortBy:   sortBy,
+	}
+
+	// Получение магазинов с примененными фильтрами
+	shops, metadata, err := api.ShopModel.GetAllShops(filters)
 	if err != nil {
 		http.Error(w, "Failed to retrieve shops", http.StatusInternalServerError)
 		return
 	}
 
-	// Формирование ответа в формате JSON
+	// Применение сортировки
+	if sortOrder == "asc" {
+		sort.Slice(shops, func(i, j int) bool {
+			switch sortBy {
+			case "title":
+				return shops[i].Title < shops[j].Title
+			// Добавьте другие варианты сортировки при необходимости
+			default:
+				return shops[i].Id < shops[j].Id
+			}
+		})
+	} else if sortOrder == "desc" {
+		sort.Slice(shops, func(i, j int) bool {
+			switch sortBy {
+			case "title":
+				return shops[i].Title > shops[j].Title
+			// Добавьте другие варианты сортировки при необходимости
+			default:
+				return shops[i].Id > shops[j].Id
+			}
+		})
+	}
+
+	// Формирование ответа включая метаданные
 	response := struct {
-		Shops []model.Shop `json:"shops"`
+		Shops    []model.Shop   `json:"shops"`
+		Metadata model.Metadata `json:"metadata"`
 	}{
-		Shops: shops,
+		Shops:    shops,
+		Metadata: metadata,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
 }
-
 func (api *API) AddShops(w http.ResponseWriter, r *http.Request) {
 	log.Println("addShop endpoint accessed")
 
