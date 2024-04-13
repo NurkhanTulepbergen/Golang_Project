@@ -155,7 +155,98 @@ Example:
     ```
 
 ---
+## Add Product
 
+- **Endpoint:**
+  - `POST /product`
+
+- **Description:**
+  - This endpoint allows you to add a new product to the database.
+
+- **Request Body:**
+  - The request body should be a JSON object with the following fields:
+    - **name**: The name of the product (required).
+    - **price**: The price of the product (required).
+    - **description**: A description of the product (optional).
+
+    Example:
+
+    ```json
+    {
+        "name": "Example Product",
+        "price": 29.99,
+        "description": "This is a description of Example Product."
+    }
+    ```
+
+- **Response:**
+  - Status Code: 201 Created
+  - Body: JSON object containing the newly created product's information.
+
+    ```bash
+    curl -X POST -H "Content-Type: application/json" -d '{"name":"Example Product","price":29.99,"description":"This is a description of Example Product."}' http://localhost:2003/product
+    ```
+
+## Get Product by ID
+
+- **Endpoint:**
+  - `GET /product/:id`
+
+- **Description:**
+  - Retrieve information about a product by providing its ID.
+
+- **Response:**
+  - Status Code: 200 OK
+  - Body: JSON object containing product information.
+
+    ```bash
+    curl -X GET http://localhost:2003/product/1
+    ```
+
+## Update Existing Product
+
+- **Endpoint:**
+  - `PUT /product/:id`
+
+- **Description:**
+  - Update an existing product.
+
+- **Request Body:**
+  - JSON object containing updated product information.
+
+    ```json
+    {
+        "name": "Updated Product",
+        "price": 39.99,
+        "description": "Updated description of the product."
+    }
+    ```
+
+- **Response:**
+  - Status Code: 200 OK
+  - Body: Success message.
+
+    ```bash
+    curl -X PUT -H "Content-Type: application/json" -d '{"name":"Updated Product","price":39.99,"description":"Updated description of the product."}' http://localhost:2003/product/1
+    ```
+
+## Delete Product
+
+- **Endpoint:**
+  - `DELETE /product/:id`
+
+- **Description:**
+  - Delete a product by providing its ID.
+
+- **Response:**
+  - Status Code: 200 OK
+  - Body: Success message.
+
+    ```bash
+    curl -X DELETE http://localhost:2003/product/1
+    ```
+
+---
 This documentation provides details on the API routes for creating a new user, getting shop information by ID, updating an existing shop, and deleting a shop. Adjust the examples and details based on your specific project requirements.
 
   
