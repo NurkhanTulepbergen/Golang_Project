@@ -50,29 +50,6 @@ func (api *API) HealthCheck(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello there")
 }
 
-//func (api *API) Shops(w http.ResponseWriter, r *http.Request) {
-//	log.Println("getAllShops endpoint accessed")
-//
-//	if r.Method != http.MethodGet {
-//		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
-//		return
-//	}
-//
-//	// Получение всех магазинов
-//	shops, err := api.ShopModel.GetAllShops()
-//	if err != nil {
-//		http.Error(w, "Failed to retrieve shops", http.StatusInternalServerError)
-//		return
-//	}
-//	// Формирование ответа в формате JSON
-//	response := Response{
-//		Shops: shops,
-//	}
-//	w.Header().Set("Content-Type", "application/json")
-//	w.WriteHeader(http.StatusOK)
-//	json.NewEncoder(w).Encode(response)
-//}
-
 func (api *API) Shops(w http.ResponseWriter, r *http.Request) {
 	log.Println("getAllShops endpoint accessed")
 

@@ -9,6 +9,7 @@ import (
 type Models struct {
 	Product ProductModel
 	Shop    ShopModel
+	Cart    CartModel
 }
 
 func NewModels(db *sql.DB) Models {
