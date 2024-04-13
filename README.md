@@ -95,6 +95,57 @@ Example:
 }
 ```
 
+## Get Shops
+
+- **Endpoint:**
+  - `GET /shops`
+
+- **Description:**
+  - Retrieve a list of shops from the database with optional filtering, sorting, and pagination.
+
+- **Query Parameters:**
+  - `type`: (Optional) Filter shops by type. Example: `type=electronics`.
+  - `sortBy`: (Optional) Sort shops by a specific field. Example: `sortBy=title`.
+  - `page`: (Optional) Specify the page number for pagination. Default is 1.
+  - `pageSize`: (Optional) Specify the number of shops per page. Default is 10.
+
+- **Response:**
+  - Status Code: 200 OK
+  - Body: JSON array containing a list of shops based on the provided parameters.
+
+    Example Response Body:
+
+    ```json
+    [
+        {"id": 1, "title": "Electronics Shop 1", "type": "electronics"},
+        {"id": 2, "title": "Electronics Shop 2", "type": "electronics"},
+        ...
+    ]
+    ```
+
+- **Request Example:**
+  ```bash
+  curl -X GET 'http://your-server-url/shops?type=electronics&sortBy=title&page=1&pageSize=10'
+## Filtering:
+
+Use the `type` parameter to filter shops by type. For example, `type=electronics` will only return shops of type "electronics".
+
+## Sorting:
+
+Use the `sortBy` parameter to sort the list of shops by a specific field. For example, `sortBy=title` will sort shops alphabetically by title.
+
+## Pagination:
+
+Use the `page` parameter to specify the page number and the `pageSize` parameter to specify the number of shops per page.
+
+This documentation provides details on the API endpoint for fetching shops with support for filtering by type, sorting, and pagination. Adjust the examples and details based on your specific project requirements.
+
+## Contribution:
+
+We appreciate contributions! If you would like to contribute to the project, please create a new branch and submit a pull request.
+
+This README file explains how to use the `/shops` endpoint with the provided query parameters for filtering by type, sorting, and pagination. Adjustments can be made based on your specific backend implementation and requirements.
+
 ## Get Shop by ID
 
 - **Endpoint:**
