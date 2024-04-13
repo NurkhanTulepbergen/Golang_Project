@@ -7,29 +7,25 @@ import (
 	"log"
 )
 
-// Struct to represent a shopping cart
 type Cart struct {
 	UserID string
-	Items  map[string]int // Используем map для хранения ID товара и его количества
+	Items  map[string]int
 }
 
-// Function to add a product to the cart
 func (c *Cart) AddProduct(productID string, quantity int) {
-	// Если товар уже есть в корзине, увеличиваем его количество
+
 	if _, exists := c.Items[productID]; exists {
 		c.Items[productID] += quantity
 	} else {
-		// Иначе добавляем новый товар в корзину
+
 		c.Items[productID] = quantity
 	}
 }
 
-// Function to remove a product from the cart
 func (c *Cart) RemoveProduct(productID string) {
 	delete(c.Items, productID)
 }
 
-// Function to calculate the total price of items in the cart
 func (c *Cart) CalculateTotal(productMap map[string]*Product) float64 {
 	total := 0.0
 	for productID, quantity := range c.Items {
@@ -40,7 +36,6 @@ func (c *Cart) CalculateTotal(productMap map[string]*Product) float64 {
 	return total
 }
 
-// Function to display the items in the cart
 func (c *Cart) DisplayCart(productMap map[string]*Product) {
 	fmt.Println("Items in Cart:")
 	for productID, quantity := range c.Items {
@@ -51,16 +46,14 @@ func (c *Cart) DisplayCart(productMap map[string]*Product) {
 	fmt.Printf("Total: $%.2f\n", c.CalculateTotal(productMap))
 }
 
-// Struct to represent a shopping cart model
 type CartModel struct {
 	DB       *sql.DB
 	InfoLog  *log.Logger
 	ErrorLog *log.Logger
 }
 
-// Method to add a product to the cart in the database
 func (m *CartModel) AddProductToCart(userID, productID string, quantity int) error {
-	// Perform the database insertion
+
 	_, err := m.DB.Exec("INSERT INTO cart (user_id, product_id, quantity) VALUES ($1, $2, $3)",
 		userID, productID, quantity)
 	if err != nil {
@@ -72,7 +65,6 @@ func (m *CartModel) AddProductToCart(userID, productID string, quantity int) err
 	return nil
 }
 
-// Method to remove a product from the cart in the database
 func (m *CartModel) RemoveProductFromCart(userID, productID string) error {
 	// Perform the database deletion
 	_, err := m.DB.Exec("DELETE FROM cart WHERE user_id = $1 AND product_id = $2", userID, productID)
@@ -85,7 +77,6 @@ func (m *CartModel) RemoveProductFromCart(userID, productID string) error {
 	return nil
 }
 
-// Method to get the cart for a user from the database
 func (m *CartModel) GetCart(userID string) (*Cart, error) {
 	rows, err := m.DB.Query("SELECT product_id, quantity FROM cart WHERE user_id = $1", userID)
 	if err != nil {

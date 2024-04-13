@@ -8,7 +8,6 @@ import (
 	"time"
 )
 
-// Struct to represent an order
 type Order struct {
 	ID           string
 	User         string
@@ -19,14 +18,12 @@ type Order struct {
 	CreatedAt    time.Time
 }
 
-// Struct to represent an order model
 type OrderModel struct {
 	DB       *sql.DB
 	InfoLog  *log.Logger
 	ErrorLog *log.Logger
 }
 
-// Function to create a new order
 func NewOrder(user string, products []*Product, deliveryAddr string) *Order {
 	total := calculateTotal(products)
 	return &Order{
@@ -38,7 +35,6 @@ func NewOrder(user string, products []*Product, deliveryAddr string) *Order {
 	}
 }
 
-// Function to calculate the total amount of an order
 func calculateTotal(products []*Product) float64 {
 	total := 0.0
 	for _, p := range products {
@@ -47,7 +43,6 @@ func calculateTotal(products []*Product) float64 {
 	return total
 }
 
-// Function to display the order details
 func (o *Order) DisplayOrderDetails() {
 	fmt.Printf("User: %s\n", o.User)
 	fmt.Println("Products:")
@@ -59,10 +54,9 @@ func (o *Order) DisplayOrderDetails() {
 	fmt.Printf("Status: %s\n", o.Status)
 }
 
-// Method to add a new order to the database
 func (m *OrderModel) AddOrder(order *Order) error {
 	// Perform the database insertion
-	_, err := m.DB.Exec("INSERT INTO orders (user, total_amount, delivery_address, status, created_at) VALUES ($1, $2, $3, $4, $5)",
+	_, err := m.DB.Exec("INSERT INTO orders (user, totalamount, deliveryaddr, status, createdat) VALUES ($1, $2, $3, $4, $5)",
 		order.User, order.TotalAmount, order.DeliveryAddr, order.Status, time.Now())
 	if err != nil {
 		m.ErrorLog.Println("Error adding order:", err)
@@ -73,10 +67,9 @@ func (m *OrderModel) AddOrder(order *Order) error {
 	return nil
 }
 
-// Method to get an order by its ID
 func (m *OrderModel) GetOrderByID(id string) (*Order, error) {
 	var order Order
-	err := m.DB.QueryRow("SELECT id, user, total_amount, delivery_address, status, created_at FROM orders WHERE id = $1", id).
+	err := m.DB.QueryRow("SELECT id, user, totalamount, deliveryaddr, status, createdat FROM orders WHERE id = $1", id).
 		Scan(&order.ID, &order.User, &order.TotalAmount, &order.DeliveryAddr, &order.Status, &order.CreatedAt)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
@@ -88,9 +81,8 @@ func (m *OrderModel) GetOrderByID(id string) (*Order, error) {
 	return &order, nil
 }
 
-// Method to get all orders from the database
 func (m *OrderModel) GetAllOrders() ([]*Order, error) {
-	rows, err := m.DB.Query("SELECT id, user, total_amount, delivery_address, status, created_at FROM orders")
+	rows, err := m.DB.Query("SELECT id, user, totalamount, deliveryaddr, status, createdat FROM orders")
 	if err != nil {
 		m.ErrorLog.Println("Error getting orders:", err)
 		return nil, err

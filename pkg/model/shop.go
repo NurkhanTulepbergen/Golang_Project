@@ -62,91 +62,86 @@ func (m *ShopModel) DeleteShopByID(id int) error {
 	return nil
 }
 
-//	func (m *ShopModel) GetAllShops(filters Filters) ([]Shop, Metadata, error) {
-//		// Prepare SQL query
-//		query := "SELECT id, created_at, updated_at, title, description, type FROM shop"
+//func (m *ShopModel) GetAllShopsWithFilters(filters map[string]string, sortBy string, sortOrder string, page int, limit int) ([]Shop, error) {
+//	// Формируем SQL-запрос с учетом фильтров, сортировки и пагинации
+//	query := "SELECT id, created_at, updated_at, title, description, type FROM shop"
 //
-//		// Check if filtering criteria are provided
-//		if filters.Type != "" {
-//			query += " WHERE type = '" + filters.Type + "'"
+//	// Формируем условие для фильтрации
+//	var args []interface{}
+//	if len(filters) > 0 {
+//		query += " WHERE "
+//		for key, value := range filters {
+//			query += key + " = ? AND "
+//			args = append(args, value)
 //		}
-//
-//		// Execute the query against the database
-//		rows, err := m.DB.Query(query)
-//		if err != nil {
-//			m.ErrorLog.Println("Error getting shops:", err)
-//			return nil, Metadata{}, err
-//		}
-//		defer rows.Close()
-//
-//		// Scan the query results into Shop structure
-//		var shops []Shop
-//		for rows.Next() {
-//			var shop Shop
-//			if err := rows.Scan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description, &shop.Type); err != nil {
-//				m.ErrorLog.Println("Error scanning shop:", err)
-//				return nil, Metadata{}, err
-//			}
-//			shops = append(shops, shop)
-//		}
-//		if err := rows.Err(); err != nil {
-//			m.ErrorLog.Println("Error iterating rows:", err)
-//			return nil, Metadata{}, err
-//		}
-//
-//		// Apply sorting
-//		if filters.SortBy != "" {
-//			switch filters.SortBy {
-//			case "title":
-//				sort.Slice(shops, func(i, j int) bool {
-//					return shops[i].Title < shops[j].Title
-//				})
-//			// Add more cases for other sorting options if needed
-//			default:
-//				// Handle unknown sorting field
-//				return nil, Metadata{}, errors.New("unknown sort field")
-//			}
-//		}
-//
-//		// Apply pagination
-//		startIdx := (filters.Page - 1) * filters.PageSize
-//		endIdx := startIdx + filters.PageSize
-//		if endIdx > len(shops) {
-//			endIdx = len(shops)
-//		}
-//		paginatedShops := shops[startIdx:endIdx]
-//
-//		// Calculate pagination metadata
-//		totalRecords := len(shops)
-//		metadata := CalculateMetadata(totalRecords, filters.Page, filters.PageSize)
-//
-//		return paginatedShops, metadata, nil
+//		// Убираем последний "AND"
+//		query = query[:len(query)-5]
 //	}
 //
-//	func (m *ShopModel) GetAllShops() ([]Shop, error) {
-//		rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description,type FROM shop")
-//		if err != nil {
-//			m.ErrorLog.Println("Error getting shops:", err)
-//			return nil, err
+//	// Добавляем сортировку
+//	if sortBy != "" {
+//		query += " ORDER BY " + sortBy
+//		if sortOrder != "" {
+//			query += " " + sortOrder
 //		}
-//		defer rows.Close()
-//
-//		var shops []Shop
-//		for rows.Next() {
-//			var shop Shop
-//			if err := rows.Scan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description, &shop.Type); err != nil {
-//				m.ErrorLog.Println("Error scanning shop:", err)
-//				return nil, err
-//			}
-//			shops = append(shops, shop)
-//		}
-//		if err := rows.Err(); err != nil {
-//			m.ErrorLog.Println("Error iterating rows:", err)
-//			return nil, err
-//		}
-//
-//		return shops, nil
 //	}
+//
+//	// Добавляем пагинацию
+//	if limit > 0 {
+//		query += " LIMIT ? OFFSET ?"
+//		args = append(args, limit, (page-1)*limit)
+//	}
+//
+//	// Выполняем запрос
+//	rows, err := m.DB.Query(query, args...)
+//	if err != nil {
+//		m.ErrorLog.Println("Error getting shops:", err)
+//		return nil, err
+//	}
+//	defer rows.Close()
+//
+//	// Считываем результаты запроса
+//	var shops []Shop
+//	for rows.Next() {
+//		var shop Shop
+//		if err := rows.Scan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description, &shop.Type); err != nil {
+//			m.ErrorLog.Println("Error scanning shop:", err)
+//			return nil, err
+//		}
+//		shops = append(shops, shop)
+//	}
+//	if err := rows.Err(); err != nil {
+//		m.ErrorLog.Println("Error iterating rows:", err)
+//		return nil, err
+//	}
+//
+//	return shops, nil
+//}
+
+//func (m *ShopModel) GetAllShops() ([]Shop, error) {
+//	rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description,type FROM shop")
+//	if err != nil {
+//		m.ErrorLog.Println("Error getting shops:", err)
+//		return nil, err
+//	}
+//	defer rows.Close()
+//
+//	var shops []Shop
+//	for rows.Next() {
+//		var shop Shop
+//		if err := rows.Scan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description, &shop.Type); err != nil {
+//			m.ErrorLog.Println("Error scanning shop:", err)
+//			return nil, err
+//		}
+//		shops = append(shops, shop)
+//	}
+//	if err := rows.Err(); err != nil {
+//		m.ErrorLog.Println("Error iterating rows:", err)
+//		return nil, err
+//	}
+//
+//	return shops, nil
+//}
 
 func (m *ShopModel) GetAllShops(filters Filters) ([]Shop, Metadata, error) {
 	// Fetch all shops from the database
@@ -157,7 +152,6 @@ func (m *ShopModel) GetAllShops(filters Filters) ([]Shop, Metadata, error) {
 	}
 	defer rows.Close()
 
-	// Scan the query results into Shop structure
 	var shops []Shop
 	for rows.Next() {
 		var shop Shop
@@ -172,27 +166,23 @@ func (m *ShopModel) GetAllShops(filters Filters) ([]Shop, Metadata, error) {
 		return nil, Metadata{}, err
 	}
 
-	// Apply filtering
 	if filters.Type != "" {
 		shops = FilterByType(shops, filters.Type)
 	}
 
-	// Apply sorting
 	if filters.SortBy != "" {
 		switch filters.SortBy {
 		case "title":
 			shops = SortByTitle(shops)
-		// Add more cases for other sorting options if needed
+
 		default:
-			// Handle unknown sorting field
+
 			return nil, Metadata{}, errors.New("unknown sort field")
 		}
 	}
 
-	// Apply pagination
 	paginatedShops := Paginate(shops, filters.Page, filters.PageSize)
 
-	// Calculate pagination metadata
 	totalRecords := len(shops)
 	metadata := CalculateMetadata(totalRecords, filters.Page, filters.PageSize)
 

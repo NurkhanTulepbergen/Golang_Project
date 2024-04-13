@@ -119,6 +119,53 @@ func (api *API) Shops(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
 }
+
+//func (api *API) Shops(w http.ResponseWriter, r *http.Request) {
+//	log.Println("getAllShops endpoint accessed")
+//
+//	if r.Method != http.MethodGet {
+//		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+//		return
+//	}
+//
+//	// Разбор параметров запроса для заполнения объекта Filters
+//	// Для простоты давайте предположим, что параметры запроса используются для фильтрации
+//
+//	queryParams := r.URL.Query()
+//	typeFilter := queryParams.Get("type")
+//	page, _ := strconv.Atoi(queryParams.Get("page"))
+//	pageSize, _ := strconv.Atoi(queryParams.Get("pageSize"))
+//	sortBy := queryParams.Get("sortBy")
+//
+//	// Создание объекта Filters с разобранными параметрами
+//	filters := model.Filters{
+//		Type:     typeFilter,
+//		Page:     page,
+//		PageSize: pageSize,
+//		SortBy:   sortBy,
+//	}
+//
+//	// Получение магазинов с примененными фильтрами
+//	shops, metadata, err := api.ShopModel.GetAllShops(filters)
+//	if err != nil {
+//		http.Error(w, "Failed to retrieve shops", http.StatusInternalServerError)
+//		return
+//	}
+//
+//	// Формирование ответа включая метаданные
+//	response := struct {
+//		Shops    []model.Shop   `json:"shops"`
+//		Metadata model.Metadata `json:"metadata"`
+//	}{
+//		Shops:    shops,
+//		Metadata: metadata,
+//	}
+//
+//	w.Header().Set("Content-Type", "application/json")
+//	w.WriteHeader(http.StatusOK)
+//	json.NewEncoder(w).Encode(response)
+//}
+
 func (api *API) AddShops(w http.ResponseWriter, r *http.Request) {
 	log.Println("addShop endpoint accessed")
 
@@ -142,7 +189,7 @@ func (api *API) AddShops(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Respond with success message
+
 	w.WriteHeader(http.StatusCreated)
 	fmt.Fprintf(w, "Shop added successfully")
 }

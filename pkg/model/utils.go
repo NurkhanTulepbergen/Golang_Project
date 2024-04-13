@@ -2,7 +2,6 @@ package model
 
 import "sort"
 
-// Filters хранит параметры фильтрации.
 type Filters struct {
 	Type     string // Пример параметра фильтрации
 	SortBy   string // Поле для сортировки
@@ -10,7 +9,6 @@ type Filters struct {
 	PageSize int
 }
 
-// Metadata хранит метаданные пагинации.
 type Metadata struct {
 	CurrentPage  int `json:"current_page,omitempty"`
 	PageSize     int `json:"page_size,omitempty"`
@@ -19,15 +17,14 @@ type Metadata struct {
 	TotalRecords int `json:"total_records,omitempty"`
 }
 
-// CalculateMetadata вычисляет метаданные пагинации.
 func CalculateMetadata(totalRecords, page, pageSize int) Metadata {
 	if totalRecords == 0 || pageSize == 0 {
-		return Metadata{} // return an empty Metadata struct if there are no records or pageSize is 0
+		return Metadata{}
 	}
 
 	lastPage := totalRecords / pageSize
 	if totalRecords%pageSize != 0 {
-		lastPage++ // increment lastPage if there's a remainder
+		lastPage++
 	}
 
 	return Metadata{
@@ -39,7 +36,6 @@ func CalculateMetadata(totalRecords, page, pageSize int) Metadata {
 	}
 }
 
-// FilterByType фильтрует магазины по типу.
 func FilterByType(shops []Shop, shopType string) []Shop {
 	var filteredShops []Shop
 	for _, shop := range shops {
@@ -57,7 +53,6 @@ func SortByTitle(shops []Shop) []Shop {
 	return shops
 }
 
-// Paginate разбивает магазины на страницы.
 func Paginate(shops []Shop, page, pageSize int) []Shop {
 	start := (page - 1) * pageSize
 	end := start + pageSize
