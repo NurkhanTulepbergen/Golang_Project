@@ -64,7 +64,7 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "adminkbtu"
+	password = "Bayernmunichtm25"
 	dbname   = "jana"
 )
 
@@ -90,6 +90,16 @@ func main() {
 		InfoLog:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
 		ErrorLog: log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
 	}
+	userModel := &model.UserModel{
+		DB:       db,
+		InfoLog:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
+		ErrorLog: log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
+	}
+	tokenModel := &model.TokenModel{
+		DB:       db,
+		InfoLog:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
+		ErrorLog: log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
+	}
 
 	// Создание объекта Filters с необходимыми значениями
 	filters := model.Filters{
@@ -108,7 +118,8 @@ func main() {
 	// Вывод информации о магазинах и метаданных пагинации
 	log.Println("Shops:", shops)
 	log.Println("Metadata:", metadata)
+	//log.Println("Users:", users)
 
-	api := api.NewAPI(shopModel, productModel)
+	api := api.NewAPI(shopModel, productModel, userModel, tokenModel)
 	api.StartServer()
 }

@@ -4,16 +4,22 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="34b037e1-bf1f-499b-a138-b389e37f26cb" name="Changes" comment="Zhasmin">
-      <change afterPath="$PROJECT_DIR$/pkg/migration/create_table_cart.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/migration/create_tables_orders.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Golang_Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Golang_Project.iml" afterDir="false" />
+    <list default="true" id="e2d839be-2138-4fbd-bf0a-fe17c11a353f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/api/error.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/helpers.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/jsonlog/jsonlog.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/model/permissions.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/model/tokens.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/model/users.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/validator/validator.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/AllDatabaseFunctions.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/api/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/catalog.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/shop.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/shop.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/model.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,11 +33,11 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file://$USER_HOME$/sdk/go1.22rc1" />
+  <component name="GOROOT" url="file://$USER_HOME$/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22rc1.windows-amd64" />
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -39,14 +45,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
+  &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="2d5GliPVrkf35Fx7ahgEn3VAa2i" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2fK6cVNtijXsqos4hEreZ4s9BKS" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -60,13 +62,14 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "master",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "C:/Users/Жасмин",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/azama",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+    "nodejs_package_manager_path": "npm"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -74,12 +77,6 @@
     ]
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Жасмин\GolandProjects\Golang_Project\pkg\model" />
-      <recent name="C:\Users\Жасмин\GolandProjects\Golang_Project\pkg\utils" />
-    </key>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -90,25 +87,6 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <ignored-roots>
-      <path value="$PROJECT_DIR$/.." />
-    </ignored-roots>
-    <MESSAGE value="Merge remote-tracking branch 'origin/master'" />
-    <MESSAGE value="Zhasmin" />
-    <option name="LAST_COMMIT_MESSAGE" value="Zhasmin" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

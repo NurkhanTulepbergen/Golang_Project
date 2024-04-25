@@ -2,6 +2,7 @@ package model
 
 import (
 	"database/sql"
+	"errors"
 	"log"
 	"os"
 )
@@ -10,6 +11,8 @@ type Models struct {
 	Product ProductModel
 	Shop    ShopModel
 	Cart    CartModel
+	User    UserModel
+	Token   TokenModel
 }
 
 func NewModels(db *sql.DB) Models {
@@ -26,6 +29,18 @@ func NewModels(db *sql.DB) Models {
 			InfoLog:  infoLog,
 			ErrorLog: errorLog,
 		},
+		User: UserModel{
+			DB:       db,
+			InfoLog:  infoLog,
+			ErrorLog: errorLog,
+		},
+		Token: TokenModel{
+			DB:       db,
+			InfoLog:  infoLog,
+			ErrorLog: errorLog,
+		},
 		// Добавьте инициализацию других моделей, если необходимо
 	}
 }
+
+var ErrRecordNotFound = errors.New("record not found")

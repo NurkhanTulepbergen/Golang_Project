@@ -2,27 +2,34 @@ package api
 
 import (
 	"Golang_Project/pkg/model"
+	"Golang_Project/pkg/validator"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"sort"
 	"strconv"
+	"time"
 )
 
 type Response struct {
 	Shops    []model.Shop    `json:"shops"`
 	Products []model.Product `json:"products"`
+	Users    []model.User    `json:"users"`
+	Tokens   []model.Token   `json:"tokens"`
 }
 
 type API struct {
 	ShopModel    *model.ShopModel
 	ProductModel *model.ProductModel
+	UserModel    *model.UserModel
+	TokenModel   *model.TokenModel
 }
 
-func NewAPI(shopModel *model.ShopModel, productModel *model.ProductModel) *API {
-	return &API{ShopModel: shopModel, ProductModel: productModel}
+func NewAPI(shopModel *model.ShopModel, productModel *model.ProductModel, userModel *model.UserModel, tokenModel *model.TokenModel) *API {
+	return &API{ShopModel: shopModel, ProductModel: productModel, UserModel: userModel, TokenModel: tokenModel}
 }
 
 func (api *API) StartServer() {
@@ -40,6 +47,9 @@ func (api *API) StartServer() {
 	router.HandleFunc("/catalog/{id}", api.DeleteProductByID).Methods("DELETE")
 	router.HandleFunc("/catalog/{id}", api.UpdateProductByID).Methods("PUT")
 	router.HandleFunc("/catalog/{id}", api.GetProductByID).Methods("GET")
+	router.HandleFunc("/user", api.registerUserHandler).Methods("POST")
+	router.HandleFunc("/user/activated", api.activateUserHandler).Methods("PUT")
+	router.HandleFunc("/tokens/authentication", api.createAuthenticationTokenHandler).Methods("POST")
 	http.Handle("/", router)
 	http.ListenAndServe(":2003", router)
 }
@@ -188,7 +198,6 @@ func (api *API) AddShops(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to add shop", http.StatusInternalServerError)
 		return
 	}
-
 
 	w.WriteHeader(http.StatusCreated)
 	fmt.Fprintf(w, "Shop added successfully")
@@ -460,4 +469,397 @@ func (api *API) GetProductByID(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonResponse)
+}
+func (api *API) registerUserHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Decode the incoming JSON data into a struct
+	var input struct {
+		Name     string `json:"name"`
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+	err := json.NewDecoder(r.Body).Decode(&input)
+	if err != nil {
+		http.Error(w, "Failed to decode request body", http.StatusBadRequest)
+		return
+	}
+
+	// Create a new User instance
+	newuser := &model.User{
+		Name:      input.Name,
+		Email:     input.Email,
+		Activated: false,
+	}
+	// Use the Password.Set() method to generate and store the hashed and plaintext
+	// passwords.
+	err = newuser.Password.Set(input.Password)
+	if err != nil {
+		http.Error(w, "Failed to set password", http.StatusInternalServerError)
+		return
+	}
+
+	v := validator.New()
+	// Validate the user struct
+	model.ValidateUser(v, newuser)
+	if !v.Valid() {
+		errMsg, _ := json.Marshal(v.Errors)
+		http.Error(w, string(errMsg), http.StatusBadRequest)
+		return
+	}
+
+	// Insert the user data into the database
+	err = api.UserModel.Insert(newuser)
+	if err != nil {
+		switch {
+		case errors.Is(err, model.ErrDuplicateEmail):
+			http.Error(w, "User with this email already exists", http.StatusBadRequest)
+			return
+		default:
+			http.Error(w, "Failed to insert user: "+err.Error(), http.StatusInternalServerError)
+			return
+		}
+	}
+	// Respond with success message
+	w.WriteHeader(http.StatusCreated)
+	fmt.Fprintf(w, "User registered successfully")
+
+	if api.TokenModel == nil {
+		http.Error(w, "Token model is not initialized", http.StatusInternalServerError)
+		return
+	}
+
+	token, err := api.TokenModel.New(newuser.ID, 3*24*time.Hour, "activated")
+	if err != nil {
+		http.Error(w, "Failed to generate activation token", http.StatusInternalServerError)
+		return
+	}
+
+	// Create the response struct
+	response := struct {
+		User  *model.User `json:"user"`
+		Token string      `json:"token"`
+	}{
+		User:  newuser,
+		Token: token.Plaintext,
+	}
+
+	// Encode the response to JSON
+	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+		return
+	}
+
+	// Write the response to the client
+	w.Header().Set("Content-Type", "application/json")
+	_, err = w.Write(jsonResponse)
+	if err != nil {
+		http.Error(w, "Failed to write response", http.StatusInternalServerError)
+		return
+	}
+
+}
+
+//	func (api *API) activateUserHandler(w http.ResponseWriter, r *http.Request) {
+//		// Parse the plaintext activation token from the request body.
+//		var input struct {
+//			TokenPlaintext string `json:"token"`
+//		}
+//		err := json.NewDecoder(r.Body).Decode(&input)
+//		if err != nil {
+//			http.Error(w, "Failed to decode request body", http.StatusBadRequest)
+//			return
+//		}
+//
+//		// Validate the plaintext token provided by the client.
+//		v := validator.New()
+//		if model.ValidateTokenPlaintext(v, input.TokenPlaintext); !v.Valid() {
+//			errMsg, _ := json.Marshal(v.Errors)
+//			http.Error(w, string(errMsg), http.StatusBadRequest)
+//			return
+//		}
+//
+//		// Retrieve the details of the user associated with the token using the
+//		// GetForToken() method (which we will create in a minute). If no matching record
+//		// is found, then we let the client know that the token they provided is not valid.
+//		newuser, err := api.UserModel.GetForToken(model.ScopeActivation, input.TokenPlaintext)
+//		if err != nil {
+//			switch {
+//			case errors.Is(err, model.ErrRecordNotFound):
+//				// Check if the error is model.ErrRecordNotFound, indicating that no user record was found for the provided token.
+//				// Since the error is not specific to token expiration, we should not assume that the token is expired.
+//				// Instead, we can simply return a message indicating that the token is invalid.
+//				v.AddError("token", "invalid activation token")
+//				errMsg, _ := json.Marshal(v.Errors)
+//				http.Error(w, string(errMsg), http.StatusBadRequest)
+//			default:
+//				// For any other error, return a generic error message indicating a problem with retrieving the user for the token.
+//				http.Error(w, "Failed to get user for token", http.StatusInternalServerError)
+//			}
+//			//switch {
+//			//case errors.Is(err, model.ErrRecordNotFound):
+//			//	v.AddError("token", "invalid or expired activation token")
+//			//	errMsg, _ := json.Marshal(v.Errors)
+//			//	http.Error(w, string(errMsg), http.StatusBadRequest)
+//			//default:
+//			//	http.Error(w, "Failed to get user for token", http.StatusInternalServerError)
+//			//}
+//			return
+//		}
+//
+//		if newuser == nil {
+//			// Log a message if newuser is nil
+//			log.Println("Error: newuser is nil")
+//			http.Error(w, "Failed to activate user: user data not found", http.StatusInternalServerError)
+//			return
+//		}
+//
+//		// Update the user's activation status.
+//		newuser.Activated = true
+//
+//		// Save the updated user record in our database, checking for any edit conflicts in
+//		// the same way that we did for our movie records.
+//		err = api.UserModel.Update(newuser)
+//		if err != nil {
+//			http.Error(w, "Failed to update user", http.StatusInternalServerError)
+//			return
+//		}
+//
+//		// If everything went successfully, then we delete all activation tokens for the
+//		// user.
+//		err = api.TokenModel.DeleteAllForUser(model.ScopeActivation, newuser.ID)
+//		if err != nil {
+//			http.Error(w, "Failed to delete activation tokens", http.StatusInternalServerError)
+//			return
+//		}
+//
+//		// Send the updated user details to the client in a JSON response.
+//		response := struct {
+//			User *model.User `json:"user"`
+//		}{
+//			User: newuser,
+//		}
+//
+//		jsonResponse, err := json.Marshal(response)
+//		if err != nil {
+//			http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+//			return
+//		}
+//
+//		w.Header().Set("Content-Type", "application/json")
+//		w.WriteHeader(http.StatusOK)
+//		_, err = w.Write(jsonResponse)
+//		if err != nil {
+//			http.Error(w, "Failed to write response", http.StatusInternalServerError)
+//			return
+//		}
+//	}
+//
+//	func (api *API) activateUserHandler(w http.ResponseWriter, r *http.Request) {
+//		// Parse the plaintext activation token from the request body.
+//		var input struct {
+//			TokenPlaintext string `json:"token"`
+//		}
+//		err := api.readJSON(w, r, &input)
+//		if err != nil {
+//			api.badRequestResponse(w, r, err)
+//			return
+//		}
+//		// Validate the plaintext token provided by the client.
+//		v := validator.New()
+//		if model.ValidateTokenPlaintext(v, input.TokenPlaintext); !v.Valid() {
+//			api.failedValidationResponse(w, r, v.Errors)
+//			return
+//		}
+//		// Retrieve the details of the user associated with the token using the
+//		// GetForToken() method (which we will create in a minute). If no matching record
+//		// is found, then we let the client know that the token they provided is not valid.
+//		//user, err := api.UserModel.GetForToken(model.ScopeActivation, input.TokenPlaintext)
+//		//if err != nil {
+//		//	switch {
+//		//	case errors.Is(err, model.ErrRecordNotFound):
+//		//		v.AddError("token", "invalid or expired activation token")
+//		//		api.failedValidationResponse(w, r, v.Errors)
+//		//	//case errors.Is(err, model.ErrTokenExpired):
+//		//	//	v.AddError("token", "expired activation token")
+//		//	//	api.failedValidationResponse(w, r, v.Errors)
+//		//	default:
+//		//		api.serverErrorResponse(w, r, err)
+//		//	}
+//		//	return
+//		//}
+//		// Retrieve the user associated with the token.
+//		user, err := api.UserModel.GetForToken(model.ScopeActivation, input.TokenPlaintext)
+//
+//		// Check if the user was found.
+//		if user == nil {
+//			// If no user is found, then we let the client know that the token they provided is not valid.
+//			v := validator.New()
+//			v.AddError("token", "invalid or expired activation token")
+//			api.failedValidationResponse(w, r, v.Errors)
+//			return
+//		}
+//		if err != nil {
+//			if errors.Is(err, model.ErrRecordNotFound) {
+//				// If no matching record is found, then we let the client know that the token they provided is not valid.
+//				v := validator.New()
+//				v.AddError("token", "invalid or expired activation token")
+//				api.failedValidationResponse(w, r, v.Errors)
+//				return
+//			}
+//			api.serverErrorResponse(w, r, err)
+//			return
+//		}
+//		// Update the user's activation status.
+//		user.Activated = true
+//		// Save the updated user record in our database, checking for any edit conflicts in
+//		// the same way that we did for our movie records.
+//		err = api.UserModel.Update(user)
+//		if err != nil {
+//			api.serverErrorResponse(w, r, err)
+//			return
+//		}
+//		// If everything went successfully, then we delete all activation tokens for the
+//		// user.
+//		err = api.TokenModel.DeleteAllForUser(model.ScopeActivation, user.ID)
+//		if err != nil {
+//			api.serverErrorResponse(w, r, err)
+//			return
+//		}
+//		// Send the updated user details to the client in a JSON response.
+//		err = api.writeJSON(w, http.StatusOK, envelope{"user": user}, nil)
+//		if err != nil {
+//			api.serverErrorResponse(w, r, err)
+//		}
+//
+// }
+func (api *API) activateUserHandler(w http.ResponseWriter, r *http.Request) {
+	// Parse the plaintext activation token from the request body.
+	var input struct {
+		TokenPlaintext string `json:"token"`
+	}
+	err := api.readJSON(w, r, &input)
+	if err != nil {
+		api.badRequestResponse(w, r, err)
+		return
+	}
+	// Validate the plaintext token provided by the client.
+	v := validator.New()
+	if model.ValidateTokenPlaintext(v, input.TokenPlaintext); !v.Valid() {
+		api.failedValidationResponse(w, r, v.Errors)
+		return
+	}
+	// Retrieve the details of the user associated with the token using the
+	// GetForToken() method (which we will create in a minute). If no matching record
+	// is found, then we let the client know that the token they provided is not valid.
+	user, err := api.UserModel.GetForToken(model.ScopeActivation, input.TokenPlaintext)
+
+	// Check if the user was found.
+	if user == nil {
+		// If no user is found, then we let the client know that the token they provided is not valid.
+		v := validator.New()
+		v.AddError("token", "invalid or expired activation token")
+		api.failedValidationResponse(w, r, v.Errors)
+		return
+	}
+	if err != nil {
+		if errors.Is(err, model.ErrRecordNotFound) {
+			// If no matching record is found, then we let the client know that the token they provided is not valid.
+			v := validator.New()
+			v.AddError("token", "invalid or expired activation token")
+			api.failedValidationResponse(w, r, v.Errors)
+			return
+		}
+		api.serverErrorResponse(w, r, err)
+		return
+	}
+	// Update the user's activation status.
+	user.Activated = true
+	// Save the updated user record in our database, checking for any edit conflicts in
+	// the same way that we did for our movie records.
+	err = api.UserModel.Update(user)
+	if err != nil {
+		api.serverErrorResponse(w, r, err)
+		return
+	}
+	// If everything went successfully, then we delete all activation tokens for the
+	// user.
+	err = api.TokenModel.DeleteAllForUser(model.ScopeActivation, user.ID)
+	if err != nil {
+		api.serverErrorResponse(w, r, err)
+		return
+	}
+	// Send the updated user details to the client in a JSON response.
+	err = api.writeJSON(w, http.StatusOK, envelope{"user": user}, nil)
+	if err != nil {
+		api.serverErrorResponse(w, r, err)
+		return
+	}
+	// Return success without error
+	return
+}
+
+func (api *API) createAuthenticationTokenHandler(w http.ResponseWriter, r *http.Request) {
+	// Parse the email and password from the request body.
+	var input struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+	err := api.readJSON(w, r, &input)
+	if err != nil {
+		api.badRequestResponse(w, r, err)
+		return
+	}
+	// Validate the email and password provided by the client.
+	v := validator.New()
+	model.ValidateEmail(v, input.Email)
+	model.ValidatePasswordPlaintext(v, input.Password)
+	if !v.Valid() {
+		api.failedValidationResponse(w, r, v.Errors)
+		return
+	}
+	// Lookup the user record based on the email address. If no matching user was
+	// found, then we call the app.invalidCredentialsResponse() helper to send a 401
+	// Unauthorized response to the client (we will create this helper in a moment).
+	user, err := api.UserModel.GetByEmail(input.Email)
+	if err != nil {
+		switch {
+		case errors.Is(err, model.ErrRecordNotFound):
+			api.invalidCredentialsResponse(w, r)
+		default:
+			api.serverErrorResponse(w, r, err)
+		}
+		return
+	}
+	// Check if the provided password matches the actual password for the user.
+	match, err := user.Password.Matches(input.Password)
+	if err != nil {
+		api.serverErrorResponse(w, r, err)
+		return
+	}
+	// If the passwords don't match, then we call the app.invalidCredentialsResponse()
+	// helper again and return.
+	if !match {
+		api.invalidCredentialsResponse(w, r)
+		return
+	}
+	// Otherwise, if the password is correct, we generate a new token with a 24-hour
+	// expiry time and the scope 'authentication'.
+	token, err := api.TokenModel.New(user.ID, 24*time.Hour, model.ScopeAuthentication)
+	if err != nil {
+		api.serverErrorResponse(w, r, err)
+		return
+	}
+	// Encode the token to JSON and send it in the response along with a 201 Created
+	// status code.
+	err = api.writeJSON(w, http.StatusCreated, envelope{
+		"authentication_token": token,
+	}, nil)
+	if err != nil {
+		api.serverErrorResponse(w, r, err)
+	}
 }
