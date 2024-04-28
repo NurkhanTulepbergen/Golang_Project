@@ -74,7 +74,7 @@ func (m PermissionModel) GetAllForUser(userID int64) (Permissions, error) {
 // AddForUser adds the provided codes for a specific user.
 func (m PermissionModel) AddForUser(userID int64, codes ...string) error {
 	query := `
-		INSERT INTO permissions
+		INSERT INTO users_permissions
 		SELECT $1, permissions.id FROM permissions WHERE permissions.code = ANY($2)
 		`
 

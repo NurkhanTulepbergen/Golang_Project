@@ -7,12 +7,20 @@ import (
 	"os"
 )
 
+var (
+
+	// ErrEditConflict is returned when a there is a data race, and we have an edit conflict.
+	ErrEditConflict   = errors.New("edit conflict")
+	ErrRecordNotFound = errors.New("record not found")
+)
+
 type Models struct {
-	Product ProductModel
-	Shop    ShopModel
-	Cart    CartModel
-	User    UserModel
-	Token   TokenModel
+	Product    ProductModel
+	Shop       ShopModel
+	Cart       CartModel
+	User       UserModel
+	Token      TokenModel
+	Permission PermissionModel
 }
 
 func NewModels(db *sql.DB) Models {
@@ -39,8 +47,11 @@ func NewModels(db *sql.DB) Models {
 			InfoLog:  infoLog,
 			ErrorLog: errorLog,
 		},
+		Permission: PermissionModel{
+			DB:       db,
+			InfoLog:  infoLog,
+			ErrorLog: errorLog,
+		},
 		// Добавьте инициализацию других моделей, если необходимо
 	}
 }
-
-var ErrRecordNotFound = errors.New("record not found")
