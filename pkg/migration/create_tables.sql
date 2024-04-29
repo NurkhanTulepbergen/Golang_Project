@@ -1,11 +1,17 @@
+-- add citext extension
+CREATE EXTENSION IF NOT EXISTS citext;
+
+-- Admin@kbtu.kz = admin@kbtu.kz
 CREATE TABLE IF NOT EXISTS users
 (
-    id          bigserial PRIMARY KEY,
-    created_at  timestamp(0) with time zone NOT NULL DEFAULT NOW(),
-    updated_at  timestamp(0) with time zone NOT NULL DEFAULT NOW(),
-    name        text NOT NULL,
-    password    text NOT NULL
-    );
+    id            BIGSERIAL PRIMARY KEY,
+    created_at    TIMESTAMP(0) WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    name          TEXT                        NOT NULL,
+    email         CITEXT UNIQUE               NOT NULL,
+    password BYTEA                       NOT NULL,
+    activated     BOOL                        NOT NULL,
+    version       INTEGER                     NOT NULL DEFAULT 1
+);
 
 CREATE TABLE IF NOT EXISTS products
 (
@@ -15,7 +21,7 @@ CREATE TABLE IF NOT EXISTS products
     title           text NOT NULL,
     description     text,
     price           float
-    );
+);
 
 CREATE TABLE IF NOT EXISTS shop
 (
@@ -25,7 +31,7 @@ CREATE TABLE IF NOT EXISTS shop
     title           text NOT NULL,
     description     text,
     type text
-    );
+);
 
 CREATE TABLE IF NOT EXISTS shop_and_products
 (
@@ -36,4 +42,4 @@ CREATE TABLE IF NOT EXISTS shop_and_products
     product_id      bigint,
     FOREIGN KEY (shop_id) REFERENCES shop(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
-    );
+);

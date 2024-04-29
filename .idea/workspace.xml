@@ -5,16 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2d839be-2138-4fbd-bf0a-fe17c11a353f" name="Changes" comment="Aza">
-      <change afterPath="$PROJECT_DIR$/api/context.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/middleware.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/routes.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/migration/add_permissions_down.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/user.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/migration/create_tokens_table.up.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Go_project_spring.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Go_project_spring.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/context.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/context.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/migration/drop_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/migration/drop_tables.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/model.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/permissions.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/permissions.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/migration/create_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/migration/create_tables.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/model/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/users.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,11 +27,11 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file://$USER_HOME$/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22rc1.windows-amd64" />
+  <component name="GOROOT" url="file://$USER_HOME$/sdk/go1.22rc1" />
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -45,6 +43,7 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2fK6cVNtijXsqos4hEreZ4s9BKS" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -62,7 +61,7 @@
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/azama&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Жасмин&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
@@ -76,7 +75,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-gosdk-2946fb9b3188-155fe4b6e3a0-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-233.14475.38" />
+        <option value="bundled-gosdk-2946fb9b3188-155fe4b6e3a0-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-233.15026.17" />
       </set>
     </attachedChunks>
   </component>
@@ -105,11 +104,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/api/handler.go</url>
-          <line>463</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/api/middleware.go</url>
           <line>15</line>
