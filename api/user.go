@@ -3,13 +3,12 @@ package api
 import (
 	"Golang_Project/pkg/model"
 	"Golang_Project/pkg/validator"
-	"context"
+	_ "context"
 	"errors"
 	//"github.com/gorilla/mux"
 	"net/http"
 	"time"
 )
-
 
 func (api *API) registerUserHandler(w http.ResponseWriter, r *http.Request) {
 	// Create an anonymous struct to hold the expected data from the request body.
