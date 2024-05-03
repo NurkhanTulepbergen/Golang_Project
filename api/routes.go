@@ -50,11 +50,11 @@ func (api *API) StartServer() {
 	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.GetByID)).Methods("GET")
 
 	// Catalog endpoints
-	router.HandleFunc("/catalog", api.requireActivatedUser(api.Products)).Methods("GET")
-	router.HandleFunc("/catalog", api.requireActivatedUser(api.AddProducts)).Methods("POST")
-	router.HandleFunc("/catalog/{id}", api.requireActivatedUser(api.DeleteProductByID)).Methods("DELETE")
-	router.HandleFunc("/catalog/{id}", api.requireActivatedUser(api.UpdateProductByID)).Methods("PUT")
-	router.HandleFunc("/catalog/{id}", api.requireActivatedUser(api.GetProductByID)).Methods("GET")
+	router.HandleFunc("/product", api.requireActivatedUser(api.Products)).Methods("GET")
+	router.HandleFunc("/product", api.requireActivatedUser(api.AddProducts)).Methods("POST")
+	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.DeleteProductByID)).Methods("DELETE")
+	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.UpdateProductByID)).Methods("PUT")
+	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.GetProductByID)).Methods("GET")
 
 	// User endpoints
 	router.HandleFunc("/user", api.registerUserHandler).Methods("POST")
