@@ -67,5 +67,5 @@ func (api *API) StartServer() {
 	http.Handle("/", api.authenticate(router))
 
 	// Start the server
-	http.ListenAndServe(":2003", nil)
+	http.ListenAndServe(":8080", nil)
 }
