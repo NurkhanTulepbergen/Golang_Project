@@ -13,10 +13,6 @@ JANA Shop is an online marketplace with categorized product listings where custo
 | Taubaev Azamat        | 22B030450       |
 | Tulepbergen Nurkhan   | 22B030455       |
 
-## Description
-
-#######
-
 ## Usage
 
 To run the project, follow these steps:
