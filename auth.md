@@ -14,3 +14,4 @@ sequenceDiagram
     Database-->>Server: INSERT query executed
     Server-->>User: Print user ID
  
+![Mermaid Diagram](https://www.mermaidflow.app/editor)
