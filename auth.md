@@ -2,7 +2,6 @@
 
 ## Registration flow outline
 
-```mermaid
 sequenceDiagram
     participant User
     participant Server
@@ -14,5 +13,4 @@ sequenceDiagram
     Server->>Database: Execute INSERT query
     Database-->>Server: INSERT query executed
     Server-->>User: Print user ID
- end
-```
+ 
