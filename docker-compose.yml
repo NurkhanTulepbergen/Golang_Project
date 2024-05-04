@@ -8,9 +8,9 @@ services:
     environment:
       PORT: 8080
       ENV: development
-      FILL: true
+      FILL: false
       MIGRATIONS: file://migration
-      DSN: postgresql://Nurkhan05@localhost:5432/jana?sslmode=disable
+      DSN: postgresql://Nurkhan05@db:5432/jana?sslmode=disable
     ports:
       - "8080:8080"
     depends_on:

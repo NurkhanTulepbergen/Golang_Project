@@ -4,27 +4,51 @@ import (
 	"Golang_Project/api"
 	"Golang_Project/pkg/model"
 	"database/sql"
+	"flag"
 	"fmt"
 	_ "github.com/lib/pq"
 	"log"
 	"os"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	password = "Nurkhan05"
-	dbname   = "jana"
-)
+type config struct {
+	port       int
+	env        string
+	fill       bool
+	migrations string
+	db         struct {
+		dsn string
+	}
+}
 
 func main() {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+	fs := flag.NewFlagSet("demo-app", flag.ContinueOnError)
+
+	var (
+		cfg        config
+		fill       = fs.Bool("fill", false, "Fill database with dummy data")
+		migrations = fs.String("migrations", "", "Path to migration files folder. If not provided, migrations do not applied")
+		port       = fs.Int("port", 8080, "API server port")
+		env        = fs.String("env", "development", "Environment (development|staging|production)")
+		dbDsn      = fs.String("dsn", "postgresql://postgres:Nurkhan05@db:5432/jana?sslmode=disable", "PostgreSQL DSN")
+	)
+
+	cfg.port = *port
+	cfg.env = *env
+	cfg.fill = *fill
+	cfg.db.dsn = *dbDsn
+	cfg.migrations = *migrations
+
+	log.Println("starting application with configuration", map[string]string{
+		"port":       fmt.Sprintf("%d", cfg.port),
+		"fill":       fmt.Sprintf("%t", cfg.fill),
+		"env":        cfg.env,
+		"db":         cfg.db.dsn,
+		"migrations": cfg.migrations,
+	})
 
 	// Установка соединения с базой данных
-	db, err := sql.Open("postgres", psqlInfo)
+	db, err := openDB(cfg)
 	if err != nil {
 		panic(err)
 	}
@@ -77,4 +101,17 @@ func main() {
 
 	api := api.NewAPI(shopModel, productModel, userModel, tokenModel, permissionModel)
 	api.StartServer()
+}
+
+func openDB(cfg config) (*sql.DB, error) {
+	// Use sql.Open() to create an empty connection pool, using the DSN from the config // struct.
+	db, err := sql.Open("postgres", cfg.db.dsn)
+	if err != nil {
+		return nil, err
+	}
+	err = db.Ping()
+	if err != nil {
+		return nil, err
+	}
+	return db, nil
 }
