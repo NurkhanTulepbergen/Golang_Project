@@ -15,9 +15,9 @@ var (
 )
 
 type Models struct {
-	Product    ProductModel
-	Shop       ShopModel
-	Cart       CartModel
+	Product ProductModel
+	Shop    ShopModel
+	//Cart       CartModel
 	User       UserModel
 	Token      TokenModel
 	Permission PermissionModel

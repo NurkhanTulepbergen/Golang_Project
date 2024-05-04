@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/pkg/migration/create_tables.sql" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/pkg/migration/add_permissions_down.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/pkg/migration/create_table_cart.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/pkg/migration/create_tables.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/pkg/migration/create_tables_orders.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/pkg/migration/create_tokens_table.up.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/pkg/migration/drop_tables.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/pkg/model/product.go" dialect="GenericSQL" />
     <file url="PROJECT" dialect="PostgreSQL" />
   </component>

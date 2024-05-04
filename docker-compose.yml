@@ -6,22 +6,22 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      PORT: ${APP_PORT}
-      ENV: ${APP_ENV}
-      FILL: ${APP_FILL}
-      MIGRATIONS: ${APP_MIGRATIONS}
-      DSN: ${APP_DSN}
+      PORT: 8080
+      ENV: development
+      FILL: false
+      MIGRATIONS: file://migration
+      DSN: postgres://postgres:Bayernmunichtm25@localhost:5432/jana?sslmode=disable
     ports:
-      - "8080:8080"
+      - "8081:8080"
     depends_on:
       - db
 
   db:
-    image: postgres:16
+    image: postgres:15
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: jana
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Bayernmunichtm25
     ports:
       - "5433:5432"
     volumes:

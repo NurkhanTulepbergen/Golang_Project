@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -36,15 +37,50 @@ import (
 //	//return api.authenticate(router)
 //}
 
-func (api *API) StartServer() {
+//func (api *API) StartServer() {
+//	router := mux.NewRouter()
+//
+//	// Health check endpoint
+//	router.HandleFunc("/health-check", api.requireActivatedUser(api.HealthCheck)).Methods("GET")
+//
+//	// Shop endpoints
+//	router.HandleFunc("/shop", api.Shops).Methods("GET")
+//	router.HandleFunc("/shop", api.requirePermission("shop:write", api.AddShops)).Methods("POST")
+//	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.DeletionByID)).Methods("DELETE")
+//	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.UpdateByID)).Methods("PUT")
+//	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.GetByID)).Methods("GET")
+//
+//	// Catalog endpoints
+//	router.HandleFunc("/product", api.requireActivatedUser(api.Products)).Methods("GET")
+//	router.HandleFunc("/product", api.requireActivatedUser(api.AddProducts)).Methods("POST")
+//	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.DeleteProductByID)).Methods("DELETE")
+//	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.UpdateProductByID)).Methods("PUT")
+//	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.GetProductByID)).Methods("GET")
+//
+//	// User endpoints
+//	router.HandleFunc("/user", api.registerUserHandler).Methods("POST")
+//	router.HandleFunc("/user/activated", api.activateUserHandler).Methods("PUT")
+//
+//	// Token endpoint
+//	router.HandleFunc("/tokens/authentication", api.createAuthenticationTokenHandler).Methods("POST")
+//
+//	// Apply middleware
+//	http.Handle("/", api.authenticate(router))
+//
+//	// Start the server
+//	http.ListenAndServe(":2003", nil)
+//}
+
+// StartServer starts the API server on the specified port.
+func (api *API) StartServer(port int) {
 	router := mux.NewRouter()
 
 	// Health check endpoint
 	router.HandleFunc("/health-check", api.requireActivatedUser(api.HealthCheck)).Methods("GET")
 
 	// Shop endpoints
-	router.HandleFunc("/shop", api.requirePermission("shop:read", api.Shops)).Methods("GET")
-	router.HandleFunc("/shop", api.requirePermission("shop:write", api.AddShops)).Methods("POST")
+	router.HandleFunc("/shop", api.Shops).Methods("GET")
+	router.HandleFunc("/shop", api.AddShops).Methods("POST")
 	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.DeletionByID)).Methods("DELETE")
 	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.UpdateByID)).Methods("PUT")
 	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.GetByID)).Methods("GET")
@@ -66,6 +102,7 @@ func (api *API) StartServer() {
 	// Apply middleware
 	http.Handle("/", api.authenticate(router))
 
-	// Start the server
-	http.ListenAndServe(":2003", nil)
+	// Start the server on the specified port
+	addr := fmt.Sprintf(":%d", port)
+	http.ListenAndServe(addr, nil)
 }

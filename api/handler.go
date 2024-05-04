@@ -35,29 +35,6 @@ func NewAPI(shopModel *model.ShopModel, productModel *model.ProductModel, userMo
 	return &API{ShopModel: shopModel, ProductModel: productModel, UserModel: userModel, TokenModel: tokenModel, PermissionModel: permissionModel}
 }
 
-//func (api *API) StartServer() {
-//	router := mux.NewRouter()
-//	log.Println("creating routes")
-//	router.HandleFunc("/health-check", api.HealthCheck).Methods("GET")
-//	router.HandleFunc("/shop", api.Shops).Methods("GET")
-//	router.HandleFunc("/shop", api.AddShops).Methods("POST")
-//	router.HandleFunc("/shop/{id}", api.DeletionByID).Methods("DELETE")
-//	router.HandleFunc("/shop/{id}", api.UpdateByID).Methods("PUT")
-//	router.HandleFunc("/shop/{id}", api.GetByID).Methods("GET")
-//
-//	router.HandleFunc("/catalog", api.Products).Methods("GET")
-//	router.HandleFunc("/catalog", api.AddProducts).Methods("POST")
-//	router.HandleFunc("/catalog/{id}", api.DeleteProductByID).Methods("DELETE")
-//	router.HandleFunc("/catalog/{id}", api.UpdateProductByID).Methods("PUT")
-//	router.HandleFunc("/catalog/{id}", api.GetProductByID).Methods("GET")
-//	router.HandleFunc("/user", api.registerUserHandler).Methods("POST")
-//	router.HandleFunc("/user/activated", api.activateUserHandler).Methods("PUT")
-//	router.HandleFunc("/tokens/authentication", api.createAuthenticationTokenHandler).Methods("POST")
-//	http.Handle("/", router)
-//	http.ListenAndServe(":2003", router)
-//
-//}
-
 func (api *API) HealthCheck(w http.ResponseWriter, r *http.Request) {
 	log.Println("welcome")
 	w.WriteHeader(http.StatusOK)
