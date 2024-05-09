@@ -1,3 +1,92 @@
+-- add citext extension
+CREATE EXTENSION IF NOT EXISTS citext;
+
+-- Admin@kbtu.kz = admin@kbtu.kz
+CREATE TABLE IF NOT EXISTS users
+(
+    id            BIGSERIAL PRIMARY KEY,
+    created_at    TIMESTAMP(0) WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    name          TEXT                        NOT NULL,
+    email         CITEXT UNIQUE               NOT NULL,
+    password BYTEA                       NOT NULL,
+    activated     BOOL                        NOT NULL,
+    version       INTEGER                     NOT NULL DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS products
+(
+    id              bigserial PRIMARY KEY,
+    created_at      timestamp(0) with time zone NOT NULL DEFAULT NOW(),
+    updated_at      timestamp(0) with time zone NOT NULL DEFAULT NOW(),
+    title           text NOT NULL,
+    description     text,
+    price           float
+);
+
+CREATE TABLE IF NOT EXISTS shop
+(
+    id              bigserial PRIMARY KEY,
+    created_at      timestamp(0) with time zone NOT NULL DEFAULT NOW(),
+    updated_at      timestamp(0) with time zone NOT NULL DEFAULT NOW(),
+    title           text NOT NULL,
+    description     text,
+    type text
+);
+
+CREATE TABLE IF NOT EXISTS shop_and_products
+(
+    id              bigserial PRIMARY KEY,
+    created_at      timestamp(0) with time zone NOT NULL DEFAULT NOW(),
+    updated_at      timestamp(0) with time zone NOT NULL DEFAULT NOW(),
+    shop_id         bigint,
+    product_id      bigint,
+    FOREIGN KEY (shop_id) REFERENCES shop(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+CREATE TABLE IF NOT EXISTS tokens
+(
+    hash    BYTEA PRIMARY KEY,
+    user_id BIGINT                      NOT NULL REFERENCES users ON DELETE CASCADE,
+    expiry  TIMESTAMP(0) WITH TIME ZONE NOT NULL,
+    scope   TEXT                        NOT NULL
+);
+
+CREATE TABLE Orders (
+                        ID VARCHAR(255) PRIMARY KEY,
+                        "user" VARCHAR(255),
+                        TotalAmount NUMERIC(10, 2),
+                        DeliveryAddr VARCHAR(255),
+                        Status VARCHAR(50),
+                        CreatedAt TIMESTAMP
+);
+
+CREATE TABLE Cart (
+                      UserID VARCHAR(255) PRIMARY KEY,
+                      Items JSONB
+);
+
+CREATE TABLE IF NOT EXISTS permissions (
+                                           id bigserial PRIMARY KEY,
+                                           code text NOT NULL
+);
+CREATE TABLE IF NOT EXISTS users_permissions (
+                                                 user_id bigint NOT NULL REFERENCES users ON DELETE CASCADE,
+                                                 permission_id bigint NOT NULL REFERENCES permissions ON DELETE CASCADE,
+                                                 PRIMARY KEY (user_id, permission_id)
+);
+-- Add the two permissions to the table.
+INSERT INTO permissions (code)
+VALUES
+    ('shop:read'),
+    ('shop:write'),
+    ('catalog:read'),
+    ('catalog:write');
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
 INSERT INTO users (name, email, password, activated)
 VALUES ('Nurkhan Tulepbergen', 'n_tulepbegren@kbtu.kz', 'Nurkhan05', true);
 

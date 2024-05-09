@@ -24,9 +24,11 @@ RUN apk --no-cache add ca-certificates
 
 WORKDIR /root/
 
+RUN ls -la
+
 # Copy the pre-built binary file from the previous stage
 COPY --from=builder /app/demo-app .
-COPY --from=builder /app/pkg/migration ./migrations
+COPY --from=builder /app/pkg/migration ./migration
 
 # Command to run the executable
 CMD ["./demo-app"]

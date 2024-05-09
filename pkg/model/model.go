@@ -32,7 +32,13 @@ func NewModels(db *sql.DB) Models {
 			InfoLog:  infoLog,
 			ErrorLog: errorLog,
 		},
+
 		Shop: ShopModel{
+			DB:       db,
+			InfoLog:  infoLog,
+			ErrorLog: errorLog,
+		},
+		Cart: CartModel{
 			DB:       db,
 			InfoLog:  infoLog,
 			ErrorLog: errorLog,

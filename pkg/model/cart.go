@@ -2,6 +2,7 @@ package model
 
 import (
 	"database/sql"
+	"encoding/json"
 	_ "errors"
 	"fmt"
 	"log"
@@ -10,6 +11,12 @@ import (
 type Cart struct {
 	UserID string
 	Items  map[string]int
+}
+
+type CartModel struct {
+	DB       *sql.DB
+	InfoLog  *log.Logger
+	ErrorLog *log.Logger
 }
 
 func (c *Cart) AddProduct(productID string, quantity int) {
@@ -46,16 +53,13 @@ func (c *Cart) DisplayCart(productMap map[string]*Product) {
 	fmt.Printf("Total: $%.2f\n", c.CalculateTotal(productMap))
 }
 
-type CartModel struct {
-	DB       *sql.DB
-	InfoLog  *log.Logger
-	ErrorLog *log.Logger
-}
-
 func (m *CartModel) AddProductToCart(userID, productID string, quantity int) error {
+	// Формируем строку JSON для нового товара
+	newItem := fmt.Sprintf(`{"%s": %d}`, productID, quantity)
 
-	_, err := m.DB.Exec("INSERT INTO cart (user_id, product_id, quantity) VALUES ($1, $2, $3)",
-		userID, productID, quantity)
+	// Выполняем запрос INSERT, чтобы добавить новый товар в корзину пользователя
+	_, err := m.DB.Exec("INSERT INTO cart (userid, items) VALUES ($1, $2) ON CONFLICT (userid) DO UPDATE SET items = cart.items || excluded.items",
+		userID, newItem)
 	if err != nil {
 		m.ErrorLog.Println("Error adding product to cart:", err)
 		return err
@@ -66,8 +70,9 @@ func (m *CartModel) AddProductToCart(userID, productID string, quantity int) err
 }
 
 func (m *CartModel) RemoveProductFromCart(userID, productID string) error {
-	// Perform the database deletion
-	_, err := m.DB.Exec("DELETE FROM cart WHERE user_id = $1 AND product_id = $2", userID, productID)
+	// Выполняем запрос DELETE для удаления товара из корзины пользователя
+	_, err := m.DB.Exec("UPDATE cart SET items = items - $1 WHERE userid = $2",
+		fmt.Sprintf(`{"%s": null}`, productID), userID)
 	if err != nil {
 		m.ErrorLog.Println("Error removing product from cart:", err)
 		return err
@@ -78,7 +83,7 @@ func (m *CartModel) RemoveProductFromCart(userID, productID string) error {
 }
 
 func (m *CartModel) GetCart(userID string) (*Cart, error) {
-	rows, err := m.DB.Query("SELECT product_id, quantity FROM cart WHERE user_id = $1", userID)
+	rows, err := m.DB.Query("SELECT items FROM cart WHERE userid = $1", userID)
 	if err != nil {
 		m.ErrorLog.Println("Error getting cart:", err)
 		return nil, err
@@ -87,13 +92,21 @@ func (m *CartModel) GetCart(userID string) (*Cart, error) {
 
 	cart := &Cart{UserID: userID, Items: make(map[string]int)}
 	for rows.Next() {
-		var productID string
-		var quantity int
-		if err := rows.Scan(&productID, &quantity); err != nil {
-			m.ErrorLog.Println("Error scanning cart item:", err)
+		var itemsJSON []byte
+		if err := rows.Scan(&itemsJSON); err != nil {
+			m.ErrorLog.Println("Error scanning cart items:", err)
 			return nil, err
 		}
-		cart.Items[productID] = quantity
+
+		var items map[string]int
+		if err := json.Unmarshal(itemsJSON, &items); err != nil {
+			m.ErrorLog.Println("Error unmarshalling cart items:", err)
+			return nil, err
+		}
+
+		for productID, quantity := range items {
+			cart.Items[productID] = quantity
+		}
 	}
 	if err := rows.Err(); err != nil {
 		m.ErrorLog.Println("Error iterating rows:", err)

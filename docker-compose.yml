@@ -10,7 +10,7 @@ services:
       ENV: development
       FILL: false
       MIGRATIONS: file://migration
-      DSN: postgresql://Nurkhan05@db:5432/jana?sslmode=disable
+      DSN: postgresql://postgres:Nurkhan05@db:5432/jana?sslmode=disable
     ports:
       - "8080:8080"
     depends_on:
@@ -26,6 +26,5 @@ services:
       - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-
 volumes:
   pgdata:
