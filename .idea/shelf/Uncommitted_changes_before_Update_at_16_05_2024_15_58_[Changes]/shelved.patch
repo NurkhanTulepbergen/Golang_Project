@@ -1,0 +1,646 @@
+Index: .idea/Golang_Project.iml
+===================================================================
+diff --git a/.idea/Golang_Project.iml b/.idea/Golang_Project.iml
+deleted file mode 100644
+--- a/.idea/Golang_Project.iml	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ /dev/null	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
+@@ -1,4 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module version="4">
+-  <component name="Go" enabled="true" />
+-</module>
+\ No newline at end of file
+Index: .idea/Go_project_spring.iml
+===================================================================
+diff --git a/.idea/Go_project_spring.iml b/.idea/Go_project_spring.iml
+deleted file mode 100644
+--- a/.idea/Go_project_spring.iml	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ /dev/null	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
+@@ -1,4 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module version="4">
+-  <component name="Go" enabled="true" />
+-</module>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+deleted file mode 100644
+--- a/.idea/workspace.xml	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ /dev/null	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
+@@ -1,97 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="AutoImportSettings">
+-    <option name="autoReloadType" value="ALL" />
+-  </component>
+-  <component name="ChangeListManager">
+-    <list default="true" id="c5b14e68-e5c8-454d-bac0-be3687f2b319" name="Changes" comment="Aza">
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/api/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/handler.go" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.go" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pkg/migration/create_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/migration/create_tables.sql" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pkg/model/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/model.go" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pkg/model/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/product.go" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pkg/model/shop.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/shop.go" afterDir="false" />
+-    </list>
+-    <option name="SHOW_DIALOG" value="false" />
+-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-    <option name="LAST_RESOLUTION" value="IGNORE" />
+-  </component>
+-  <component name="GOROOT" url="file://$USER_HOME$/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22rc1.windows-amd64" />
+-  <component name="Git.Settings">
+-    <option name="RECENT_BRANCH_BY_REPOSITORY">
+-      <map>
+-        <entry key="$PROJECT_DIR$" value="main" />
+-      </map>
+-    </option>
+-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+-  </component>
+-  <component name="GitHubPullRequestSearchHistory">{
+-  &quot;lastFilter&quot;: {
+-    &quot;state&quot;: &quot;OPEN&quot;,
+-    &quot;assignee&quot;: &quot;AzamatTaubayev&quot;
+-  }
+-}</component>
+-  <component name="GithubPullRequestsUISettings">{
+-  &quot;selectedUrlAndAccountId&quot;: {
+-    &quot;url&quot;: &quot;https://github.com/AzamatTaubayev/Go_project_spring.git&quot;,
+-    &quot;accountId&quot;: &quot;4363e522-0e14-4db5-915e-6f2a180fb3ac&quot;
+-  }
+-}</component>
+-  <component name="MarkdownSettingsMigration">
+-    <option name="stateVersion" value="1" />
+-  </component>
+-  <component name="ProjectColorInfo">{
+-  &quot;associatedIndex&quot;: 3
+-}</component>
+-  <component name="ProjectId" id="2fxMxBAfWq8IfIN08vVZAmTWObB" />
+-  <component name="ProjectViewState">
+-    <option name="hideEmptyMiddlePackages" value="true" />
+-    <option name="showLibraryContents" value="true" />
+-  </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+-    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/azama&quot;,
+-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.database.main&quot;
+-  },
+-  &quot;keyToStringList&quot;: {
+-    &quot;DatabaseDriversLRU&quot;: [
+-      &quot;postgresql&quot;
+-    ]
+-  }
+-}</component>
+-  <component name="SharedIndexes">
+-    <attachedChunks>
+-      <set>
+-        <option value="bundled-gosdk-33c477a475b1-e0158606a674-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-241.15989.157" />
+-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-GO-241.15989.157" />
+-      </set>
+-    </attachedChunks>
+-  </component>
+-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+-  <component name="TypeScriptGeneratedFilesManager">
+-    <option name="version" value="3" />
+-  </component>
+-  <component name="VcsManagerConfiguration">
+-    <MESSAGE value="Aza" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Aza" />
+-  </component>
+-  <component name="VgoProject">
+-    <settings-migrated>true</settings-migrated>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/modules.xml
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+deleted file mode 100644
+--- a/.idea/modules.xml	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ /dev/null	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
+@@ -1,8 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/Go_project_spring2.iml" filepath="$PROJECT_DIR$/.idea/Go_project_spring2.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/vcs.xml
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+deleted file mode 100644
+--- a/.idea/vcs.xml	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ /dev/null	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="VcsDirectoryMappings">
+-    <mapping directory="" vcs="Git" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ /dev/null	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
+@@ -1,8 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-# Editor-based HTTP Client requests
+-/httpRequests/
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+Index: .idea/dataSources.xml
+===================================================================
+diff --git a/.idea/dataSources.xml b/.idea/dataSources.xml
+deleted file mode 100644
+--- a/.idea/dataSources.xml	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ /dev/null	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
+@@ -1,12 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+-    <data-source source="LOCAL" name="postgres@localhost" uuid="1b253cb2-1ddf-4c71-9c2e-06eb13807f60">
+-      <driver-ref>postgresql</driver-ref>
+-      <synchronize>true</synchronize>
+-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+-      <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
+-      <working-dir>$ProjectFileDir$</working-dir>
+-    </data-source>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/sqldialects.xml
+===================================================================
+diff --git a/.idea/sqldialects.xml b/.idea/sqldialects.xml
+deleted file mode 100644
+--- a/.idea/sqldialects.xml	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ /dev/null	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
+@@ -1,13 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="SqlDialectMappings">
+-    <file url="file://$PROJECT_DIR$/pkg/migration/add_permissions_down.sql" dialect="PostgreSQL" />
+-    <file url="file://$PROJECT_DIR$/pkg/migration/create_table_cart.sql" dialect="PostgreSQL" />
+-    <file url="file://$PROJECT_DIR$/pkg/migration/create_tables.sql" dialect="PostgreSQL" />
+-    <file url="file://$PROJECT_DIR$/pkg/migration/create_tables_orders.sql" dialect="PostgreSQL" />
+-    <file url="file://$PROJECT_DIR$/pkg/migration/create_tokens_table.up.sql" dialect="PostgreSQL" />
+-    <file url="file://$PROJECT_DIR$/pkg/migration/drop_tables.sql" dialect="PostgreSQL" />
+-    <file url="file://$PROJECT_DIR$/pkg/model/product.go" dialect="GenericSQL" />
+-    <file url="PROJECT" dialect="PostgreSQL" />
+-  </component>
+-</project>
+\ No newline at end of file
+Index: .idea/Golang_Projects.iml
+===================================================================
+diff --git a/.idea/Golang_Projects.iml b/.idea/Golang_Projects.iml
+deleted file mode 100644
+--- a/.idea/Golang_Projects.iml	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ /dev/null	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
+@@ -1,9 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<module type="WEB_MODULE" version="4">
+-  <component name="Go" enabled="true" />
+-  <component name="NewModuleRootManager">
+-    <content url="file://$MODULE_DIR$" />
+-    <orderEntry type="inheritedJdk" />
+-    <orderEntry type="sourceFolder" forTests="false" />
+-  </component>
+-</module>
+\ No newline at end of file
+Index: pkg/model/shop.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model\n\nimport (\n\t\"database/sql\"\n\t\"errors\"\n\t\"log\"\n\t\"time\"\n)\n\ntype Shop struct {\n\tId          string `json:\"id\"`\n\tCreatedAt   string `json:\"createdAt\"`\n\tUpdatedAt   string `json:\"updatedAt\"`\n\tTitle       string `json:\"title\"`\n\tDescription string `json:\"description\"`\n\tType        string `json:\"type\"`\n}\n\ntype ShopModel struct {\n\tDB       *sql.DB\n\tInfoLog  *log.Logger\n\tErrorLog *log.Logger\n}\n\nfunc (m *ShopModel) AddShop(shop Shop) error {\n\t// Check if the shop data is valid\n\tif shop.Title == \"\" || shop.Description == \"\" {\n\t\treturn errors.New(\"title and description are required fields\")\n\t}\n\n\t// Perform the database insertion\n\t_, err := m.DB.Exec(\"INSERT INTO shop (created_at, updated_at, title, description, type) VALUES (NOW(), NOW(), $1, $2, $3)\",\n\t\tshop.Title, shop.Description, shop.Type)\n\tif err != nil {\n\t\tm.ErrorLog.Println(\"Error adding shop:\", err)\n\t\treturn err\n\t}\n\n\tm.InfoLog.Println(\"Shop added successfully\")\n\treturn nil\n}\n\nfunc (m *ShopModel) UpdateShopByID(id int, newData Shop) error {\n\t_, err := m.DB.Exec(\"UPDATE shop SET title = $1, description = $2, type = $3, updated_at = $4 WHERE id = $5\",\n\t\tnewData.Title, newData.Description, newData.Type, time.Now(), id)\n\tif err != nil {\n\t\tm.ErrorLog.Println(\"Error updating shop:\", err)\n\t\treturn err\n\t}\n\tm.InfoLog.Println(\"Shop updated successfully\")\n\treturn nil\n}\n\nfunc (m *ShopModel) DeleteShopByID(id int) error {\n\t// Execute SQL query to delete a shop by its ID\n\t_, err := m.DB.Exec(\"DELETE FROM shop WHERE id = $1\", id)\n\tif err != nil {\n\t\tm.ErrorLog.Println(\"Error deleting shop:\", err)\n\t\treturn err\n\t}\n\tm.InfoLog.Println(\"Shop deleted successfully\")\n\treturn nil\n}\n\n//func (m *ShopModel) GetAllShopsWithFilters(filters map[string]string, sortBy string, sortOrder string, page int, limit int) ([]Shop, error) {\n//\t// Формируем SQL-запрос с учетом фильтров, сортировки и пагинации\n//\tquery := \"SELECT id, created_at, updated_at, title, description, type FROM shop\"\n//\n//\t// Формируем условие для фильтрации\n//\tvar args []interface{}\n//\tif len(filters) > 0 {\n//\t\tquery += \" WHERE \"\n//\t\tfor key, value := range filters {\n//\t\t\tquery += key + \" = ? AND \"\n//\t\t\targs = append(args, value)\n//\t\t}\n//\t\t// Убираем последний \"AND\"\n//\t\tquery = query[:len(query)-5]\n//\t}\n//\n//\t// Добавляем сортировку\n//\tif sortBy != \"\" {\n//\t\tquery += \" ORDER BY \" + sortBy\n//\t\tif sortOrder != \"\" {\n//\t\t\tquery += \" \" + sortOrder\n//\t\t}\n//\t}\n//\n//\t// Добавляем пагинацию\n//\tif limit > 0 {\n//\t\tquery += \" LIMIT ? OFFSET ?\"\n//\t\targs = append(args, limit, (page-1)*limit)\n//\t}\n//\n//\t// Выполняем запрос\n//\trows, err := m.DB.Query(query, args...)\n//\tif err != nil {\n//\t\tm.ErrorLog.Println(\"Error getting shops:\", err)\n//\t\treturn nil, err\n//\t}\n//\tdefer rows.Close()\n//\n//\t// Считываем результаты запроса\n//\tvar shops []Shop\n//\tfor rows.Next() {\n//\t\tvar shop Shop\n//\t\tif err := rows.Scan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description, &shop.Type); err != nil {\n//\t\t\tm.ErrorLog.Println(\"Error scanning shop:\", err)\n//\t\t\treturn nil, err\n//\t\t}\n//\t\tshops = append(shops, shop)\n//\t}\n//\tif err := rows.Err(); err != nil {\n//\t\tm.ErrorLog.Println(\"Error iterating rows:\", err)\n//\t\treturn nil, err\n//\t}\n//\n//\treturn shops, nil\n//}\n\n//func (m *ShopModel) GetAllShops() ([]Shop, error) {\n//\trows, err := m.DB.Query(\"SELECT id, created_at, updated_at, title, description,type FROM shop\")\n//\tif err != nil {\n//\t\tm.ErrorLog.Println(\"Error getting shops:\", err)\n//\t\treturn nil, err\n//\t}\n//\tdefer rows.Close()\n//\n//\tvar shops []Shop\n//\tfor rows.Next() {\n//\t\tvar shop Shop\n//\t\tif err := rows.Scan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description, &shop.Type); err != nil {\n//\t\t\tm.ErrorLog.Println(\"Error scanning shop:\", err)\n//\t\t\treturn nil, err\n//\t\t}\n//\t\tshops = append(shops, shop)\n//\t}\n//\tif err := rows.Err(); err != nil {\n//\t\tm.ErrorLog.Println(\"Error iterating rows:\", err)\n//\t\treturn nil, err\n//\t}\n//\n//\treturn shops, nil\n//}\n\nfunc (m *ShopModel) GetAllShops(filters Filters) ([]Shop, Metadata, error) {\n\t// Fetch all shops from the database\n\trows, err := m.DB.Query(\"SELECT id, created_at, updated_at, title, description, type FROM shop\")\n\tif err != nil {\n\t\tm.ErrorLog.Println(\"Error getting shops:\", err)\n\t\treturn nil, Metadata{}, err\n\t}\n\tdefer rows.Close()\n\n\tvar shops []Shop\n\tfor rows.Next() {\n\t\tvar shop Shop\n\t\tif err := rows.Scan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description, &shop.Type); err != nil {\n\t\t\tm.ErrorLog.Println(\"Error scanning shop:\", err)\n\t\t\treturn nil, Metadata{}, err\n\t\t}\n\t\tshops = append(shops, shop)\n\t}\n\tif err := rows.Err(); err != nil {\n\t\tm.ErrorLog.Println(\"Error iterating rows:\", err)\n\t\treturn nil, Metadata{}, err\n\t}\n\n\tif filters.Type != \"\" {\n\t\tshops = FilterByType(shops, filters.Type)\n\t}\n\n\tif filters.SortBy != \"\" {\n\t\tswitch filters.SortBy {\n\t\tcase \"title\":\n\t\t\tshops = SortByTitle(shops)\n\n\t\tdefault:\n\n\t\t\treturn nil, Metadata{}, errors.New(\"unknown sort field\")\n\t\t}\n\t}\n\n\tpaginatedShops := Paginate(shops, filters.Page, filters.PageSize)\n\n\ttotalRecords := len(shops)\n\tmetadata := CalculateMetadata(totalRecords, filters.Page, filters.PageSize)\n\n\treturn paginatedShops, metadata, nil\n}\n\nfunc (m *ShopModel) GetShopByID(id string) (*Shop, error) {\n\tvar shop Shop\n\terr := m.DB.QueryRow(\"SELECT id, created_at, updated_at, title, description, type FROM shop WHERE id = $1\", id).\n\t\tScan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description, &shop.Type)\n\tif err != nil {\n\t\tif errors.Is(err, sql.ErrNoRows) {\n\t\t\treturn nil, errors.New(\"Shop not found\")\n\t\t}\n\t\tm.ErrorLog.Println(\"Error getting shop:\", err)\n\t\treturn nil, err\n\t}\n\treturn &shop, nil\n}\n\nfunc (m *ShopModel) GetProductsByShopID(shopID int64) ([]Product, error) {\n\trows, err := m.DB.Query(\"SELECT id, created_at, updated_at, title, description, price, shop_id FROM products WHERE shop_id = $1\", shopID)\n\tif err != nil {\n\t\tm.ErrorLog.Println(\"Error getting products for shop:\", err)\n\t\treturn nil, err\n\t}\n\tdefer rows.Close()\n\n\tvar products []Product\n\tfor rows.Next() {\n\t\tvar product Product\n\t\tif err := rows.Scan(&product.ID, &product.CreatedAt, &product.UpdatedAt, &product.Title, &product.Description, &product.Price, &product.ShopID); err != nil {\n\t\t\tm.ErrorLog.Println(\"Error scanning product:\", err)\n\t\t\treturn nil, err\n\t\t}\n\t\tproducts = append(products, product)\n\t}\n\tif err := rows.Err(); err != nil {\n\t\tm.ErrorLog.Println(\"Error iterating rows:\", err)\n\t\treturn nil, err\n\t}\n\n\treturn products, nil\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pkg/model/shop.go b/pkg/model/shop.go
+--- a/pkg/model/shop.go	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ b/pkg/model/shop.go	(date 1715855505988)
+@@ -62,87 +62,6 @@
+ 	return nil
+ }
+ 
+-//func (m *ShopModel) GetAllShopsWithFilters(filters map[string]string, sortBy string, sortOrder string, page int, limit int) ([]Shop, error) {
+-//	// Формируем SQL-запрос с учетом фильтров, сортировки и пагинации
+-//	query := "SELECT id, created_at, updated_at, title, description, type FROM shop"
+-//
+-//	// Формируем условие для фильтрации
+-//	var args []interface{}
+-//	if len(filters) > 0 {
+-//		query += " WHERE "
+-//		for key, value := range filters {
+-//			query += key + " = ? AND "
+-//			args = append(args, value)
+-//		}
+-//		// Убираем последний "AND"
+-//		query = query[:len(query)-5]
+-//	}
+-//
+-//	// Добавляем сортировку
+-//	if sortBy != "" {
+-//		query += " ORDER BY " + sortBy
+-//		if sortOrder != "" {
+-//			query += " " + sortOrder
+-//		}
+-//	}
+-//
+-//	// Добавляем пагинацию
+-//	if limit > 0 {
+-//		query += " LIMIT ? OFFSET ?"
+-//		args = append(args, limit, (page-1)*limit)
+-//	}
+-//
+-//	// Выполняем запрос
+-//	rows, err := m.DB.Query(query, args...)
+-//	if err != nil {
+-//		m.ErrorLog.Println("Error getting shops:", err)
+-//		return nil, err
+-//	}
+-//	defer rows.Close()
+-//
+-//	// Считываем результаты запроса
+-//	var shops []Shop
+-//	for rows.Next() {
+-//		var shop Shop
+-//		if err := rows.Scan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description, &shop.Type); err != nil {
+-//			m.ErrorLog.Println("Error scanning shop:", err)
+-//			return nil, err
+-//		}
+-//		shops = append(shops, shop)
+-//	}
+-//	if err := rows.Err(); err != nil {
+-//		m.ErrorLog.Println("Error iterating rows:", err)
+-//		return nil, err
+-//	}
+-//
+-//	return shops, nil
+-//}
+-
+-//func (m *ShopModel) GetAllShops() ([]Shop, error) {
+-//	rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description,type FROM shop")
+-//	if err != nil {
+-//		m.ErrorLog.Println("Error getting shops:", err)
+-//		return nil, err
+-//	}
+-//	defer rows.Close()
+-//
+-//	var shops []Shop
+-//	for rows.Next() {
+-//		var shop Shop
+-//		if err := rows.Scan(&shop.Id, &shop.CreatedAt, &shop.UpdatedAt, &shop.Title, &shop.Description, &shop.Type); err != nil {
+-//			m.ErrorLog.Println("Error scanning shop:", err)
+-//			return nil, err
+-//		}
+-//		shops = append(shops, shop)
+-//	}
+-//	if err := rows.Err(); err != nil {
+-//		m.ErrorLog.Println("Error iterating rows:", err)
+-//		return nil, err
+-//	}
+-//
+-//	return shops, nil
+-//}
+-
+ func (m *ShopModel) GetAllShops(filters Filters) ([]Shop, Metadata, error) {
+ 	// Fetch all shops from the database
+ 	rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description, type FROM shop")
+Index: pkg/model/utils.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model\n\nimport \"sort\"\n\ntype Filters struct {\n\tType     string // Пример параметра фильтрации\n\tSortBy   string // Поле для сортировки\n\tPage     int\n\tPageSize int\n}\n\ntype Metadata struct {\n\tCurrentPage  int `json:\"current_page,omitempty\"`\n\tPageSize     int `json:\"page_size,omitempty\"`\n\tFirstPage    int `json:\"first_page,omitempty\"`\n\tLastPage     int `json:\"last_page,omitempty\"`\n\tTotalRecords int `json:\"total_records,omitempty\"`\n}\n\nfunc CalculateMetadata(totalRecords, page, pageSize int) Metadata {\n\tif totalRecords == 0 || pageSize == 0 {\n\t\treturn Metadata{}\n\t}\n\n\tlastPage := totalRecords / pageSize\n\tif totalRecords%pageSize != 0 {\n\t\tlastPage++\n\t}\n\n\treturn Metadata{\n\t\tCurrentPage:  page,\n\t\tPageSize:     pageSize,\n\t\tFirstPage:    1,\n\t\tLastPage:     lastPage,\n\t\tTotalRecords: totalRecords,\n\t}\n}\n\nfunc FilterByType(shops []Shop, shopType string) []Shop {\n\tvar filteredShops []Shop\n\tfor _, shop := range shops {\n\t\tif shop.Type == shopType {\n\t\t\tfilteredShops = append(filteredShops, shop)\n\t\t}\n\t}\n\treturn filteredShops\n}\n\nfunc SortByTitle(shops []Shop) []Shop {\n\tsort.Slice(shops, func(i, j int) bool {\n\t\treturn shops[i].Title < shops[j].Title\n\t})\n\treturn shops\n}\n\nfunc Paginate(shops []Shop, page, pageSize int) []Shop {\n\tstart := (page - 1) * pageSize\n\tend := start + pageSize\n\n\tif start >= len(shops) {\n\t\treturn nil\n\t}\n\n\tif end > len(shops) {\n\t\tend = len(shops)\n\t}\n\n\treturn shops[start:end]\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pkg/model/utils.go b/pkg/model/utils.go
+--- a/pkg/model/utils.go	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ b/pkg/model/utils.go	(date 1715856987684)
+@@ -36,34 +36,97 @@
+ 	}
+ }
+ 
+-func FilterByType(shops []Shop, shopType string) []Shop {
+-	var filteredShops []Shop
+-	for _, shop := range shops {
+-		if shop.Type == shopType {
+-			filteredShops = append(filteredShops, shop)
++// Filterable предоставляет интерфейс для фильтрации элементов.
++type Filterable interface {
++	Filter([]interface{}) []interface{}
++}
++
++// Sortable предоставляет интерфейс для сортировки элементов.
++type Sortable interface {
++	Sort([]interface{})
++}
++
++// Paginatable предоставляет интерфейс для пагинации данных.
++type Paginatable interface {
++	Paginate([]interface{}, int, int) []interface{}
++}
++
++// FilterByType фильтрует элементы по типу.
++type FilterByType struct {
++	Type string
++}
++
++// Filter реализует метод фильтрации для FilterByType.
++func (f *FilterByType) Filter(data []interface{}) []interface{} {
++	var filteredData []interface{}
++	for _, item := range data {
++		shop, ok := item.(Shop)
++		if ok && shop.Type == f.Type {
++			filteredData = append(filteredData, item)
+ 		}
+ 	}
+-	return filteredShops
++	return filteredData
+ }
+ 
+-func SortByTitle(shops []Shop) []Shop {
+-	sort.Slice(shops, func(i, j int) bool {
+-		return shops[i].Title < shops[j].Title
++// SortByTitle сортирует элементы по заголовку.
++type SortByTitle struct{}
++
++// Sort реализует метод сортировки для SortByTitle.
++func (s *SortByTitle) Sort(data []interface{}) {
++	sort.Slice(data, func(i, j int) bool {
++		shop1, ok1 := data[i].(Shop)
++		shop2, ok2 := data[j].(Shop)
++		if ok1 && ok2 {
++			return shop1.Title < shop2.Title
++		}
++		return false
+ 	})
+-	return shops
+ }
+ 
+-func Paginate(shops []Shop, page, pageSize int) []Shop {
++// Paginate осуществляет пагинацию данных.
++func Paginate(data []interface{}, page, pageSize int) []interface{} {
+ 	start := (page - 1) * pageSize
+ 	end := start + pageSize
+ 
+-	if start >= len(shops) {
++	if start >= len(data) {
+ 		return nil
+ 	}
+ 
+-	if end > len(shops) {
+-		end = len(shops)
++	if end > len(data) {
++		end = len(data)
+ 	}
+ 
+-	return shops[start:end]
++	return data[start:end]
+ }
++
++//func FilterByType(shops []Shop, shopType string) []Shop {
++//	var filteredShops []Shop
++//	for _, shop := range shops {
++//		if shop.Type == shopType {
++//			filteredShops = append(filteredShops, shop)
++//		}
++//	}
++//	return filteredShops
++//}
++//
++//func SortByTitle(shops []Shop) []Shop {
++//	sort.Slice(shops, func(i, j int) bool {
++//		return shops[i].Title < shops[j].Title
++//	})
++//	return shops
++//}
++//
++//func Paginate(shops []Shop, page, pageSize int) []Shop {
++//	start := (page - 1) * pageSize
++//	end := start + pageSize
++//
++//	if start >= len(shops) {
++//		return nil
++//	}
++//
++//	if end > len(shops) {
++//		end = len(shops)
++//	}
++//
++//	return shops[start:end]
++//}
+Index: api/routes.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package api\n\nimport (\n\t\"fmt\"\n\t\"github.com/gorilla/mux\"\n\t\"net/http\"\n)\n\n//func (api *API) StartServer() http.Handler {\n//\trouter := mux.NewRouter()\n//\t// Convert the app.notFoundResponse helper to a http.Handler using the http.HandlerFunc()\n//\t// adapter, and then set it as the custom error handler for 404 Not Found responses.\n//\trouter.NotFoundHandler = http.HandlerFunc(api.notFoundResponse)\n//\n//\t// Convert app.methodNotAllowedResponse helper to a http.Handler and set it as the custom\n//\t// error handler for 405 Method Not Allowed responses\n//\trouter.MethodNotAllowedHandler = http.HandlerFunc(api.methodNotAllowedResponse)\n//\n//\t// healthcheck\n//\trouter.HandleFunc(\"/health-check\", api.requireActivatedUser(api.HealthCheck)).Methods(\"GET\")\n//\trouter.HandleFunc(\"/shop\", api.requireActivatedUser(api.Shops)).Methods(\"GET\")\n//\trouter.HandleFunc(\"/shop\", api.requireActivatedUser(api.AddShops)).Methods(\"POST\")\n//\trouter.HandleFunc(\"/shop/{id}\", api.requireActivatedUser(api.DeletionByID)).Methods(\"DELETE\")\n//\trouter.HandleFunc(\"/shop/{id}\", api.requireActivatedUser(api.UpdateByID)).Methods(\"PUT\")\n//\trouter.HandleFunc(\"/shop/{id}\", api.requireActivatedUser(api.GetByID)).Methods(\"GET\")\n//\n//\trouter.HandleFunc(\"/catalog\", api.requireActivatedUser(api.Products)).Methods(\"GET\")\n//\trouter.HandleFunc(\"/catalog\", api.requireActivatedUser(api.AddProducts)).Methods(\"POST\")\n//\trouter.HandleFunc(\"/catalog/{id}\", api.requireActivatedUser(api.DeleteProductByID)).Methods(\"DELETE\")\n//\trouter.HandleFunc(\"/catalog/{id}\", api.requireActivatedUser(api.UpdateProductByID)).Methods(\"PUT\")\n//\trouter.HandleFunc(\"/catalog/{id}\", api.requireActivatedUser(api.GetProductByID)).Methods(\"GET\")\n//\trouter.HandleFunc(\"/user\", api.registerUserHandler).Methods(\"POST\")\n//\trouter.HandleFunc(\"/user/activated\", api.activateUserHandler).Methods(\"PUT\")\n//\trouter.HandleFunc(\"/tokens/authentication\", api.createAuthenticationTokenHandler).Methods(\"POST\")\n//\thttp.Handle(\"/\", api.authenticate(router))\n//\thttp.ListenAndServe(\":2003\", router)\n//\t//return api.authenticate(router)\n//}\n\n//func (api *API) StartServer() {\n//\trouter := mux.NewRouter()\n//\n//\t// Health check endpoint\n//\trouter.HandleFunc(\"/health-check\", api.requireActivatedUser(api.HealthCheck)).Methods(\"GET\")\n//\n//\t// Shop endpoints\n//\trouter.HandleFunc(\"/shop\", api.Shops).Methods(\"GET\")\n//\trouter.HandleFunc(\"/shop\", api.requirePermission(\"shop:write\", api.AddShops)).Methods(\"POST\")\n//\trouter.HandleFunc(\"/shop/{id}\", api.requireActivatedUser(api.DeletionByID)).Methods(\"DELETE\")\n//\trouter.HandleFunc(\"/shop/{id}\", api.requireActivatedUser(api.UpdateByID)).Methods(\"PUT\")\n//\trouter.HandleFunc(\"/shop/{id}\", api.requireActivatedUser(api.GetByID)).Methods(\"GET\")\n//\n//\t// Catalog endpoints\n//\trouter.HandleFunc(\"/product\", api.requireActivatedUser(api.Products)).Methods(\"GET\")\n//\trouter.HandleFunc(\"/product\", api.requireActivatedUser(api.AddProducts)).Methods(\"POST\")\n//\trouter.HandleFunc(\"/product/{id}\", api.requireActivatedUser(api.DeleteProductByID)).Methods(\"DELETE\")\n//\trouter.HandleFunc(\"/product/{id}\", api.requireActivatedUser(api.UpdateProductByID)).Methods(\"PUT\")\n//\trouter.HandleFunc(\"/product/{id}\", api.requireActivatedUser(api.GetProductByID)).Methods(\"GET\")\n//\n//\t// User endpoints\n//\trouter.HandleFunc(\"/user\", api.registerUserHandler).Methods(\"POST\")\n//\trouter.HandleFunc(\"/user/activated\", api.activateUserHandler).Methods(\"PUT\")\n//\n//\t// Token endpoint\n//\trouter.HandleFunc(\"/tokens/authentication\", api.createAuthenticationTokenHandler).Methods(\"POST\")\n//\n//\t// Apply middleware\n//\thttp.Handle(\"/\", api.authenticate(router))\n//\n//\t// Start the server\n//\thttp.ListenAndServe(\":2003\", nil)\n//}\n\n// StartServer starts the API server on the specified port.\nfunc (api *API) StartServer(port int) {\n\trouter := mux.NewRouter()\n\n\t// Health check endpoint\n\trouter.HandleFunc(\"/health-check\", api.HealthCheck).Methods(\"GET\")\n\n\t// Shop endpoints\n\trouter.HandleFunc(\"/shop\", api.Shops).Methods(\"GET\")\n\trouter.HandleFunc(\"/shop\", api.AddShops).Methods(\"POST\")\n\trouter.HandleFunc(\"/shop/{id}\", api.DeletionByID).Methods(\"DELETE\")\n\trouter.HandleFunc(\"/shop/{id}\", api.UpdateByID).Methods(\"PUT\")\n\trouter.HandleFunc(\"/shop/{id}\", api.GetByID).Methods(\"GET\")\n\trouter.HandleFunc(\"/shop/{shop_id}/product\", api.GetProductsByShopIDHandler).Methods(\"GET\")\n\n\t// Catalog endpoints\n\trouter.HandleFunc(\"/product\", api.Products).Methods(\"GET\")\n\trouter.HandleFunc(\"/product\", api.AddProducts).Methods(\"POST\")\n\trouter.HandleFunc(\"/product/{id}\", api.DeleteProductByID).Methods(\"DELETE\")\n\trouter.HandleFunc(\"/product/{id}\", api.UpdateProductByID).Methods(\"PUT\")\n\trouter.HandleFunc(\"/product/{id}\", api.GetProductByID).Methods(\"GET\")\n\n\t// User endpoints\n\trouter.HandleFunc(\"/user\", api.registerUserHandler).Methods(\"POST\")\n\trouter.HandleFunc(\"/user/activated\", api.activateUserHandler).Methods(\"PUT\")\n\n\t// Token endpoint\n\trouter.HandleFunc(\"/tokens/authentication\", api.createAuthenticationTokenHandler).Methods(\"POST\")\n\n\trouter.HandleFunc(\"/cart\", api.AddProductToCart).Methods(\"POST\")\n\trouter.HandleFunc(\"/cart\", api.RemoveProductFromCart).Methods(\"PUT\")\n\trouter.HandleFunc(\"/cart\", api.GetCart).Methods(\"GET\")\n\n\t// Apply middleware\n\thttp.Handle(\"/\", api.authenticate(router))\n\n\t// Start the server on the specified port\n\taddr := fmt.Sprintf(\":%d\", port)\n\thttp.ListenAndServe(addr, nil)\n}\n\n/*// StartServer запускает сервер API на указанном порту.\nfunc (api *API) StartServer() {\n\trouter := mux.NewRouter()\n\n\t// Health check endpoint\n\trouter.HandleFunc(\"/health-check\", api.HealthCheck).Methods(\"GET\")\n\n\t// Shop endpoints\n\trouter.HandleFunc(\"/shop\", api.Shops).Methods(\"GET\")\n\trouter.HandleFunc(\"/shop\", api.AddShops).Methods(\"POST\")\n\trouter.HandleFunc(\"/shop/{id}\", api.DeletionByID).Methods(\"DELETE\")\n\trouter.HandleFunc(\"/shop/{id}\", api.UpdateByID).Methods(\"PUT\")\n\trouter.HandleFunc(\"/shop/{id}\", api.GetByID).Methods(\"GET\")\n\n\t// Catalog endpoints\n\trouter.HandleFunc(\"/product\", api.Products).Methods(\"GET\")\n\trouter.HandleFunc(\"/product\", api.AddProducts).Methods(\"POST\")\n\trouter.HandleFunc(\"/product/{id}\", api.DeleteProductByID).Methods(\"DELETE\")\n\trouter.HandleFunc(\"/product/{id}\", api.UpdateProductByID).Methods(\"PUT\")\n\trouter.HandleFunc(\"/product/{id}\", api.GetProductByID).Methods(\"GET\")\n\n\t// User endpoints\n\trouter.HandleFunc(\"/user\", api.registerUserHandler).Methods(\"POST\")\n\trouter.HandleFunc(\"/user/activated\", api.activateUserHandler).Methods(\"PUT\")\n\n\t// Token endpoint\n\trouter.HandleFunc(\"/tokens/authentication\", api.createAuthenticationTokenHandler).Methods(\"POST\")\n\t/*\n\t\trouter.HandleFunc(\"/cart\", api.AddProductToCart).Methods(\"POST\")\n\t\trouter.HandleFunc(\"/cart\", api.RemoveProductFromCart).Methods(\"PUT\")\n\t\trouter.HandleFunc(\"/cart\", api.GetCart).Methods(\"GET\")\n\n\t// Запуск маршрутизатора на указанном порту\n\tgo func() {\n\t\tif err := http.ListenAndServe(\":8080\", router); err != nil {\n\t\t\tlog.Fatalf(\"server error: %v\", err)\n\t\t}\n\t}()\n}*/\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/api/routes.go b/api/routes.go
+--- a/api/routes.go	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ b/api/routes.go	(date 1715855615192)
+@@ -6,71 +6,6 @@
+ 	"net/http"
+ )
+ 
+-//func (api *API) StartServer() http.Handler {
+-//	router := mux.NewRouter()
+-//	// Convert the app.notFoundResponse helper to a http.Handler using the http.HandlerFunc()
+-//	// adapter, and then set it as the custom error handler for 404 Not Found responses.
+-//	router.NotFoundHandler = http.HandlerFunc(api.notFoundResponse)
+-//
+-//	// Convert app.methodNotAllowedResponse helper to a http.Handler and set it as the custom
+-//	// error handler for 405 Method Not Allowed responses
+-//	router.MethodNotAllowedHandler = http.HandlerFunc(api.methodNotAllowedResponse)
+-//
+-//	// healthcheck
+-//	router.HandleFunc("/health-check", api.requireActivatedUser(api.HealthCheck)).Methods("GET")
+-//	router.HandleFunc("/shop", api.requireActivatedUser(api.Shops)).Methods("GET")
+-//	router.HandleFunc("/shop", api.requireActivatedUser(api.AddShops)).Methods("POST")
+-//	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.DeletionByID)).Methods("DELETE")
+-//	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.UpdateByID)).Methods("PUT")
+-//	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.GetByID)).Methods("GET")
+-//
+-//	router.HandleFunc("/catalog", api.requireActivatedUser(api.Products)).Methods("GET")
+-//	router.HandleFunc("/catalog", api.requireActivatedUser(api.AddProducts)).Methods("POST")
+-//	router.HandleFunc("/catalog/{id}", api.requireActivatedUser(api.DeleteProductByID)).Methods("DELETE")
+-//	router.HandleFunc("/catalog/{id}", api.requireActivatedUser(api.UpdateProductByID)).Methods("PUT")
+-//	router.HandleFunc("/catalog/{id}", api.requireActivatedUser(api.GetProductByID)).Methods("GET")
+-//	router.HandleFunc("/user", api.registerUserHandler).Methods("POST")
+-//	router.HandleFunc("/user/activated", api.activateUserHandler).Methods("PUT")
+-//	router.HandleFunc("/tokens/authentication", api.createAuthenticationTokenHandler).Methods("POST")
+-//	http.Handle("/", api.authenticate(router))
+-//	http.ListenAndServe(":2003", router)
+-//	//return api.authenticate(router)
+-//}
+-
+-//func (api *API) StartServer() {
+-//	router := mux.NewRouter()
+-//
+-//	// Health check endpoint
+-//	router.HandleFunc("/health-check", api.requireActivatedUser(api.HealthCheck)).Methods("GET")
+-//
+-//	// Shop endpoints
+-//	router.HandleFunc("/shop", api.Shops).Methods("GET")
+-//	router.HandleFunc("/shop", api.requirePermission("shop:write", api.AddShops)).Methods("POST")
+-//	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.DeletionByID)).Methods("DELETE")
+-//	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.UpdateByID)).Methods("PUT")
+-//	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.GetByID)).Methods("GET")
+-//
+-//	// Catalog endpoints
+-//	router.HandleFunc("/product", api.requireActivatedUser(api.Products)).Methods("GET")
+-//	router.HandleFunc("/product", api.requireActivatedUser(api.AddProducts)).Methods("POST")
+-//	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.DeleteProductByID)).Methods("DELETE")
+-//	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.UpdateProductByID)).Methods("PUT")
+-//	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.GetProductByID)).Methods("GET")
+-//
+-//	// User endpoints
+-//	router.HandleFunc("/user", api.registerUserHandler).Methods("POST")
+-//	router.HandleFunc("/user/activated", api.activateUserHandler).Methods("PUT")
+-//
+-//	// Token endpoint
+-//	router.HandleFunc("/tokens/authentication", api.createAuthenticationTokenHandler).Methods("POST")
+-//
+-//	// Apply middleware
+-//	http.Handle("/", api.authenticate(router))
+-//
+-//	// Start the server
+-//	http.ListenAndServe(":2003", nil)
+-//}
+-
+ // StartServer starts the API server on the specified port.
+ func (api *API) StartServer(port int) {
+ 	router := mux.NewRouter()
+Index: cmd/main.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package main\n\n/*\nimport (\n\t\"Golang_Project/api\"\n\t\"Golang_Project/pkg/model\"\n\t\"database/sql\"\n\t\"fmt\"\n\t_ \"github.com/lib/pq\"\n\t\"log\"\n\t\"os\"\n)\n\nconst (\n\thost     = \"localhost\"\n\tport     = 5432\n\tuser     = \"postgres\"\n\tpassword = \"Nurkhan05\"\n\tdbname   = \"jana\"\n)\n\nfunc main() {\n\tpsqlInfo := fmt.Sprintf(\"host=%s port=%d user=%s \"+\n\t\t\"password=%s dbname=%s sslmode=disable\",\n\t\thost, port, user, password, dbname)\n\n\t// Установка соединения с базой данных\n\tdb, err := sql.Open(\"postgres\", psqlInfo)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\tdefer db.Close()\n\n\tshopModel := &model.ShopModel{\n\t\tDB:       db,\n\t\tInfoLog:  log.New(os.Stdout, \"INFO: \", log.Ldate|log.Ltime|log.Lshortfile),\n\t\tErrorLog: log.New(os.Stderr, \"ERROR: \", log.Ldate|log.Ltime|log.Lshortfile),\n\t}\n\tproductModel := &model.ProductModel{\n\t\tDB:       db,\n\t\tInfoLog:  log.New(os.Stdout, \"INFO: \", log.Ldate|log.Ltime|log.Lshortfile),\n\t\tErrorLog: log.New(os.Stderr, \"ERROR: \", log.Ldate|log.Ltime|log.Lshortfile),\n\t}\n\tuserModel := &model.UserModel{\n\t\tDB:       db,\n\t\tInfoLog:  log.New(os.Stdout, \"INFO: \", log.Ldate|log.Ltime|log.Lshortfile),\n\t\tErrorLog: log.New(os.Stderr, \"ERROR: \", log.Ldate|log.Ltime|log.Lshortfile),\n\t}\n\ttokenModel := &model.TokenModel{\n\t\tDB:       db,\n\t\tInfoLog:  log.New(os.Stdout, \"INFO: \", log.Ldate|log.Ltime|log.Lshortfile),\n\t\tErrorLog: log.New(os.Stderr, \"ERROR: \", log.Ldate|log.Ltime|log.Lshortfile),\n\t}\n\tpermissionModel := &model.PermissionModel{\n\t\tDB:       db,\n\t\tInfoLog:  log.New(os.Stdout, \"INFO: \", log.Ldate|log.Ltime|log.Lshortfile),\n\t\tErrorLog: log.New(os.Stderr, \"ERROR: \", log.Ldate|log.Ltime|log.Lshortfile),\n\t}\n\n\t// Создание объекта Filters с необходимыми значениями\n\tfilters := model.Filters{\n\t\tPage:     1,\n\t\tPageSize: 10,\n\t\t// Можете также установить другие значения фильтрации здесь, если необходимо\n\t}\n\n\t// Получение списка магазинов с помощью метода GetShops\n\tshops, metadata, err := shopModel.GetAllShops(filters)\n\tif err != nil {\n\t\tlog.Println(\"Error getting shops:\", err)\n\t\treturn\n\t}\n\n\t// Вывод информации о магазинах и метаданных пагинации\n\tlog.Println(\"Shops:\", shops)\n\tlog.Println(\"Metadata:\", metadata)\n\t//log.Println(\"Users:\", users)\n\n\tapi := api.NewAPI(shopModel, productModel, userModel, tokenModel, permissionModel)\n\tapi.StartServer()\n}*/\n\nimport (\n\t\"Golang_Project/api\"\n\t\"Golang_Project/pkg/model\"\n\t\"database/sql\"\n\t\"flag\"\n\t\"github.com/golang-migrate/migrate/v4\"\n\t\"github.com/golang-migrate/migrate/v4/database/postgres\"\n\t_ \"github.com/golang-migrate/migrate/v4/source/file\"\n\t\"log\"\n\t\"os\"\n)\n\n// Define the configuration struct\ntype config struct {\n\tport       int\n\tenv        string\n\tmigrations string\n\tdb         struct {\n\t\tdsn string\n\t}\n}\n\nfunc main() {\n\tfs := flag.NewFlagSet(\"demo-app\", flag.ContinueOnError)\n\n\tvar (\n\t\tcfg        config\n\t\tmigrations = fs.String(\"migrations\", \"\", \"Path to migration files folder. If not provided, migrations do not applied\")\n\t\tport       = fs.Int(\"port\", 8080, \"API server port\")\n\t\tenv        = fs.String(\"env\", \"development\", \"Environment (development|staging|production)\")\n\t\tdbDsn      = fs.String(\"dsn\", \"postgres://postgres:Bayernmunichtm25@localhost:5432/jana?sslmode=disable\", \"PostgreSQL DSN\")\n\t)\n\n\tif err := fs.Parse(os.Args[1:]); err != nil {\n\t\tlog.Fatalf(\"error parsing flags: %v\", err)\n\t}\n\n\tcfg.port = *port\n\tcfg.env = *env\n\tcfg.db.dsn = *dbDsn\n\tcfg.migrations = *migrations\n\n\t// Initialize logger\n\tlogger := log.New(os.Stdout, \"INFO: \", log.Ldate|log.Ltime|log.Lshortfile)\n\n\t// Connect to database\n\tdb, err := sql.Open(\"postgres\", cfg.db.dsn)\n\tif err != nil {\n\t\tlogger.Fatalf(\"error connecting to database: %v\", err)\n\t}\n\tdefer db.Close()\n\n\t// Run migrations\n\tif cfg.migrations != \"\" {\n\t\tdriver, err := postgres.WithInstance(db, &postgres.Config{})\n\t\tif err != nil {\n\t\t\tlogger.Fatalf(\"error creating migration driver: %v\", err)\n\t\t}\n\t\tm, err := migrate.NewWithDatabaseInstance(\n\t\t\tcfg.migrations,\n\t\t\t\"postgres\", driver)\n\t\tif err != nil {\n\t\t\tlogger.Fatalf(\"error creating migration instance: %v\", err)\n\t\t}\n\t\tif err := m.Up(); err != nil {\n\t\t\tlogger.Fatalf(\"error applying migrations: %v\", err)\n\t\t}\n\t}\n\n\t// Create models\n\tshopModel := &model.ShopModel{\n\t\tDB:       db,\n\t\tInfoLog:  logger,\n\t\tErrorLog: logger,\n\t}\n\tproductModel := &model.ProductModel{\n\t\tDB:       db,\n\t\tInfoLog:  logger,\n\t\tErrorLog: logger,\n\t}\n\tuserModel := &model.UserModel{\n\t\tDB:       db,\n\t\tInfoLog:  logger,\n\t\tErrorLog: logger,\n\t}\n\ttokenModel := &model.TokenModel{\n\t\tDB:       db,\n\t\tInfoLog:  logger,\n\t\tErrorLog: logger,\n\t}\n\tpermissionModel := &model.PermissionModel{\n\t\tDB:       db,\n\t\tInfoLog:  logger,\n\t\tErrorLog: logger,\n\t}\n\tcartModel := &model.CartModel{\n\t\tDB:       db,\n\t\tInfoLog:  logger,\n\t\tErrorLog: logger,\n\t}\n\n\t// Start server\n\tapi := api.NewAPI(shopModel, productModel, userModel, tokenModel, permissionModel, cartModel)\n\tapi.StartServer(cfg.port)\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/cmd/main.go b/cmd/main.go
+--- a/cmd/main.go	(revision 9849a17cc8b92f8c91d096ab6681b46f194d0932)
++++ b/cmd/main.go	(date 1715855614545)
+@@ -1,85 +1,5 @@
+ package main
+ 
+-/*
+-import (
+-	"Golang_Project/api"
+-	"Golang_Project/pkg/model"
+-	"database/sql"
+-	"fmt"
+-	_ "github.com/lib/pq"
+-	"log"
+-	"os"
+-)
+-
+-const (
+-	host     = "localhost"
+-	port     = 5432
+-	user     = "postgres"
+-	password = "Nurkhan05"
+-	dbname   = "jana"
+-)
+-
+-func main() {
+-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+-		"password=%s dbname=%s sslmode=disable",
+-		host, port, user, password, dbname)
+-
+-	// Установка соединения с базой данных
+-	db, err := sql.Open("postgres", psqlInfo)
+-	if err != nil {
+-		panic(err)
+-	}
+-	defer db.Close()
+-
+-	shopModel := &model.ShopModel{
+-		DB:       db,
+-		InfoLog:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
+-		ErrorLog: log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
+-	}
+-	productModel := &model.ProductModel{
+-		DB:       db,
+-		InfoLog:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
+-		ErrorLog: log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
+-	}
+-	userModel := &model.UserModel{
+-		DB:       db,
+-		InfoLog:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
+-		ErrorLog: log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
+-	}
+-	tokenModel := &model.TokenModel{
+-		DB:       db,
+-		InfoLog:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
+-		ErrorLog: log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
+-	}
+-	permissionModel := &model.PermissionModel{
+-		DB:       db,
+-		InfoLog:  log.New(os.Stdout, "INFO: ", log.Ldate|log.Ltime|log.Lshortfile),
+-		ErrorLog: log.New(os.Stderr, "ERROR: ", log.Ldate|log.Ltime|log.Lshortfile),
+-	}
+-
+-	// Создание объекта Filters с необходимыми значениями
+-	filters := model.Filters{
+-		Page:     1,
+-		PageSize: 10,
+-		// Можете также установить другие значения фильтрации здесь, если необходимо
+-	}
+-
+-	// Получение списка магазинов с помощью метода GetShops
+-	shops, metadata, err := shopModel.GetAllShops(filters)
+-	if err != nil {
+-		log.Println("Error getting shops:", err)
+-		return
+-	}
+-
+-	// Вывод информации о магазинах и метаданных пагинации
+-	log.Println("Shops:", shops)
+-	log.Println("Metadata:", metadata)
+-	//log.Println("Users:", users)
+-
+-	api := api.NewAPI(shopModel, productModel, userModel, tokenModel, permissionModel)
+-	api.StartServer()
+-}*/
+-
+ import (
+ 	"Golang_Project/api"
+ 	"Golang_Project/pkg/model"
+@@ -110,7 +30,7 @@
+ 		migrations = fs.String("migrations", "", "Path to migration files folder. If not provided, migrations do not applied")
+ 		port       = fs.Int("port", 8080, "API server port")
+ 		env        = fs.String("env", "development", "Environment (development|staging|production)")
+-		dbDsn      = fs.String("dsn", "postgres://postgres:Bayernmunichtm25@localhost:5432/jana?sslmode=disable", "PostgreSQL DSN")
++		dbDsn      = fs.String("dsn", "postgres://postgres:adminkbtu@localhost:5432/jana?sslmode=disable", "PostgreSQL DSN")
+ 	)
+ 
+ 	if err := fs.Parse(os.Args[1:]); err != nil {

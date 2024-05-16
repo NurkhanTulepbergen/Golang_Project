@@ -10,6 +10,33 @@ import (
 	"strconv"
 )
 
+//func (api *API) Products(w http.ResponseWriter, r *http.Request) {
+//	log.Println("getAllProducts endpoint accessed")
+//
+//	if r.Method != http.MethodGet {
+//		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+//		return
+//	}
+//
+//	// Retrieve all products
+//	products, err := api.ProductModel.GetAllProduct()
+//	if err != nil {
+//		http.Error(w, "Failed to retrieve products", http.StatusInternalServerError)
+//		return
+//	}
+//
+//	// Formulate the response in JSON format
+//	response := struct {
+//		Products []model.Product `json:"products"`
+//	}{
+//		Products: products,
+//	}
+//
+//	w.Header().Set("Content-Type", "application/json")
+//	w.WriteHeader(http.StatusOK)
+//	json.NewEncoder(w).Encode(response)
+//}
+
 func (api *API) Products(w http.ResponseWriter, r *http.Request) {
 	log.Println("getAllProducts endpoint accessed")
 
@@ -18,18 +45,41 @@ func (api *API) Products(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Retrieve all products
-	products, err := api.ProductModel.GetAllProduct()
+	// Parse query parameters to populate the Filters object
+	queryParams := r.URL.Query()
+	titleFilter := queryParams.Get("title")
+	page, _ := strconv.Atoi(queryParams.Get("page"))
+	pageSize, _ := strconv.Atoi(queryParams.Get("pageSize"))
+	sortBy := queryParams.Get("sortBy")
+	sortOrder := queryParams.Get("sortOrder")
+
+	// Create Filters object with parsed parameters
+	filters := model.Filters{
+		Title:    titleFilter,
+		Page:     page,
+		PageSize: pageSize,
+		SortBy:   sortBy,
+	}
+
+	// Retrieve products with applied filters
+	products, metadata, err := api.ProductModel.GetAllProduct(filters)
 	if err != nil {
 		http.Error(w, "Failed to retrieve products", http.StatusInternalServerError)
 		return
 	}
 
-	// Formulate the response in JSON format
+	// Sort products based on sortBy and sortOrder
+	if sortBy != "" && sortOrder != "" {
+		products = api.ProductModel.SortProducts(products, sortBy, sortOrder)
+	}
+
+	// Formulate response including metadata
 	response := struct {
 		Products []model.Product `json:"products"`
+		Metadata model.Metadata  `json:"metadata"`
 	}{
 		Products: products,
+		Metadata: metadata,
 	}
 
 	w.Header().Set("Content-Type", "application/json")

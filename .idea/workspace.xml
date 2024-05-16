@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AutoImportSettings">
-    <option name="autoReloadType" value="ALL" />
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5b14e68-e5c8-454d-bac0-be3687f2b319" name="Changes" comment="added relation between shop and product">
-      <change afterPath="$PROJECT_DIR$/api/product.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/shop.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/handler.go" afterDir="false" />
+    <list default="true" id="2ae80f2e-c511-4d37-926d-faacbb96ccf0" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/pkg/model/utilsforshop.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Go_project_spring.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Golang_Project.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Golang_Projects.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/product.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/migration/create_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/migration/create_tables.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/product.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/shop.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/shop.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/utils.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,34 +35,27 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file://$USER_HOME$/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22rc1.windows-amd64" />
+  <component name="GOROOT" url="file://$USER_HOME$/sdk/go1.22rc1" />
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;AzamatTaubayev&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "pp2-22B030444"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AzamatTaubayev/Go_project_spring.git&quot;,
-    &quot;accountId&quot;: &quot;4363e522-0e14-4db5-915e-6f2a180fb3ac&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AzamatTaubayev/Go_project_spring.git",
+    "accountId": "9c00ecdf-ecb6-4048-b271-f9fa51831948"
   }
-}</component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 3
-}</component>
-  <component name="ProjectId" id="2fxMxBAfWq8IfIN08vVZAmTWObB" />
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2gXwAW62MOtKCYygjvMGVZxyQ0J" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -57,7 +63,6 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "DefaultGoTemplateProperty": "Go File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
@@ -66,12 +71,10 @@
     "git-widget-placeholder": "master",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/azama",
+    "last_opened_file_path": "C:/Users/Жасмин",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "configurable.group.database.main"
+    "nodejs_package_manager_path": "npm"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -90,11 +93,6 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Aza" />
-    <MESSAGE value="added relation between shop and product" />
-    <option name="LAST_COMMIT_MESSAGE" value="added relation between shop and product" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

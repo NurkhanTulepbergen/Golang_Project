@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"log"
+	"sort"
 	"time"
 )
 
@@ -78,27 +79,94 @@ func (m *ProductModel) UpdateProductByID(id int, newData Product) error {
 	return nil
 }
 
-func (m *ProductModel) GetAllProduct() ([]Product, error) {
+//	func (m *ProductModel) GetAllProduct() ([]Product, error) {
+//		rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description, price, shop_id FROM products")
+//		if err != nil {
+//			m.ErrorLog.Println("Error getting products:", err)
+//			return nil, err
+//		}
+//		defer rows.Close()
+//
+//		var products []Product
+//		for rows.Next() {
+//			var product Product
+//			if err := rows.Scan(&product.ID, &product.CreatedAt, &product.UpdatedAt, &product.Title, &product.Description, &product.Price, &product.ShopID); err != nil {
+//				m.ErrorLog.Println("Error scanning product:", err)
+//				return nil, err
+//			}
+//			products = append(products, product)
+//		}
+//		if err := rows.Err(); err != nil {
+//			m.ErrorLog.Println("Error iterating rows:", err)
+//			return nil, err
+//		}
+//
+//		return products, nil
+//	}
+func (m *ProductModel) GetAllProduct(filters Filters) ([]Product, Metadata, error) {
+	// Fetch products from the database
 	rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description, price, shop_id FROM products")
 	if err != nil {
 		m.ErrorLog.Println("Error getting products:", err)
-		return nil, err
+		return nil, Metadata{}, err
 	}
 	defer rows.Close()
 
+	// Populate products slice
 	var products []Product
 	for rows.Next() {
 		var product Product
 		if err := rows.Scan(&product.ID, &product.CreatedAt, &product.UpdatedAt, &product.Title, &product.Description, &product.Price, &product.ShopID); err != nil {
 			m.ErrorLog.Println("Error scanning product:", err)
-			return nil, err
+			return nil, Metadata{}, err
 		}
 		products = append(products, product)
 	}
 	if err := rows.Err(); err != nil {
 		m.ErrorLog.Println("Error iterating rows:", err)
-		return nil, err
+		return nil, Metadata{}, err
 	}
 
-	return products, nil
+	// Apply filters
+	if filters.Title != "" {
+		products = FilterByTitle(products, filters.Title)
+	}
+
+	// Apply sorting
+	if filters.SortBy != "" {
+		products = SortByPrice(products, filters.SortBy)
+		// If sorting by price, handle sorting direction
+		if filters.SortBy == "price" && filters.SortOrder == "desc" {
+			// Reverse the sorted slice for descending order
+			for i, j := 0, len(products)-1; i < j; i, j = i+1, j-1 {
+				products[i], products[j] = products[j], products[i]
+			}
+		}
+	}
+
+	// Calculate total records after filtering
+	totalRecords := len(products)
+
+	// Apply pagination
+	paginatedProducts := PaginateForProduct(products, filters.Page, filters.PageSize)
+
+	// Calculate metadata based on the number of records after filtering
+	metadata := CalculateMetadata(totalRecords, filters.Page, filters.PageSize)
+
+	return paginatedProducts, metadata, nil
+}
+func (m *ProductModel) SortProducts(products []Product, sortBy, sortOrder string) []Product {
+	switch sortBy {
+	case "price":
+		// Sort products by price
+		sort.Slice(products, func(i, j int) bool {
+			if sortOrder == "asc" {
+				return products[i].Price < products[j].Price
+			}
+			return products[i].Price > products[j].Price
+		})
+		// Add more cases for additional sorting fields if needed
+	}
+
+	return products
 }

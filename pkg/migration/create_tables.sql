@@ -45,4 +45,6 @@ CREATE TABLE IF NOT EXISTS shop_and_products
     FOREIGN KEY (shop_id) REFERENCES shop(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+
+drop table shop_and_products;
 drop table products;

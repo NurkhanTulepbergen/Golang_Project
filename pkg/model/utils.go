@@ -3,10 +3,12 @@ package model
 import "sort"
 
 type Filters struct {
-	Type     string // Пример параметра фильтрации
-	SortBy   string // Поле для сортировки
-	Page     int
-	PageSize int
+	Title     string
+	Type      string // Пример параметра фильтрации
+	SortBy    string // Поле для сортировки
+	Page      int
+	PageSize  int
+	SortOrder string
 }
 
 type Metadata struct {
@@ -66,4 +68,39 @@ func Paginate(shops []Shop, page, pageSize int) []Shop {
 	}
 
 	return shops[start:end]
+}
+func FilterByTitle(products []Product, productTitle string) []Product {
+	var filteredProducts []Product
+	for _, product := range products {
+		if product.Title == productTitle {
+			filteredProducts = append(filteredProducts, product)
+		}
+	}
+	return filteredProducts
+}
+
+func SortByPrice(products []Product, sortBy string) []Product {
+	switch sortBy {
+	case "price":
+		sort.Slice(products, func(i, j int) bool {
+			return products[i].Price < products[j].Price
+		})
+		// Add more cases for additional fields if needed
+	}
+	return products
+}
+
+func PaginateForProduct(product []Product, page, pageSize int) []Product {
+	start := (page - 1) * pageSize
+	end := start + pageSize
+
+	if start >= len(product) {
+		return nil
+	}
+
+	if end > len(product) {
+		end = len(product)
+	}
+
+	return product[start:end]
 }
