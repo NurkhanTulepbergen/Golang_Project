@@ -1,16 +1,15 @@
 package main
 
 import (
-	"encoding/json"
+	"database/sql"
 	"fmt"
+	_ "github.com/lib/pq"
 	"log"
-	"net/http"
-	"strconv"
-
-	"github.com/gorilla/mux"
+	"net/url"
+	"time"
 )
 
-type Response struct {
+/*type Response struct {
 	Books []Info `json:"books"`
 }
 
@@ -120,4 +119,25 @@ func BookInfo(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write(jsonResponse)
+}
+*/
+
+func main() {
+	// Подключение к базе данных
+	db, err := sql.Open("postgres", "postgresql://postgres:"+url.QueryEscape("Nurkhan05")+"@localhost:5432/jana?sslmode=disable")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	// Установка тайм-аута для выполнения запросов к базе данных
+	db.SetConnMaxLifetime(time.Minute * 3)
+
+	// Проверка подключения к базе данных
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Connected to DB!")
 }

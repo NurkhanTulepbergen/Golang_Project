@@ -10,22 +10,21 @@ services:
       ENV: development
       FILL: false
       MIGRATIONS: file://migration
-      DSN: postgres://postgres:Bayernmunichtm25@localhost:5432/jana?sslmode=disable
+      DSN: postgresql://postgres:Nurkhan05@db:5432/jana?sslmode=disable
     ports:
-      - "8081:8080"
+      - "8080:8080"
     depends_on:
       - db
 
   db:
-    image: postgres:15
+    image: postgres:16
     environment:
       POSTGRES_DB: jana
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Bayernmunichtm25
+      POSTGRES_PASSWORD: Nurkhan05
     ports:
       - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-
 volumes:
   pgdata:

@@ -43,7 +43,7 @@ func (m *ProductModel) AddProduct(product Product) error {
 
 func (m *ProductModel) GetProductByID(id string) (*Product, error) {
 	var product Product
-	err := m.DB.QueryRow("SELECT id, created_at, updated_at, title, description,price FROM products WHERE id = $1", id).
+	err := m.DB.QueryRow("SELECT id, created_at, updated_at, title, description, price FROM products WHERE id = $1", id).
 		Scan(&product.ID, &product.CreatedAt, &product.UpdatedAt, &product.Title, &product.Description, &product.Price)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
