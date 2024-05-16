@@ -202,3 +202,28 @@ func (m *ShopModel) GetShopByID(id string) (*Shop, error) {
 	}
 	return &shop, nil
 }
+
+func (m *ShopModel) GetProductsByShopID(shopID int64) ([]Product, error) {
+	rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description, price, shop_id FROM products WHERE shop_id = $1", shopID)
+	if err != nil {
+		m.ErrorLog.Println("Error getting products for shop:", err)
+		return nil, err
+	}
+	defer rows.Close()
+
+	var products []Product
+	for rows.Next() {
+		var product Product
+		if err := rows.Scan(&product.ID, &product.CreatedAt, &product.UpdatedAt, &product.Title, &product.Description, &product.Price, &product.ShopID); err != nil {
+			m.ErrorLog.Println("Error scanning product:", err)
+			return nil, err
+		}
+		products = append(products, product)
+	}
+	if err := rows.Err(); err != nil {
+		m.ErrorLog.Println("Error iterating rows:", err)
+		return nil, err
+	}
+
+	return products, nil
+}

@@ -15,6 +15,7 @@ type Product struct {
 	Description    string    `json:"description"`
 	Price          float64   `json:"price"`
 	AvailableStock uint      `json:"availableStock"`
+	ShopID         int64     `json:"shopID"`
 }
 
 type ProductModel struct {
@@ -24,14 +25,14 @@ type ProductModel struct {
 }
 
 func (m *ProductModel) AddProduct(product Product) error {
-	// Check if the shop data is valid
-	if product.Title == "" || product.Description == "" {
-		return errors.New("title, description, price are required fields")
+	// Check if the product data is valid
+	if product.Title == "" || product.Description == "" || product.ShopID == 0 {
+		return errors.New("title, description, and shopID are required fields")
 	}
 
 	// Perform the database insertion
-	_, err := m.DB.Exec("INSERT INTO products (created_at, updated_at, title, description,price) VALUES (NOW(), NOW(), $1, $2, $3)",
-		product.Title, product.Description, product.Price)
+	_, err := m.DB.Exec("INSERT INTO products (created_at, updated_at, title, description, price, shop_id) VALUES (NOW(), NOW(), $1, $2, $3, $4)",
+		product.Title, product.Description, product.Price, product.ShopID)
 	if err != nil {
 		m.ErrorLog.Println("Error adding product:", err)
 		return err
@@ -78,9 +79,9 @@ func (m *ProductModel) UpdateProductByID(id int, newData Product) error {
 }
 
 func (m *ProductModel) GetAllProduct() ([]Product, error) {
-	rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description, price FROM products")
+	rows, err := m.DB.Query("SELECT id, created_at, updated_at, title, description, price, shop_id FROM products")
 	if err != nil {
-		m.ErrorLog.Println("Error getting product:", err)
+		m.ErrorLog.Println("Error getting products:", err)
 		return nil, err
 	}
 	defer rows.Close()
@@ -88,7 +89,7 @@ func (m *ProductModel) GetAllProduct() ([]Product, error) {
 	var products []Product
 	for rows.Next() {
 		var product Product
-		if err := rows.Scan(&product.ID, &product.CreatedAt, &product.UpdatedAt, &product.Title, &product.Description, &product.Price); err != nil {
+		if err := rows.Scan(&product.ID, &product.CreatedAt, &product.UpdatedAt, &product.Title, &product.Description, &product.Price, &product.ShopID); err != nil {
 			m.ErrorLog.Println("Error scanning product:", err)
 			return nil, err
 		}

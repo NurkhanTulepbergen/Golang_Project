@@ -81,16 +81,17 @@ func (api *API) StartServer(port int) {
 	// Shop endpoints
 	router.HandleFunc("/shop", api.Shops).Methods("GET")
 	router.HandleFunc("/shop", api.AddShops).Methods("POST")
-	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.DeletionByID)).Methods("DELETE")
-	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.UpdateByID)).Methods("PUT")
-	router.HandleFunc("/shop/{id}", api.requireActivatedUser(api.GetByID)).Methods("GET")
+	router.HandleFunc("/shop/{id}", api.DeletionByID).Methods("DELETE")
+	router.HandleFunc("/shop/{id}", api.UpdateByID).Methods("PUT")
+	router.HandleFunc("/shop/{id}", api.GetByID).Methods("GET")
+	router.HandleFunc("/shop/{shop_id}/product", api.GetProductsByShopIDHandler).Methods("GET")
 
 	// Catalog endpoints
-	router.HandleFunc("/product", api.requireActivatedUser(api.Products)).Methods("GET")
-	router.HandleFunc("/product", api.requireActivatedUser(api.AddProducts)).Methods("POST")
-	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.DeleteProductByID)).Methods("DELETE")
-	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.UpdateProductByID)).Methods("PUT")
-	router.HandleFunc("/product/{id}", api.requireActivatedUser(api.GetProductByID)).Methods("GET")
+	router.HandleFunc("/product", api.Products).Methods("GET")
+	router.HandleFunc("/product", api.AddProducts).Methods("POST")
+	router.HandleFunc("/product/{id}", api.DeleteProductByID).Methods("DELETE")
+	router.HandleFunc("/product/{id}", api.UpdateProductByID).Methods("PUT")
+	router.HandleFunc("/product/{id}", api.GetProductByID).Methods("GET")
 
 	// User endpoints
 	router.HandleFunc("/user", api.registerUserHandler).Methods("POST")

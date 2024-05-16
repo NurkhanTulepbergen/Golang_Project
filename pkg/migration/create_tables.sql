@@ -20,7 +20,9 @@ CREATE TABLE IF NOT EXISTS products
     updated_at      timestamp(0) with time zone NOT NULL DEFAULT NOW(),
     title           text NOT NULL,
     description     text,
-    price           float
+    price           float,
+    shop_id         bigint NOT NULL,
+    FOREIGN KEY (shop_id) REFERENCES shop (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS shop
@@ -43,3 +45,4 @@ CREATE TABLE IF NOT EXISTS shop_and_products
     FOREIGN KEY (shop_id) REFERENCES shop(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+drop table products;

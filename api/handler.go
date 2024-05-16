@@ -475,3 +475,57 @@ func (api *API) GetCart(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
 }
+
+//	func GetProductsByShopIDHandler(api *API) (w http.ResponseWriter, r *http.Request) {
+//		// Parse shop ID from URL parameter
+//		shopID := r.URL.Query().Get("shopID")
+//
+//		// Validate shop ID
+//		if shopID == "" {
+//			http.Error(w, "Missing shopID parameter", http.StatusBadRequest)
+//			return
+//		}
+//
+//		// Retrieve products for the shop from the database
+//		products, err := api.ShopModel.GetProductsByShopID(shopID)
+//		if err != nil {
+//			http.Error(w, "Failed to retrieve products for shop: "+err.Error(), http.StatusInternalServerError)
+//			return
+//		}
+//
+//		// Return products as JSON response
+//		json.NewEncoder(w).Encode(products)
+//	}
+func (api *API) GetProductsByShopIDHandler(w http.ResponseWriter, r *http.Request) {
+	log.Println("GetProductsByShopID endpoint accessed")
+
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	shopID, err := strconv.ParseInt(mux.Vars(r)["shop_id"], 10, 64)
+	if err != nil {
+		http.Error(w, "Invalid shop ID", http.StatusBadRequest)
+		return
+	}
+
+	products, err := api.ShopModel.GetProductsByShopID(shopID)
+	if err != nil {
+		http.Error(w, "Failed to retrieve products for shop", http.StatusInternalServerError)
+		return
+	}
+
+	// Check if there are no products found
+	if len(products) == 0 {
+		http.Error(w, "No products found for the provided shop ID", http.StatusNotFound)
+		return
+	}
+
+	// Encode products as JSON response
+	w.Header().Set("Content-Type", "application/json")
+	if err := json.NewEncoder(w).Encode(products); err != nil {
+		http.Error(w, "Failed to encode products", http.StatusInternalServerError)
+		return
+	}
+}
