@@ -30,7 +30,7 @@ func main() {
 		migrations = fs.String("migrations", "", "Path to migration files folder. If not provided, migrations do not applied")
 		port       = fs.Int("port", 8080, "API server port")
 		env        = fs.String("env", "development", "Environment (development|staging|production)")
-		dbDsn      = fs.String("dsn", "postgres://postgres:adminkbtu@localhost:5432/jana?sslmode=disable", "PostgreSQL DSN")
+		dbDsn      = fs.String("dsn", "postgres://postgres:Bayernmunichtm25@localhost:5432/jana?sslmode=disable", "PostgreSQL DSN")
 	)
 
 	if err := fs.Parse(os.Args[1:]); err != nil {
@@ -100,8 +100,18 @@ func main() {
 		InfoLog:  logger,
 		ErrorLog: logger,
 	}
+	orderModel := &model.OrderModel{
+		DB:       db,
+		InfoLog:  logger,
+		ErrorLog: logger,
+	}
+	historyModel := &model.HistoryModel{
+		DB:       db,
+		InfoLog:  logger,
+		ErrorLog: logger,
+	}
 
 	// Start server
-	api := api.NewAPI(shopModel, productModel, userModel, tokenModel, permissionModel, cartModel)
+	api := api.NewAPI(shopModel, productModel, userModel, tokenModel, permissionModel, cartModel, orderModel, historyModel)
 	api.StartServer(cfg.port)
 }

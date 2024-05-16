@@ -39,6 +39,10 @@ func (api *API) StartServer(port int) {
 	router.HandleFunc("/cart", api.RemoveProductFromCart).Methods("PUT")
 	router.HandleFunc("/cart", api.GetCart).Methods("GET")
 
+	router.HandleFunc("/order", api.GetAllOrders).Methods("GET")
+	router.HandleFunc("/order/{order_id}", api.GetOrder).Methods("GET")
+	router.HandleFunc("/order", api.CreateOrder).Methods("POST")
+
 	// Apply middleware
 	http.Handle("/", api.authenticate(router))
 
