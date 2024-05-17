@@ -46,12 +46,18 @@ func (o *Order) CalculateTotal(db *sql.DB) (float64, error) {
 }
 
 func (m *OrderModel) CreateOrder(order *Order) error {
+	// Validate order data
+	if err := ValidateOrder(order); err != nil {
+		return err
+	}
+
 	// Calculate the total amount for the order
 	total, err := order.CalculateTotal(m.DB)
 	if err != nil {
 		m.ErrorLog.Println("Error calculating total:", err)
 		return err
 	}
+	order.TotalAmount = total
 
 	// Start a transaction
 	tx, err := m.DB.Begin()
@@ -61,14 +67,11 @@ func (m *OrderModel) CreateOrder(order *Order) error {
 	}
 	defer tx.Rollback()
 
-	order.CreatedAt = time.Now()
-
 	// Insert the order
 	err = tx.QueryRow(
 		"INSERT INTO orders (user_id, delivery_addr, status, total_amount, created_at) VALUES ($1, $2, $3, $4, $5) RETURNING id",
 		order.UserID, order.DeliveryAddr, order.Status, total, order.CreatedAt,
 	).Scan(&order.ID)
-
 	if err != nil {
 		m.ErrorLog.Println("Error inserting order:", err)
 		return err
@@ -76,6 +79,9 @@ func (m *OrderModel) CreateOrder(order *Order) error {
 
 	// Insert the order products
 	for _, op := range order.Products {
+		if op.Quantity <= 0 {
+			return errors.New("quantity must be greater than zero")
+		}
 		_, err := tx.Exec(
 			"INSERT INTO order_products (order_id, product_id, quantity) VALUES ($1, $2, $3)",
 			order.ID, op.ProductID, op.Quantity,
@@ -292,5 +298,28 @@ func (m *OrderModel) UpdateOrder(orderID int, updatedOrder *Order) error {
 	}
 
 	m.InfoLog.Println("Order updated successfully:", orderID)
+	return nil
+}
+
+func ValidateProduct(product *Product) error {
+	if product.Title == "" {
+		return errors.New("title is required")
+	}
+	if product.Price <= 0 {
+		return errors.New("price must be greater than zero")
+	}
+	// Add more validation rules as needed
+	return nil
+}
+
+// ValidateOrder checks if an order has valid data
+func ValidateOrder(order *Order) error {
+	if order.UserID <= 0 {
+		return errors.New("user ID is required and must be greater than zero")
+	}
+	if len(order.Products) == 0 {
+		return errors.New("order must contain at least one product")
+	}
+	// Add more validation rules as needed
 	return nil
 }

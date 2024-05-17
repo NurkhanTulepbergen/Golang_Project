@@ -4,20 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ae80f2e-c511-4d37-926d-faacbb96ccf0" name="Changes" comment="added update method for order entity">
-      <change afterPath="$PROJECT_DIR$/api/follow.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/migration/create_table_follow.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/model/follow.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6/storage_v2/_src_/database/jana.KqkxAA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6/storage_v2/_src_/database/jana.KqkxAA/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6/storage_v2/_src_/database/jana.KqkxAA/schema/public.abK9xQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6/storage_v2/_src_/database/jana.KqkxAA/schema/public.abK9xQ.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="2ae80f2e-c511-4d37-926d-faacbb96ccf0" name="Changes" comment="added follow entity">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/model.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/shop.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/shop.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/product.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/shop.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/shop.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/shopandproduct.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/utils.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,10 +85,22 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="separated each handler function" />
     <MESSAGE value="added update method for order entity" />
-    <option name="LAST_COMMIT_MESSAGE" value="added update method for order entity" />
+    <MESSAGE value="added follow entity" />
+    <option name="LAST_COMMIT_MESSAGE" value="added follow entity" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

@@ -1,6 +1,7 @@
 package model
 
 import (
+	"Golang_Project/pkg/validator"
 	"database/sql"
 	"errors"
 	"log"
@@ -23,9 +24,15 @@ type ShopModel struct {
 }
 
 func (m *ShopModel) AddShop(shop Shop) error {
-	// Check if the shop data is valid
-	if shop.Title == "" || shop.Description == "" {
-		return errors.New("title and description are required fields")
+	// Validate shop data
+	v := validator.New()
+
+	// Check required fields
+	v.Check(shop.Title != "", "title", "title is required")
+	v.Check(shop.Description != "", "description", "description is required")
+
+	if !v.Valid() {
+		return errors.New("invalid shop data: " + v.Errors["title"] + " " + v.Errors["description"])
 	}
 
 	// Perform the database insertion
@@ -41,6 +48,17 @@ func (m *ShopModel) AddShop(shop Shop) error {
 }
 
 func (m *ShopModel) UpdateShopByID(id int, newData Shop) error {
+	// Validate shop data
+	v := validator.New()
+
+	// Check required fields
+	v.Check(newData.Title != "", "title", "title is required")
+	v.Check(newData.Description != "", "description", "description is required")
+
+	if !v.Valid() {
+		return errors.New("invalid shop data: " + v.Errors["title"] + " " + v.Errors["description"])
+	}
+
 	_, err := m.DB.Exec("UPDATE shop SET title = $1, description = $2, type = $3, updated_at = $4 WHERE id = $5",
 		newData.Title, newData.Description, newData.Type, time.Now(), id)
 	if err != nil {
