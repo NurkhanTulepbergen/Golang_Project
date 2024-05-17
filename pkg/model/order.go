@@ -185,6 +185,39 @@ func (m *OrderModel) GetOrder(orderID int) (*Order, error) {
 
 	return order, nil
 }
+func (m *OrderModel) FilterOrders(userID int, filters Filters) ([]*Order, Metadata, error) {
+	// Fetch all orders for a specific user
+	orders, err := m.GetAllOrders(userID)
+	if err != nil {
+		return nil, Metadata{}, err
+	}
+
+	// Apply filters
+	if filters.Title != "" {
+		orders = FilterByOrder(orders, filters.Title)
+	}
+
+	// Apply sorting
+	if filters.SortBy != "" {
+		switch filters.SortBy {
+		case "total_amount":
+			orders = SortByTotalAmount(orders, filters.SortOrder)
+		case "created_at":
+			orders = SortByCreatedAt(orders, filters.SortOrder)
+			// Add more cases for additional fields if needed
+		}
+	}
+
+	// Calculate metadata
+	totalRecords := len(orders)
+	metadata := CalculateMetadata(totalRecords, filters.Page, filters.PageSize)
+
+	// Apply pagination
+	orders = PaginateOrders(orders, filters.Page, filters.PageSize)
+
+	return orders, metadata, nil
+}
+
 func (m *OrderModel) DeleteOrder(orderID int) error {
 	// Start a transaction
 	tx, err := m.DB.Begin()

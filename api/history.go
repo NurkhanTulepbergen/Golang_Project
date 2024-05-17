@@ -28,20 +28,24 @@ func (api *API) AddHistoryHandler(w http.ResponseWriter, r *http.Request) {
 
 // Handler to get history for a user
 func (api *API) GetHistoryHandler(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	userID, err := strconv.Atoi(params["userID"])
-	if err != nil {
-		http.Error(w, "Invalid user ID", http.StatusBadRequest)
-		return
-	}
+	// Parse query parameters
+	filter := &model.HistoryFilter{}
+	filter.UserID, _ = strconv.Atoi(r.URL.Query().Get("user_id"))
+	filter.SortBy = r.URL.Query().Get("sort_by")
+	filter.Order = r.URL.Query().Get("order")
+	filter.Page, _ = strconv.Atoi(r.URL.Query().Get("page"))
+	filter.PageSize, _ = strconv.Atoi(r.URL.Query().Get("page_size"))
 
-	history, err := api.HistoryModel.GetHistory(userID)
+	// Get history from the model
+	historyList, err := api.HistoryModel.GetHistory(filter)
 	if err != nil {
 		http.Error(w, "Failed to get history", http.StatusInternalServerError)
 		return
 	}
 
-	json.NewEncoder(w).Encode(history)
+	// Encode the response as JSON and send it
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(historyList)
 }
 
 // Handler to delete history for a user

@@ -5,14 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2ae80f2e-c511-4d37-926d-faacbb96ccf0" name="Changes" comment="Zhasmin">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6/storage_v2/_src_/database/jana.KqkxAA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6/storage_v2/_src_/database/jana.KqkxAA/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_05_2024_19_03__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_05_2024_19_03__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/history.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/history.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/order.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/migration/create_tables_orders.sql" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/migration/create_tables_orders.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/migration/create_table_history.sql" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/migration/create_table_history.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/history.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/history.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/model/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/utils.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

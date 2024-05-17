@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/pkg/migration/create_table_history.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/pkg/migration/create_tables.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/pkg/migration/create_tables_orders.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/pkg/migration/create_tokens_table.up.sql" dialect="GenericSQL" />
   </component>
 </project>

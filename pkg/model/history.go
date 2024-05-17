@@ -12,6 +12,13 @@ type History struct {
 	UserName   string
 	OrdersList []*Order
 }
+type HistoryFilter struct {
+	UserID   int    // Фильтр по идентификатору пользователя
+	SortBy   string // Поле для сортировки (например, "user_id" или "user_name")
+	Order    string // Порядок сортировки ("asc" или "desc")
+	Page     int    // Номер страницы
+	PageSize int    // Размер страницы
+}
 
 type HistoryModel struct {
 	DB       *sql.DB
@@ -37,26 +44,63 @@ func (m *HistoryModel) AddHistory(userID int, userName string, ordersList []*Ord
 	return nil
 }
 
-func (m *HistoryModel) GetHistory(userID int) (*History, error) {
-	row := m.DB.QueryRow("SELECT user_id, user_name, orders_list FROM history WHERE user_id = $1", userID)
+func (m *HistoryModel) GetHistory(filter *HistoryFilter) ([]*History, error) {
+	// Start building the SQL query
+	query := "SELECT user_id, user_name, orders_list FROM history WHERE 1 = 1"
+	args := make([]interface{}, 0)
 
-	history := &History{}
-	var ordersJSON []byte
+	// Add filters
+	if filter.UserID != 0 {
+		query += " AND user_id = ?"
+		args = append(args, filter.UserID)
+	}
 
-	err := row.Scan(&history.UserID, &history.UserName, &ordersJSON)
+	// Add sorting
+	if filter.SortBy != "" {
+		query += " ORDER BY " + filter.SortBy
+		if filter.Order != "" {
+			query += " " + filter.Order
+		}
+	}
+
+	// Add pagination
+	if filter.Page != 0 && filter.PageSize != 0 {
+		query += " LIMIT ? OFFSET ?"
+		args = append(args, filter.PageSize, (filter.Page-1)*filter.PageSize)
+	}
+
+	// Execute the query
+	rows, err := m.DB.Query(query, args...)
 	if err != nil {
 		m.ErrorLog.Println("Error getting history:", err)
 		return nil, err
 	}
+	defer rows.Close()
 
-	err = json.Unmarshal(ordersJSON, &history.OrdersList)
-	if err != nil {
-		m.ErrorLog.Println("Error unmarshalling orders list:", err)
-		return nil, err
+	// Iterate over the result set and build history objects
+	historyList := make([]*History, 0)
+	for rows.Next() {
+		history := &History{}
+		var ordersJSON []byte
+
+		err := rows.Scan(&history.UserID, &history.UserName, &ordersJSON)
+		if err != nil {
+			m.ErrorLog.Println("Error scanning row:", err)
+			continue
+		}
+
+		err = json.Unmarshal(ordersJSON, &history.OrdersList)
+		if err != nil {
+			m.ErrorLog.Println("Error unmarshalling orders list:", err)
+			continue
+		}
+
+		historyList = append(historyList, history)
 	}
 
-	return history, nil
+	return historyList, nil
 }
+
 func (m *HistoryModel) UpdateHistory(userID int, userName string, ordersList []*Order) error {
 	ordersJSON, err := json.Marshal(ordersList)
 	if err != nil {

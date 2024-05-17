@@ -135,3 +135,50 @@ func (api *API) DeleteOrder(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "Order deleted successfully")
 }
+
+type Filters struct {
+	Title     string
+	SortBy    string
+	SortOrder string
+	Page      int
+	PageSize  int
+}
+
+func (api *API) FilterOrders(w http.ResponseWriter, r *http.Request) {
+	// Получаем идентификатор пользователя из запроса или сессии
+	userID, err := strconv.Atoi(r.URL.Query().Get("user_id"))
+	if err != nil {
+		http.Error(w, "Invalid user ID", http.StatusBadRequest)
+		return
+	}
+
+	// Извлекаем параметры фильтрации, сортировки и пагинации из запроса
+	var filters model.Filters
+	filters.Address = r.URL.Query().Get("address")
+	filters.SortBy = r.URL.Query().Get("sort_by")
+	filters.SortOrder = r.URL.Query().Get("sort_order")
+	filters.Page, _ = strconv.Atoi(r.URL.Query().Get("page"))
+	filters.PageSize, _ = strconv.Atoi(r.URL.Query().Get("page_size"))
+
+	// Вызываем метод FilterOrders модели заказов для применения фильтрации, сортировки и пагинации
+	orders, metadata, err := api.OrderModel.FilterOrders(userID, filters)
+	if err != nil {
+		http.Error(w, "Failed to filter orders", http.StatusInternalServerError)
+		return
+	}
+
+	// Кодируем список заказов и метаданные в формат JSON
+	jsonResponse, err := json.Marshal(map[string]interface{}{
+		"orders":   orders,
+		"metadata": metadata,
+	})
+	if err != nil {
+		http.Error(w, "Failed to encode order data", http.StatusInternalServerError)
+		return
+	}
+
+	// Отправляем ответ с данными о заказах и метаданными
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonResponse)
+}
