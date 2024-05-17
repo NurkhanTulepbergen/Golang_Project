@@ -3,6 +3,7 @@ package api
 import (
 	"Golang_Project/pkg/model"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
@@ -24,6 +25,7 @@ func (api *API) AddHistoryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
+	fmt.Fprintf(w, "History added successfully")
 }
 
 // Handler to get history for a user
@@ -82,4 +84,5 @@ func (api *API) UpdateHistoryHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "History updated successfully")
 }

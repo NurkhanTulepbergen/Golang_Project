@@ -46,10 +46,10 @@ func (api *API) StartServer(port int) {
 	router.HandleFunc("/follow/user/{user_id}/product/{product_id}", api.requireAuthenticatedUser(api.DeleteProductFromFollowList)).Methods("DELETE")
 	router.HandleFunc("/follow/product/{product_id}", api.requireAuthenticatedUser(api.UpdateProductFromFollowList)).Methods("PUT")
 
-	router.HandleFunc("/history/{userID}", api.GetHistoryHandler).Methods("GET")
-	router.HandleFunc("/history", api.AddHistoryHandler).Methods("POST")
-	router.HandleFunc("/history/{userID}", api.DeleteHistoryHandler).Methods("DELETE")
-	router.HandleFunc("/history", api.UpdateHistoryHandler).Methods("PUT")
+	router.HandleFunc("/history/{userID}", api.requireAuthenticatedUser(api.GetHistoryHandler)).Methods("GET")
+	router.HandleFunc("/history", api.requireAuthenticatedUser(api.AddHistoryHandler)).Methods("POST")
+	router.HandleFunc("/history/{userID}", api.requireAuthenticatedUser(api.DeleteHistoryHandler)).Methods("DELETE")
+	router.HandleFunc("/history", api.requireAuthenticatedUser(api.UpdateHistoryHandler)).Methods("PUT")
 
 	// Apply middleware
 	http.Handle("/", api.authenticate(router))
