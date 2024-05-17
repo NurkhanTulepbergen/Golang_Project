@@ -14,19 +14,19 @@ func (api *API) StartServer(port int) {
 	router.HandleFunc("/health-check", api.HealthCheck).Methods("GET")
 
 	// Shop endpoints
-	router.HandleFunc("/shop", api.Shops).Methods("GET")
-	router.HandleFunc("/shop", api.AddShops).Methods("POST")
-	router.HandleFunc("/shop/{id}", api.DeletionByID).Methods("DELETE")
-	router.HandleFunc("/shop/{id}", api.UpdateByID).Methods("PUT")
-	router.HandleFunc("/shop/{id}", api.GetByID).Methods("GET")
-	router.HandleFunc("/shop/{shop_id}/product", api.GetProductsByShopIDHandler).Methods("GET")
+	router.HandleFunc("/shop", api.requireAuthenticatedUser(api.Shops)).Methods("GET")
+	router.HandleFunc("/shop", api.requireAuthenticatedUser(api.AddShops)).Methods("POST")
+	router.HandleFunc("/shop/{id}", api.requireAuthenticatedUser(api.DeletionByID)).Methods("DELETE")
+	router.HandleFunc("/shop/{id}", api.requireAuthenticatedUser(api.UpdateByID)).Methods("PUT")
+	router.HandleFunc("/shop/{id}", api.requireAuthenticatedUser(api.GetByID)).Methods("GET")
+	router.HandleFunc("/shop/{shop_id}/product", api.requireAuthenticatedUser(api.GetProductsByShopIDHandler)).Methods("GET")
 
 	// Catalog endpoints
-	router.HandleFunc("/product", api.Products).Methods("GET")
-	router.HandleFunc("/product", api.AddProducts).Methods("POST")
-	router.HandleFunc("/product/{id}", api.DeleteProductByID).Methods("DELETE")
-	router.HandleFunc("/product/{id}", api.UpdateProductByID).Methods("PUT")
-	router.HandleFunc("/product/{id}", api.GetProductByID).Methods("GET")
+	router.HandleFunc("/product", api.requireAuthenticatedUser(api.Products)).Methods("GET")
+	router.HandleFunc("/product", api.requireAuthenticatedUser(api.AddProducts)).Methods("POST")
+	router.HandleFunc("/product/{id}", api.requireAuthenticatedUser(api.DeleteProductByID)).Methods("DELETE")
+	router.HandleFunc("/product/{id}", api.requireAuthenticatedUser(api.UpdateProductByID)).Methods("PUT")
+	router.HandleFunc("/product/{id}", api.requireAuthenticatedUser(api.GetProductByID)).Methods("GET")
 
 	// User endpoints
 	router.HandleFunc("/user", api.registerUserHandler).Methods("POST")
@@ -41,9 +41,10 @@ func (api *API) StartServer(port int) {
 	router.HandleFunc("/orders/{order_id}", api.requireAuthenticatedUser(api.DeleteOrder)).Methods("DELETE")
 	router.HandleFunc("/orders/{order_id}", api.requireAuthenticatedUser(api.UpdateOrder)).Methods("PUT")
 
-	router.HandleFunc("/follow/user/{user_id}", api.GetFollowDataByUserID).Methods("GET")
-	router.HandleFunc("/follow", api.AddProductToFollowList).Methods("POST")
-	router.HandleFunc("/follow/user/{user_id}/product/{product_id}", api.DeleteProductFromFollowList).Methods("DELETE")
+	router.HandleFunc("/follow/user/{user_id}", api.requireAuthenticatedUser(api.GetFollowDataByUserID)).Methods("GET")
+	router.HandleFunc("/follow", api.requireAuthenticatedUser(api.AddProductToFollowList)).Methods("POST")
+	router.HandleFunc("/follow/user/{user_id}/product/{product_id}", api.requireAuthenticatedUser(api.DeleteProductFromFollowList)).Methods("DELETE")
+	router.HandleFunc("/follow/product/{product_id}", api.requireAuthenticatedUser(api.UpdateProductFromFollowList)).Methods("PUT")
 
 	router.HandleFunc("/history/{userID}", api.GetHistoryHandler).Methods("GET")
 	router.HandleFunc("/history", api.AddHistoryHandler).Methods("POST")

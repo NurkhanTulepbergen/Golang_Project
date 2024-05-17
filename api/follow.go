@@ -97,3 +97,32 @@ func (api *API) GetFollowDataByUserID(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(response)
 }
+func (api *API) UpdateProductFromFollowList(w http.ResponseWriter, r *http.Request) {
+	log.Println("updateFollowProductByID endpoint accessed")
+
+	var flist model.FollowedList
+	err := json.NewDecoder(r.Body).Decode(&flist)
+	if err != nil {
+		http.Error(w, "Failed to decode request body", http.StatusBadRequest)
+		return
+	}
+
+	// Extract the shop ID from the request URL
+	vars := mux.Vars(r)
+	userId, err := strconv.Atoi(vars["product_id"])
+	if err != nil {
+		http.Error(w, "Invalid user ID", http.StatusBadRequest)
+		return
+	}
+
+	// Call the DeleteShopByID method of the ShopModel to delete the shop
+	err = api.FollowModel.UpdateProductFromFollowList(userId, flist)
+	if err != nil {
+		http.Error(w, "Failed to unfollow product", http.StatusInternalServerError)
+		return
+	}
+
+	// Respond with success message
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Product unfollowed successfully")
+}

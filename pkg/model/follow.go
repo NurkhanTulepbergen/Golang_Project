@@ -2,6 +2,7 @@ package model
 
 import (
 	"database/sql"
+	"errors"
 	"log"
 )
 
@@ -16,7 +17,7 @@ type FollowedList struct {
 type Follow struct {
 	UserID           int
 	UserName         string
-	FollowedProducts string // Changed to string type
+	FollowedProducts string
 }
 
 type FollowModel struct {
@@ -25,7 +26,16 @@ type FollowModel struct {
 	ErrorLog *log.Logger
 }
 
+// AddProductToFollowList adds a product to the follow list with basic validation.
 func (m *FollowModel) AddProductToFollowList(flist FollowedList) error {
+	// Basic validation
+	if flist.UserID <= 0 {
+		return errors.New("invalid UserID: must be a positive integer")
+	}
+	if flist.ProductID <= 0 {
+		return errors.New("invalid ProductID: must be a positive integer")
+	}
+
 	_, err := m.DB.Exec(`
         INSERT INTO follow_list (user_id, product_id)
         VALUES ($1, $2)`, flist.UserID, flist.ProductID)
@@ -38,8 +48,16 @@ func (m *FollowModel) AddProductToFollowList(flist FollowedList) error {
 	return nil
 }
 
+// DeleteProductFromFollowList deletes a product from the follow list with basic validation.
 func (m *FollowModel) DeleteProductFromFollowList(userID, productID int) error {
-	// Executing DELETE query to remove a product from the user's follow list
+	// Basic validation
+	if userID <= 0 {
+		return errors.New("invalid UserID: must be a positive integer")
+	}
+	if productID <= 0 {
+		return errors.New("invalid ProductID: must be a positive integer")
+	}
+
 	_, err := m.DB.Exec(`
         DELETE FROM follow_list 
         WHERE user_id = $1 AND product_id = $2`, userID, productID)
@@ -52,8 +70,13 @@ func (m *FollowModel) DeleteProductFromFollowList(userID, productID int) error {
 	return nil
 }
 
+// GetFollowDataByUserID retrieves follow data for a specific user with basic validation.
 func (m *FollowModel) GetFollowDataByUserID(userID int) ([]Follow, error) {
-	// Executing SELECT query to retrieve follow data for the specified user from the follow_list table
+	// Basic validation
+	if userID <= 0 {
+		return nil, errors.New("invalid UserID: must be a positive integer")
+	}
+
 	rows, err := m.DB.Query(`
         SELECT user_id, user_name, followed_products 
         FROM follow
@@ -79,4 +102,44 @@ func (m *FollowModel) GetFollowDataByUserID(userID int) ([]Follow, error) {
 	}
 
 	return followData, nil
+}
+
+// UpdateProductFromFollowList updates a product in the follow list with basic validation.
+func (m *FollowModel) UpdateProductFromFollowList(productsID int, flist FollowedList) error {
+	// Basic validation
+	if productsID <= 0 {
+		return errors.New("invalid ProductID: must be a positive integer")
+	}
+	if flist.UserID <= 0 {
+		return errors.New("invalid UserID: must be a positive integer")
+	}
+	if flist.ProductID <= 0 {
+		return errors.New("invalid ProductID: must be a positive integer")
+	}
+
+	// Start a transaction
+	tx, err := m.DB.Begin()
+	if err != nil {
+		m.ErrorLog.Println("Error starting transaction:", err)
+		return err
+	}
+	defer tx.Rollback()
+
+	// Executing UPDATE query to update the product_id in the follow list
+	_, err = tx.Exec(`
+        UPDATE follow_list 
+        SET product_id = $1
+        WHERE user_id = $2 AND product_id = $3`, productsID, flist.UserID, flist.ProductID)
+	if err != nil {
+		m.ErrorLog.Println("Error updating product ID in follow list:", err)
+		return err
+	}
+
+	if err := tx.Commit(); err != nil {
+		m.ErrorLog.Println("Error committing transaction:", err)
+		return err
+	}
+
+	m.InfoLog.Println("Product ID updated in follow list successfully")
+	return nil
 }
