@@ -49,7 +49,7 @@ func (api *API) StartServer(port int) {
 	router.HandleFunc("/history", api.requireAuthenticatedUser(api.GetHistoryHandler)).Methods("GET")
 	router.HandleFunc("/history", api.requireAuthenticatedUser(api.AddHistoryHandler)).Methods("POST")
 	router.HandleFunc("/history/{userID}", api.requireAuthenticatedUser(api.DeleteHistoryHandler)).Methods("DELETE")
-	router.HandleFunc("/history", api.requireAuthenticatedUser(api.UpdateHistoryHandler)).Methods("PUT")
+	router.HandleFunc("/history/{userID", api.requireAuthenticatedUser(api.UpdateHistoryHandler)).Methods("PUT")
 
 	// Apply middleware
 	http.Handle("/", api.authenticate(router))
