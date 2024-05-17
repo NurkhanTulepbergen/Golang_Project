@@ -34,7 +34,7 @@ To run the project, follow these steps:
 This will run the project on a local server.
 # Marketplace REST API 
 ```
-    # list of shop function
+# list of shop function
 GET /shop
 POST /shop
 GET /shop/{id}
