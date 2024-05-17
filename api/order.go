@@ -182,3 +182,37 @@ func (api *API) FilterOrders(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonResponse)
 }
+
+func (api *API) UpdateOrder(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	orderIDStr, ok := vars["order_id"]
+	if !ok {
+		http.Error(w, "Order ID is required", http.StatusBadRequest)
+		return
+	}
+
+	// Convert orderID to integer
+	orderID, err := strconv.Atoi(orderIDStr)
+	if err != nil {
+		http.Error(w, "Invalid order ID", http.StatusBadRequest)
+		return
+	}
+
+	// Decode the request body into an Order struct
+	decoder := json.NewDecoder(r.Body)
+	var updatedOrder model.Order
+	if err := decoder.Decode(&updatedOrder); err != nil {
+		http.Error(w, "Invalid request payload", http.StatusBadRequest)
+		return
+	}
+
+	// Update the order in the database
+	if err := api.OrderModel.UpdateOrder(orderID, &updatedOrder); err != nil {
+		http.Error(w, "Failed to update order", http.StatusInternalServerError)
+		return
+	}
+
+	// Respond with success message
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Order updated successfully")
+}

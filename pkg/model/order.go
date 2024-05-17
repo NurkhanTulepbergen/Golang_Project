@@ -249,3 +249,48 @@ func (m *OrderModel) DeleteOrder(orderID int) error {
 	m.InfoLog.Println("Order deleted successfully:", orderID)
 	return nil
 }
+
+func (m *OrderModel) UpdateOrder(orderID int, updatedOrder *Order) error {
+	// Start a transaction
+	tx, err := m.DB.Begin()
+	if err != nil {
+		m.ErrorLog.Println("Error starting transaction:", err)
+		return err
+	}
+	defer tx.Rollback()
+
+	// Update the order
+	_, err = tx.Exec("UPDATE orders SET delivery_addr = $1, status = $2 WHERE id = $3",
+		updatedOrder.DeliveryAddr, updatedOrder.Status, orderID)
+	if err != nil {
+		m.ErrorLog.Println("Error updating order:", err)
+		return err
+	}
+
+	// Delete existing order products associated with the order
+	_, err = tx.Exec("DELETE FROM order_products WHERE order_id = $1", orderID)
+	if err != nil {
+		m.ErrorLog.Println("Error deleting existing order products:", err)
+		return err
+	}
+
+	// Insert updated order products
+	for _, op := range updatedOrder.Products {
+		_, err := tx.Exec(
+			"INSERT INTO order_products (order_id, product_id, quantity) VALUES ($1, $2, $3)",
+			orderID, op.ProductID, op.Quantity,
+		)
+		if err != nil {
+			m.ErrorLog.Println("Error inserting updated order product:", err)
+			return err
+		}
+	}
+
+	if err := tx.Commit(); err != nil {
+		m.ErrorLog.Println("Error committing transaction:", err)
+		return err
+	}
+
+	m.InfoLog.Println("Order updated successfully:", orderID)
+	return nil
+}
