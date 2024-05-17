@@ -32,7 +32,44 @@ To run the project, follow these steps:
     ```
 
 This will run the project on a local server.
-# REST API 
+# Marketplace REST API 
+```
+# list of shop function
+GET /shop
+POST /shop
+GET /shop/{id}
+PUT /shop/{id}
+DELETE /shop/{id}
+GET /shop/{shop_id}/product
+
+# list of product fiction
+GET /product
+POST /product
+DELETE /product/{id}
+PUT /product/{id}
+GET /product/{id}
+
+# list of user function
+POST /user
+PUT /user/activated
+POST /tokens/authentication
+
+# list of order function
+GET /order
+GET /order/{order_id}
+POST /order/{order_id}
+
+# list of history function
+GET /history/{userID}
+POST /history
+DELETE /history/{userID}
+PUT /history
+
+# list of follow function
+GET /follow/user/{user_id}
+POST /follow
+DELETE /follow/user/{user_id}/product/{product_id}
+```
 
 ## Create a New User
 
