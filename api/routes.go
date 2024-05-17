@@ -39,9 +39,10 @@ func (api *API) StartServer(port int) {
 	router.HandleFunc("/cart", api.RemoveProductFromCart).Methods("PUT")
 	router.HandleFunc("/cart", api.GetCart).Methods("GET")
 
-	router.HandleFunc("/order", api.GetAllOrders).Methods("GET")
-	router.HandleFunc("/order/{order_id}", api.GetOrder).Methods("GET")
-	router.HandleFunc("/order", api.CreateOrder).Methods("POST")
+	router.HandleFunc("/orders", api.CreateOrder).Methods("POST")
+	router.HandleFunc("/orders/{order_id}", api.GetOrder).Methods("GET")
+	router.HandleFunc("/user/{user_id}/orders", api.GetAllOrders).Methods("GET")
+	router.HandleFunc("/orders/{order_id}", api.DeleteOrder).Methods("DELETE")
 
 	router.HandleFunc("/history/{userID}", api.GetHistoryHandler).Methods("GET")
 	router.HandleFunc("/history", api.AddHistoryHandler).Methods("POST")

@@ -1,14 +1,15 @@
 package api
 
 import (
-	"Golang_Project/pkg/model"
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
-	"log"
 	"net/http"
 	"strconv"
 	"time"
+
+	"Golang_Project/pkg/model"
+	"github.com/gorilla/mux"
+	"log"
 )
 
 func (api *API) CreateOrder(w http.ResponseWriter, r *http.Request) {
@@ -18,6 +19,16 @@ func (api *API) CreateOrder(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid request payload", http.StatusBadRequest)
 		return
 	}
+
+	// Calculate the total amount for the order
+	total, err := order.CalculateTotal(api.OrderModel.DB)
+	if err != nil {
+		http.Error(w, "Failed to calculate total amount", http.StatusInternalServerError)
+		return
+	}
+
+	// Set the total amount for the order
+	order.TotalAmount = total
 
 	// Set the creation timestamp
 	order.CreatedAt = time.Now()
@@ -43,8 +54,15 @@ func (api *API) GetOrder(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	orderID := vars["order_id"]
 
+	// Convert orderID to integer
+	orderIDInt, err := strconv.Atoi(orderID)
+	if err != nil {
+		http.Error(w, "Invalid order ID", http.StatusBadRequest)
+		return
+	}
+
 	// Call the GetOrder method of the OrderModel to retrieve the order information
-	order, err := api.OrderModel.GetOrder(orderID)
+	order, err := api.OrderModel.GetOrder(orderIDInt)
 	if err != nil {
 		http.Error(w, "Failed to get order", http.StatusInternalServerError)
 		return
@@ -64,8 +82,9 @@ func (api *API) GetOrder(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *API) GetAllOrders(w http.ResponseWriter, r *http.Request) {
-	userID := r.URL.Query().Get("user_id")
-	if userID == "" {
+	vars := mux.Vars(r)
+	userID, ok := vars["user_id"]
+	if !ok {
 		http.Error(w, "User ID is required", http.StatusBadRequest)
 		return
 	}
@@ -92,4 +111,27 @@ func (api *API) GetAllOrders(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(response)
+}
+func (api *API) DeleteOrder(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	orderIDStr, ok := vars["order_id"]
+	if !ok {
+		http.Error(w, "Order ID is required", http.StatusBadRequest)
+		return
+	}
+
+	orderID, err := strconv.Atoi(orderIDStr)
+	if err != nil {
+		http.Error(w, "Invalid order ID", http.StatusBadRequest)
+		return
+	}
+
+	err = api.OrderModel.DeleteOrder(orderID)
+	if err != nil {
+		http.Error(w, "Failed to delete order", http.StatusInternalServerError)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "Order deleted successfully")
 }
