@@ -103,56 +103,56 @@ func (m *OrderModel) CreateOrder(order *Order) error {
 
 // Fetch all orders for a specific user
 
-func (m *OrderModel) GetAllOrders(userID int) ([]*Order, error) {
-	rows, err := m.DB.Query("SELECT id, user_id, total_amount, delivery_addr, status, created_at FROM orders WHERE user_id = $1", userID)
-	if err != nil {
-		m.ErrorLog.Println("Error getting orders:", err)
-		return nil, err
-	}
-	defer rows.Close()
-
-	var orders []*Order
-	for rows.Next() {
-		order := &Order{}
-		err := rows.Scan(&order.ID, &order.UserID, &order.TotalAmount, &order.DeliveryAddr, &order.Status, &order.CreatedAt)
-		if err != nil {
-			m.ErrorLog.Println("Error scanning order:", err)
-			return nil, err
-		}
-
-		// Fetch products for this order
-		prodRows, err := m.DB.Query("SELECT product_id, quantity FROM order_products WHERE order_id = $1", order.ID)
-		if err != nil {
-			m.ErrorLog.Println("Error getting order products:", err)
-			return nil, err
-		}
-		defer prodRows.Close()
-
-		for prodRows.Next() {
-			op := OrderProduct{}
-			err := prodRows.Scan(&op.ProductID, &op.Quantity)
-			if err != nil {
-				m.ErrorLog.Println("Error scanning order product:", err)
-				return nil, err
-			}
-			order.Products = append(order.Products, op)
-		}
-
-		if err := prodRows.Err(); err != nil {
-			m.ErrorLog.Println("Error iterating over product rows:", err)
-			return nil, err
-		}
-
-		orders = append(orders, order)
-	}
-
-	if err := rows.Err(); err != nil {
-		m.ErrorLog.Println("Error iterating over order rows:", err)
-		return nil, err
-	}
-
-	return orders, nil
-}
+//func (m *OrderModel) GetAllOrders(userID int) ([]*Order, error) {
+//	rows, err := m.DB.Query("SELECT id, user_id, total_amount, delivery_addr, status, created_at FROM orders WHERE user_id = $1", userID)
+//	if err != nil {
+//		m.ErrorLog.Println("Error getting orders:", err)
+//		return nil, err
+//	}
+//	defer rows.Close()
+//
+//	var orders []*Order
+//	for rows.Next() {
+//		order := &Order{}
+//		err := rows.Scan(&order.ID, &order.UserID, &order.TotalAmount, &order.DeliveryAddr, &order.Status, &order.CreatedAt)
+//		if err != nil {
+//			m.ErrorLog.Println("Error scanning order:", err)
+//			return nil, err
+//		}
+//
+//		// Fetch products for this order
+//		prodRows, err := m.DB.Query("SELECT product_id, quantity FROM order_products WHERE order_id = $1", order.ID)
+//		if err != nil {
+//			m.ErrorLog.Println("Error getting order products:", err)
+//			return nil, err
+//		}
+//		defer prodRows.Close()
+//
+//		for prodRows.Next() {
+//			op := OrderProduct{}
+//			err := prodRows.Scan(&op.ProductID, &op.Quantity)
+//			if err != nil {
+//				m.ErrorLog.Println("Error scanning order product:", err)
+//				return nil, err
+//			}
+//			order.Products = append(order.Products, op)
+//		}
+//
+//		if err := prodRows.Err(); err != nil {
+//			m.ErrorLog.Println("Error iterating over product rows:", err)
+//			return nil, err
+//		}
+//
+//		orders = append(orders, order)
+//	}
+//
+//	if err := rows.Err(); err != nil {
+//		m.ErrorLog.Println("Error iterating over order rows:", err)
+//		return nil, err
+//	}
+//
+//	return orders, nil
+//}
 
 func (m *OrderModel) GetOrder(orderID int) (*Order, error) {
 	order := &Order{}
@@ -191,38 +191,39 @@ func (m *OrderModel) GetOrder(orderID int) (*Order, error) {
 
 	return order, nil
 }
-func (m *OrderModel) FilterOrders(userID int, filters Filters) ([]*Order, Metadata, error) {
-	// Fetch all orders for a specific user
-	orders, err := m.GetAllOrders(userID)
-	if err != nil {
-		return nil, Metadata{}, err
-	}
 
-	// Apply filters
-	if filters.Title != "" {
-		orders = FilterByOrder(orders, filters.Title)
-	}
-
-	// Apply sorting
-	if filters.SortBy != "" {
-		switch filters.SortBy {
-		case "total_amount":
-			orders = SortByTotalAmount(orders, filters.SortOrder)
-		case "created_at":
-			orders = SortByCreatedAt(orders, filters.SortOrder)
-			// Add more cases for additional fields if needed
-		}
-	}
-
-	// Calculate metadata
-	totalRecords := len(orders)
-	metadata := CalculateMetadata(totalRecords, filters.Page, filters.PageSize)
-
-	// Apply pagination
-	orders = PaginateOrders(orders, filters.Page, filters.PageSize)
-
-	return orders, metadata, nil
-}
+//func (m *OrderModel) FilterOrders(userID int, filters Filters) ([]*Order, Metadata, error) {
+//	// Fetch all orders for a specific user
+//	orders, err := m.GetAllOrders(userID)
+//	if err != nil {
+//		return nil, Metadata{}, err
+//	}
+//
+//	// Apply filters
+//	if filters.Address != "" {
+//		orders = FilterByAddress(orders, filters.Address)
+//	}
+//
+//	// Apply sorting
+//	if filters.SortBy != "" {
+//		switch filters.SortBy {
+//		case "total_amount":
+//			orders = SortByTotalAmount(orders, filters.SortOrder)
+//		case "created_at":
+//			orders = SortByCreatedAt(orders, filters.SortOrder)
+//			// Add more cases for additional fields if needed
+//		}
+//	}
+//
+//	// Calculate metadata
+//	totalRecords := len(orders)
+//	metadata := CalculateMetadata(totalRecords, filters.Page, filters.PageSize)
+//
+//	// Apply pagination
+//	orders = PaginateOrders(orders, filters.Page, filters.PageSize)
+//
+//	return orders, metadata, nil
+//}
 
 func (m *OrderModel) DeleteOrder(orderID int) error {
 	// Start a transaction
@@ -254,6 +255,79 @@ func (m *OrderModel) DeleteOrder(orderID int) error {
 
 	m.InfoLog.Println("Order deleted successfully:", orderID)
 	return nil
+}
+func (m *OrderModel) GetAllOrders(filters Filters) ([]*Order, Metadata, error) {
+	query := "SELECT id, user_id, total_amount, delivery_addr, status, created_at FROM orders WHERE user_id = $1"
+	rows, err := m.DB.Query(query, filters.UserID)
+	if err != nil {
+		m.ErrorLog.Println("Error getting orders:", err)
+		return nil, Metadata{}, err
+	}
+	defer rows.Close()
+
+	var orders []*Order
+	for rows.Next() {
+		order := &Order{}
+		err := rows.Scan(&order.ID, &order.UserID, &order.TotalAmount, &order.DeliveryAddr, &order.Status, &order.CreatedAt)
+		if err != nil {
+			m.ErrorLog.Println("Error scanning order:", err)
+			return nil, Metadata{}, err
+		}
+
+		// Fetch products for this order
+		prodRows, err := m.DB.Query("SELECT product_id, quantity FROM order_products WHERE order_id = $1", order.ID)
+		if err != nil {
+			m.ErrorLog.Println("Error getting order products:", err)
+			return nil, Metadata{}, err
+		}
+		defer prodRows.Close()
+
+		for prodRows.Next() {
+			op := OrderProduct{}
+			err := prodRows.Scan(&op.ProductID, &op.Quantity)
+			if err != nil {
+				m.ErrorLog.Println("Error scanning order product:", err)
+				return nil, Metadata{}, err
+			}
+			order.Products = append(order.Products, op)
+		}
+
+		if err := prodRows.Err(); err != nil {
+			m.ErrorLog.Println("Error iterating over product rows:", err)
+			return nil, Metadata{}, err
+		}
+
+		orders = append(orders, order)
+	}
+
+	if err := rows.Err(); err != nil {
+		m.ErrorLog.Println("Error iterating over order rows:", err)
+		return nil, Metadata{}, err
+	}
+
+	// Apply filters
+	if filters.Address != "" {
+		orders = FilterByAddress(orders, filters.Address)
+	}
+
+	// Apply sorting
+	if filters.SortBy != "" {
+		switch filters.SortBy {
+		case "total_amount":
+			orders = SortByTotalAmount(orders, filters.SortOrder)
+		case "created_at":
+			orders = SortByCreatedAt(orders, filters.SortOrder)
+		}
+	}
+
+	// Calculate metadata
+	totalRecords := len(orders)
+	metadata := CalculateMetadata(totalRecords, filters.Page, filters.PageSize)
+
+	// Apply pagination
+	orders = PaginateOrders(orders, filters.Page, filters.PageSize)
+
+	return orders, metadata, nil
 }
 
 func (m *OrderModel) UpdateOrder(orderID int, updatedOrder *Order) error {

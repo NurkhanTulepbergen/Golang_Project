@@ -72,6 +72,58 @@ func Paginate(shops []Shop, page, pageSize int) []Shop {
 
 	return shops[start:end]
 }
+
+func FilterByAddress(orders []*Order, address string) []*Order {
+	var filteredOrders []*Order
+	for _, order := range orders {
+		if order.DeliveryAddr == address {
+			filteredOrders = append(filteredOrders, order)
+		}
+	}
+	return filteredOrders
+}
+
+func SortByTotalAmount(orders []*Order, sortOrder string) []*Order {
+	if sortOrder == "asc" {
+		sort.Slice(orders, func(i, j int) bool {
+			return orders[i].TotalAmount < orders[j].TotalAmount
+		})
+	} else {
+		sort.Slice(orders, func(i, j int) bool {
+			return orders[i].TotalAmount > orders[j].TotalAmount
+		})
+	}
+	return orders
+}
+
+func SortByCreatedAt(orders []*Order, sortOrder string) []*Order {
+	if sortOrder == "asc" {
+		sort.Slice(orders, func(i, j int) bool {
+			return orders[i].CreatedAt.Before(orders[j].CreatedAt)
+		})
+	} else {
+		sort.Slice(orders, func(i, j int) bool {
+			return orders[i].CreatedAt.After(orders[j].CreatedAt)
+		})
+	}
+	return orders
+}
+
+func PaginateOrders(orders []*Order, page, pageSize int) []*Order {
+	start := (page - 1) * pageSize
+	end := start + pageSize
+
+	if start >= len(orders) {
+		return nil
+	}
+
+	if end > len(orders) {
+		end = len(orders)
+	}
+
+	return orders[start:end]
+}
+
 func FilterByTitle(products []Product, productTitle string) []Product {
 	var filteredProducts []Product
 	for _, product := range products {
@@ -143,55 +195,4 @@ func PaginateForCarts(carts []Cart, page, pageSize int) []Cart {
 	}
 
 	return carts[start:end]
-}
-
-func FilterByOrder(orders []*Order, title string) []*Order {
-	var filteredOrders []*Order
-	for _, order := range orders {
-		if order.DeliveryAddr == title {
-			filteredOrders = append(filteredOrders, order)
-		}
-	}
-	return filteredOrders
-}
-
-func SortByTotalAmount(orders []*Order, sortOrder string) []*Order {
-	if sortOrder == "asc" {
-		sort.Slice(orders, func(i, j int) bool {
-			return orders[i].TotalAmount < orders[j].TotalAmount
-		})
-	} else {
-		sort.Slice(orders, func(i, j int) bool {
-			return orders[i].TotalAmount > orders[j].TotalAmount
-		})
-	}
-	return orders
-}
-
-func SortByCreatedAt(orders []*Order, sortOrder string) []*Order {
-	if sortOrder == "asc" {
-		sort.Slice(orders, func(i, j int) bool {
-			return orders[i].CreatedAt.Before(orders[j].CreatedAt)
-		})
-	} else {
-		sort.Slice(orders, func(i, j int) bool {
-			return orders[i].CreatedAt.After(orders[j].CreatedAt)
-		})
-	}
-	return orders
-}
-
-func PaginateOrders(orders []*Order, page, pageSize int) []*Order {
-	start := (page - 1) * pageSize
-	end := start + pageSize
-
-	if start >= len(orders) {
-		return nil
-	}
-
-	if end > len(orders) {
-		end = len(orders)
-	}
-
-	return orders[start:end]
 }

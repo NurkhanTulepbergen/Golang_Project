@@ -81,37 +81,37 @@ func (api *API) GetOrder(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonResponse)
 }
 
-func (api *API) GetAllOrders(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	userID, ok := vars["user_id"]
-	if !ok {
-		http.Error(w, "User ID is required", http.StatusBadRequest)
-		return
-	}
-
-	// Convert userID to integer
-	userIDInt, err := strconv.Atoi(userID)
-	if err != nil {
-		http.Error(w, "Invalid user ID", http.StatusBadRequest)
-		return
-	}
-
-	orders, err := api.OrderModel.GetAllOrders(userIDInt)
-	if err != nil {
-		http.Error(w, "Failed to get orders", http.StatusInternalServerError)
-		return
-	}
-
-	response, err := json.Marshal(orders)
-	if err != nil {
-		http.Error(w, "Failed to encode order data", http.StatusInternalServerError)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(response)
-}
+//	func (api *API) GetAllOrders(w http.ResponseWriter, r *http.Request) {
+//		vars := mux.Vars(r)
+//		userID, ok := vars["user_id"]
+//		if !ok {
+//			http.Error(w, "User ID is required", http.StatusBadRequest)
+//			return
+//		}
+//
+//		// Convert userID to integer
+//		userIDInt, err := strconv.Atoi(userID)
+//		if err != nil {
+//			http.Error(w, "Invalid user ID", http.StatusBadRequest)
+//			return
+//		}
+//
+//		orders, err := api.OrderModel.GetAllOrders(userIDInt)
+//		if err != nil {
+//			http.Error(w, "Failed to get orders", http.StatusInternalServerError)
+//			return
+//		}
+//
+//		response, err := json.Marshal(orders)
+//		if err != nil {
+//			http.Error(w, "Failed to encode order data", http.StatusInternalServerError)
+//			return
+//		}
+//
+//		w.Header().Set("Content-Type", "application/json")
+//		w.WriteHeader(http.StatusOK)
+//		w.Write(response)
+//	}
 func (api *API) DeleteOrder(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	orderIDStr, ok := vars["order_id"]
@@ -135,52 +135,59 @@ func (api *API) DeleteOrder(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "Order deleted successfully")
 }
+func (api *API) GetAllOrders(w http.ResponseWriter, r *http.Request) {
+	log.Println("GetAllOrdersOrFilter endpoint accessed")
 
-type Filters struct {
-	Title     string
-	SortBy    string
-	SortOrder string
-	Page      int
-	PageSize  int
-}
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+		return
+	}
 
-func (api *API) FilterOrders(w http.ResponseWriter, r *http.Request) {
-	// Получаем идентификатор пользователя из запроса или сессии
-	userID, err := strconv.Atoi(r.URL.Query().Get("user_id"))
+	// Get user ID from the request URL query parameters
+	userIDStr := mux.Vars(r)["user_id"]
+	userID, err := strconv.Atoi(userIDStr)
 	if err != nil {
 		http.Error(w, "Invalid user ID", http.StatusBadRequest)
 		return
 	}
 
-	// Извлекаем параметры фильтрации, сортировки и пагинации из запроса
-	var filters model.Filters
-	filters.Address = r.URL.Query().Get("address")
-	filters.SortBy = r.URL.Query().Get("sort_by")
-	filters.SortOrder = r.URL.Query().Get("sort_order")
-	filters.Page, _ = strconv.Atoi(r.URL.Query().Get("page"))
-	filters.PageSize, _ = strconv.Atoi(r.URL.Query().Get("page_size"))
+	// Parse query parameters to populate the Filters object
+	queryParams := r.URL.Query()
+	addressFilter := queryParams.Get("address")
+	page, _ := strconv.Atoi(queryParams.Get("page"))
+	pageSize, _ := strconv.Atoi(queryParams.Get("pageSize"))
+	sortBy := queryParams.Get("sortBy")
+	sortOrder := queryParams.Get("sortOrder")
 
-	// Вызываем метод FilterOrders модели заказов для применения фильтрации, сортировки и пагинации
-	orders, metadata, err := api.OrderModel.FilterOrders(userID, filters)
+	// Create Filters object with parsed parameters
+	filters := model.Filters{
+		UserID:    userID,
+		Address:   addressFilter,
+		Page:      page,
+		PageSize:  pageSize,
+		SortBy:    sortBy,
+		SortOrder: sortOrder,
+	}
+
+	// Fetch orders or filter orders based on query parameters
+	orders, metadata, err := api.OrderModel.GetAllOrders(filters)
 	if err != nil {
-		http.Error(w, "Failed to filter orders", http.StatusInternalServerError)
+		http.Error(w, "Failed to retrieve orders", http.StatusInternalServerError)
 		return
 	}
 
-	// Кодируем список заказов и метаданные в формат JSON
-	jsonResponse, err := json.Marshal(map[string]interface{}{
-		"orders":   orders,
-		"metadata": metadata,
-	})
-	if err != nil {
-		http.Error(w, "Failed to encode order data", http.StatusInternalServerError)
-		return
+	// Formulate response including metadata
+	response := struct {
+		Orders   []*model.Order `json:"orders"`
+		Metadata model.Metadata `json:"metadata"`
+	}{
+		Orders:   orders,
+		Metadata: metadata,
 	}
 
-	// Отправляем ответ с данными о заказах и метаданными
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	w.Write(jsonResponse)
+	json.NewEncoder(w).Encode(response)
 }
 
 func (api *API) UpdateOrder(w http.ResponseWriter, r *http.Request) {
