@@ -2,7 +2,7 @@ package model
 
 import (
 	"database/sql"
-	"encoding/json"
+	"errors"
 	_ "errors"
 	"fmt"
 	"log"
@@ -82,36 +82,95 @@ func (m *CartModel) RemoveProductFromCart(userID, productID string) error {
 	return nil
 }
 
-func (m *CartModel) GetCart(userID string) (*Cart, error) {
-	rows, err := m.DB.Query("SELECT items FROM cart WHERE userid = $1", userID)
+func (m *CartModel) GetCart(filters Filters) ([]Cart, Metadata, error) {
+	// Construct the base SQL query
+	query := "SELECT items, userid FROM cart"
+
+	// Execute the SQL query
+	rows, err := m.DB.Query(query)
 	if err != nil {
 		m.ErrorLog.Println("Error getting cart:", err)
-		return nil, err
+		return nil, Metadata{}, err
 	}
 	defer rows.Close()
 
-	cart := &Cart{UserID: userID, Items: make(map[string]int)}
+	var carts []Cart
 	for rows.Next() {
-		var itemsJSON []byte
-		if err := rows.Scan(&itemsJSON); err != nil {
-			m.ErrorLog.Println("Error scanning cart items:", err)
-			return nil, err
+		var cart Cart
+		if err := rows.Scan(&cart.Items, &cart.UserID); err != nil {
+			m.ErrorLog.Println("Error scanning cart:", err)
+			return nil, Metadata{}, err
 		}
-
-		var items map[string]int
-		if err := json.Unmarshal(itemsJSON, &items); err != nil {
-			m.ErrorLog.Println("Error unmarshalling cart items:", err)
-			return nil, err
-		}
-
-		for productID, quantity := range items {
-			cart.Items[productID] = quantity
-		}
+		carts = append(carts, cart)
 	}
 	if err := rows.Err(); err != nil {
 		m.ErrorLog.Println("Error iterating rows:", err)
-		return nil, err
+		return nil, Metadata{}, err
 	}
 
-	return cart, nil
+	// Apply filtering if necessary
+	if filters.Item != "" {
+		carts = FilterByItems(carts, filters.Item)
+	}
+
+	// Apply sorting if necessary
+	if filters.SortBy != "" {
+		switch filters.SortBy {
+		case "userId":
+			carts = SortById(carts, filters.SortBy)
+		default:
+			return nil, Metadata{}, errors.New("unknown sort field")
+		}
+	}
+
+	// Paginate the cart slice
+	paginatedCart := PaginateForCarts(carts, filters.Page, filters.PageSize)
+
+	// Calculate metadata based on the number of records after filtering and pagination
+	totalRecords := len(carts)
+	metadata := CalculateMetadata(totalRecords, filters.Page, filters.PageSize)
+
+	return paginatedCart, metadata, nil
 }
+
+//func (m *CartModel) UpdateCart(userID, productID string, newQuantity int) error {
+//	// Fetch the current cart of the user
+//	cart, err, _ := m.GetCart(userID)
+//	if err != nil {
+//		return err
+//	}
+//
+//	// Check if the product already exists in the cart
+//	_, exists := cart.Items[productID]
+//
+//	// If the product doesn't exist, add it to the cart with the new quantity
+//	if !exists {
+//		cart.AddProduct(productID, newQuantity)
+//	} else {
+//		// Update the quantity of the existing product in the cart
+//		if newQuantity <= 0 {
+//			// If the new quantity is zero or negative, remove the product from the cart
+//			delete(cart.Items, productID)
+//		} else {
+//			// Otherwise, update the quantity
+//			cart.Items[productID] = newQuantity
+//		}
+//	}
+//
+//	// Marshal the cart items into JSON
+//	itemsJSON, err := json.Marshal(cart.Items)
+//	if err != nil {
+//		m.ErrorLog.Println("Error marshalling cart items:", err)
+//		return err
+//	}
+//
+//	// Update the cart in the database
+//	_, err = m.DB.Exec("UPDATE cart SET items = $1 WHERE userid = $2", itemsJSON, userID)
+//	if err != nil {
+//		m.ErrorLog.Println("Error updating cart:", err)
+//		return err
+//	}
+//
+//	m.InfoLog.Println("Cart updated successfully")
+//	return nil
+//}

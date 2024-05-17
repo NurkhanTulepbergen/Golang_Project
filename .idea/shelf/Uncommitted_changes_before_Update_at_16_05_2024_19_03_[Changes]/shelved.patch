@@ -1,0 +1,367 @@
+Index: api/cart.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package api\n\nimport (\n\t\"encoding/json\"\n\t\"fmt\"\n\t\"github.com/gorilla/mux\"\n\t\"log\"\n\t\"net/http\"\n)\n\nfunc (api *API) AddProductToCart(w http.ResponseWriter, r *http.Request) {\n\tlog.Println(\"AddProductToCart endpoint accessed\")\n\n\tif r.Method != http.MethodPost {\n\t\thttp.Error(w, \"Method Not Allowed\", http.StatusMethodNotAllowed)\n\t\treturn\n\t}\n\n\tvar requestData struct {\n\t\tUserID    string `json:\"user_id\"`\n\t\tProductID string `json:\"product_id\"`\n\t\tQuantity  int    `json:\"quantity\"`\n\t}\n\n\terr := json.NewDecoder(r.Body).Decode(&requestData)\n\tif err != nil {\n\t\thttp.Error(w, \"Failed to decode request body\", http.StatusBadRequest)\n\t\treturn\n\t}\n\n\terr = api.CartModel.AddProductToCart(requestData.UserID, requestData.ProductID, requestData.Quantity)\n\tif err != nil {\n\t\thttp.Error(w, \"Failed to add product to cart\", http.StatusInternalServerError)\n\t\treturn\n\t}\n\n\tw.WriteHeader(http.StatusCreated)\n\tfmt.Fprintf(w, \"Product added to cart successfully\")\n}\n\n// RemoveProductFromCart обрабатывает запрос на удаление товара из корзины.\nfunc (api *API) RemoveProductFromCart(w http.ResponseWriter, r *http.Request) {\n\tlog.Println(\"RemoveProductFromCart endpoint accessed\")\n\n\tif r.Method != http.MethodDelete {\n\t\thttp.Error(w, \"Method Not Allowed\", http.StatusMethodNotAllowed)\n\t\treturn\n\t}\n\n\tvar requestData struct {\n\t\tUserID    string `json:\"user_id\"`\n\t\tProductID string `json:\"product_id\"`\n\t}\n\n\terr := json.NewDecoder(r.Body).Decode(&requestData)\n\tif err != nil {\n\t\thttp.Error(w, \"Failed to decode request body\", http.StatusBadRequest)\n\t\treturn\n\t}\n\n\terr = api.CartModel.RemoveProductFromCart(requestData.UserID, requestData.ProductID)\n\tif err != nil {\n\t\thttp.Error(w, \"Failed to remove product from cart\", http.StatusInternalServerError)\n\t\treturn\n\t}\n\n\tw.WriteHeader(http.StatusOK)\n\tfmt.Fprintf(w, \"Product removed from cart successfully\")\n}\n\n// GetCart обрабатывает запрос на получение содержимого корзины пользователя.\nfunc (api *API) GetCart(w http.ResponseWriter, r *http.Request) {\n\tlog.Println(\"GetCart endpoint accessed\")\n\n\tif r.Method != http.MethodGet {\n\t\thttp.Error(w, \"Method Not Allowed\", http.StatusMethodNotAllowed)\n\t\treturn\n\t}\n\n\tuserID := mux.Vars(r)[\"user_id\"]\n\tcart, err := api.CartModel.GetCart(userID)\n\tif err != nil {\n\t\thttp.Error(w, \"Failed to retrieve cart\", http.StatusInternalServerError)\n\t\treturn\n\t}\n\n\tresponse := struct {\n\t\tUserID string         `json:\"user_id\"`\n\t\tItems  map[string]int `json:\"items\"`\n\t}{\n\t\tUserID: userID,\n\t\tItems:  cart.Items,\n\t}\n\n\tw.Header().Set(\"Content-Type\", \"application/json\")\n\tw.WriteHeader(http.StatusOK)\n\tjson.NewEncoder(w).Encode(response)\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/api/cart.go b/api/cart.go
+--- a/api/cart.go	(revision 12720d795f8148d8f92779c537195d25c705757d)
++++ b/api/cart.go	(date 1715867926964)
+@@ -1,11 +1,13 @@
+ package api
+ 
+ import (
++	"Golang_Project/pkg/model"
+ 	"encoding/json"
+ 	"fmt"
+-	"github.com/gorilla/mux"
+ 	"log"
+ 	"net/http"
++	"sort"
++	"strconv"
+ )
+ 
+ func (api *API) AddProductToCart(w http.ResponseWriter, r *http.Request) {
+@@ -77,22 +79,90 @@
+ 		return
+ 	}
+ 
+-	userID := mux.Vars(r)["user_id"]
+-	cart, err := api.CartModel.GetCart(userID)
++	// Parse query parameters for filtering, sorting, and pagination
++	queryParams := r.URL.Query()
++	itemFilter := queryParams.Get("item")
++	page, _ := strconv.Atoi(queryParams.Get("page"))
++	pageSize, _ := strconv.Atoi(queryParams.Get("pageSize"))
++	sortBy := queryParams.Get("sortBy")
++	sortOrder := queryParams.Get("sortOrder")
++
++	// Create Filters object with parsed parameters
++	filters := model.Filters{
++		Item:     itemFilter,
++		Page:     page,
++		PageSize: pageSize,
++		SortBy:   sortBy,
++	}
++
++	// Retrieve cart data with applied filters
++	carts, metadata, err := api.CartModel.GetCart(filters)
+ 	if err != nil {
+ 		http.Error(w, "Failed to retrieve cart", http.StatusInternalServerError)
+ 		return
+ 	}
+ 
++	// Apply sorting
++	switch sortOrder {
++	case "asc":
++		switch sortBy {
++		case "userId":
++			sort.Slice(carts, func(i, j int) bool {
++				return carts[i].UserID < carts[j].UserID
++			})
++			// Add other sorting options if needed
++		}
++	case "desc":
++		switch sortBy {
++		case "userId":
++			sort.Slice(carts, func(i, j int) bool {
++				return carts[i].UserID > carts[j].UserID
++			})
++			// Add other sorting options if needed
++		}
++	}
++
++	// Prepare response including metadata
+ 	response := struct {
+-		UserID string         `json:"user_id"`
+-		Items  map[string]int `json:"items"`
++		Cart     []model.Cart   `json:"cart"`
++		Metadata model.Metadata `json:"metadata"`
+ 	}{
+-		UserID: userID,
+-		Items:  cart.Items,
++		Cart:     carts,
++		Metadata: metadata,
+ 	}
+ 
++	// Set response headers and write response
+ 	w.Header().Set("Content-Type", "application/json")
+ 	w.WriteHeader(http.StatusOK)
+ 	json.NewEncoder(w).Encode(response)
+ }
++
++//func (api *API) UpdateCart(w http.ResponseWriter, r *http.Request) {
++//	log.Println("UpdateCart endpoint accessed")
++//
++//	if r.Method != http.MethodPut {
++//		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
++//		return
++//	}
++//
++//	var requestData struct {
++//		UserID    string `json:"user_id"`
++//		ProductID string `json:"product_id"`
++//		Quantity  int    `json:"quantity"`
++//	}
++//
++//	err := json.NewDecoder(r.Body).Decode(&requestData)
++//	if err != nil {
++//		http.Error(w, "Failed to decode request body", http.StatusBadRequest)
++//		return
++//	}
++//
++//	err = api.CartModel.UpdateCart(requestData.UserID, requestData.ProductID, requestData.Quantity)
++//	if err != nil {
++//		http.Error(w, "Failed to update cart", http.StatusInternalServerError)
++//		return
++//	}
++//
++//	w.WriteHeader(http.StatusOK)
++//	fmt.Fprintf(w, "Cart updated successfully")
++//}
+Index: pkg/model/utils.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model\n\nimport \"sort\"\n\ntype Filters struct {\n\tTitle     string\n\tType      string // Пример параметра фильтрации\n\tSortBy    string // Поле для сортировки\n\tPage      int\n\tPageSize  int\n\tSortOrder string\n}\n\ntype Metadata struct {\n\tCurrentPage  int `json:\"current_page,omitempty\"`\n\tPageSize     int `json:\"page_size,omitempty\"`\n\tFirstPage    int `json:\"first_page,omitempty\"`\n\tLastPage     int `json:\"last_page,omitempty\"`\n\tTotalRecords int `json:\"total_records,omitempty\"`\n}\n\nfunc CalculateMetadata(totalRecords, page, pageSize int) Metadata {\n\tif totalRecords == 0 || pageSize == 0 {\n\t\treturn Metadata{}\n\t}\n\n\tlastPage := totalRecords / pageSize\n\tif totalRecords%pageSize != 0 {\n\t\tlastPage++\n\t}\n\n\treturn Metadata{\n\t\tCurrentPage:  page,\n\t\tPageSize:     pageSize,\n\t\tFirstPage:    1,\n\t\tLastPage:     lastPage,\n\t\tTotalRecords: totalRecords,\n\t}\n}\n\nfunc FilterByType(shops []Shop, shopType string) []Shop {\n\tvar filteredShops []Shop\n\tfor _, shop := range shops {\n\t\tif shop.Type == shopType {\n\t\t\tfilteredShops = append(filteredShops, shop)\n\t\t}\n\t}\n\treturn filteredShops\n}\n\nfunc SortByTitle(shops []Shop) []Shop {\n\tsort.Slice(shops, func(i, j int) bool {\n\t\treturn shops[i].Title < shops[j].Title\n\t})\n\treturn shops\n}\n\nfunc Paginate(shops []Shop, page, pageSize int) []Shop {\n\tstart := (page - 1) * pageSize\n\tend := start + pageSize\n\n\tif start >= len(shops) {\n\t\treturn nil\n\t}\n\n\tif end > len(shops) {\n\t\tend = len(shops)\n\t}\n\n\treturn shops[start:end]\n}\nfunc FilterByTitle(products []Product, productTitle string) []Product {\n\tvar filteredProducts []Product\n\tfor _, product := range products {\n\t\tif product.Title == productTitle {\n\t\t\tfilteredProducts = append(filteredProducts, product)\n\t\t}\n\t}\n\treturn filteredProducts\n}\n\nfunc SortByPrice(products []Product, sortBy string) []Product {\n\tswitch sortBy {\n\tcase \"price\":\n\t\tsort.Slice(products, func(i, j int) bool {\n\t\t\treturn products[i].Price < products[j].Price\n\t\t})\n\t\t// Add more cases for additional fields if needed\n\t}\n\treturn products\n}\n\nfunc PaginateForProduct(product []Product, page, pageSize int) []Product {\n\tstart := (page - 1) * pageSize\n\tend := start + pageSize\n\n\tif start >= len(product) {\n\t\treturn nil\n\t}\n\n\tif end > len(product) {\n\t\tend = len(product)\n\t}\n\n\treturn product[start:end]\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pkg/model/utils.go b/pkg/model/utils.go
+--- a/pkg/model/utils.go	(revision 12720d795f8148d8f92779c537195d25c705757d)
++++ b/pkg/model/utils.go	(date 1715867413471)
+@@ -3,6 +3,7 @@
+ import "sort"
+ 
+ type Filters struct {
++	Item      string
+ 	Title     string
+ 	Type      string // Пример параметра фильтрации
+ 	SortBy    string // Поле для сортировки
+@@ -104,3 +105,40 @@
+ 
+ 	return product[start:end]
+ }
++
++func FilterByItems(carts []Cart, cartItem string) []Cart {
++	var filteredCart []Cart
++	for _, cart := range carts {
++		// Check if the cart contains the specified item
++		if _, ok := cart.Items[cartItem]; ok {
++			filteredCart = append(filteredCart, cart)
++		}
++	}
++	return filteredCart
++}
++
++func SortById(carts []Cart, sortBy string) []Cart {
++	switch sortBy {
++	case "userId":
++		sort.Slice(carts, func(i, j int) bool {
++			return carts[i].UserID < carts[j].UserID
++		})
++		// Add more cases for additional fields if needed
++	}
++	return carts
++}
++
++func PaginateForCarts(carts []Cart, page, pageSize int) []Cart {
++	start := (page - 1) * pageSize
++	end := start + pageSize
++
++	if start >= len(carts) {
++		return nil
++	}
++
++	if end > len(carts) {
++		end = len(carts)
++	}
++
++	return carts[start:end]
++}
+Index: pkg/model/cart.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package model\n\nimport (\n\t\"database/sql\"\n\t\"encoding/json\"\n\t_ \"errors\"\n\t\"fmt\"\n\t\"log\"\n)\n\ntype Cart struct {\n\tUserID string\n\tItems  map[string]int\n}\n\ntype CartModel struct {\n\tDB       *sql.DB\n\tInfoLog  *log.Logger\n\tErrorLog *log.Logger\n}\n\nfunc (c *Cart) AddProduct(productID string, quantity int) {\n\n\tif _, exists := c.Items[productID]; exists {\n\t\tc.Items[productID] += quantity\n\t} else {\n\n\t\tc.Items[productID] = quantity\n\t}\n}\n\nfunc (c *Cart) RemoveProduct(productID string) {\n\tdelete(c.Items, productID)\n}\n\nfunc (c *Cart) CalculateTotal(productMap map[string]*Product) float64 {\n\ttotal := 0.0\n\tfor productID, quantity := range c.Items {\n\t\tif product, ok := productMap[productID]; ok {\n\t\t\ttotal += float64(quantity) * product.Price\n\t\t}\n\t}\n\treturn total\n}\n\nfunc (c *Cart) DisplayCart(productMap map[string]*Product) {\n\tfmt.Println(\"Items in Cart:\")\n\tfor productID, quantity := range c.Items {\n\t\tif product, ok := productMap[productID]; ok {\n\t\t\tfmt.Printf(\"- %s (%s) - $%.2f (Quantity: %d)\\n\", product.Title, product.Description, product.Price, quantity)\n\t\t}\n\t}\n\tfmt.Printf(\"Total: $%.2f\\n\", c.CalculateTotal(productMap))\n}\n\nfunc (m *CartModel) AddProductToCart(userID, productID string, quantity int) error {\n\t// Формируем строку JSON для нового товара\n\tnewItem := fmt.Sprintf(`{\"%s\": %d}`, productID, quantity)\n\n\t// Выполняем запрос INSERT, чтобы добавить новый товар в корзину пользователя\n\t_, err := m.DB.Exec(\"INSERT INTO cart (userid, items) VALUES ($1, $2) ON CONFLICT (userid) DO UPDATE SET items = cart.items || excluded.items\",\n\t\tuserID, newItem)\n\tif err != nil {\n\t\tm.ErrorLog.Println(\"Error adding product to cart:\", err)\n\t\treturn err\n\t}\n\n\tm.InfoLog.Println(\"Product added to cart successfully\")\n\treturn nil\n}\n\nfunc (m *CartModel) RemoveProductFromCart(userID, productID string) error {\n\t// Выполняем запрос DELETE для удаления товара из корзины пользователя\n\t_, err := m.DB.Exec(\"UPDATE cart SET items = items - $1 WHERE userid = $2\",\n\t\tfmt.Sprintf(`{\"%s\": null}`, productID), userID)\n\tif err != nil {\n\t\tm.ErrorLog.Println(\"Error removing product from cart:\", err)\n\t\treturn err\n\t}\n\n\tm.InfoLog.Println(\"Product removed from cart successfully\")\n\treturn nil\n}\n\nfunc (m *CartModel) GetCart(userID string) (*Cart, error) {\n\trows, err := m.DB.Query(\"SELECT items FROM cart WHERE userid = $1\", userID)\n\tif err != nil {\n\t\tm.ErrorLog.Println(\"Error getting cart:\", err)\n\t\treturn nil, err\n\t}\n\tdefer rows.Close()\n\n\tcart := &Cart{UserID: userID, Items: make(map[string]int)}\n\tfor rows.Next() {\n\t\tvar itemsJSON []byte\n\t\tif err := rows.Scan(&itemsJSON); err != nil {\n\t\t\tm.ErrorLog.Println(\"Error scanning cart items:\", err)\n\t\t\treturn nil, err\n\t\t}\n\n\t\tvar items map[string]int\n\t\tif err := json.Unmarshal(itemsJSON, &items); err != nil {\n\t\t\tm.ErrorLog.Println(\"Error unmarshalling cart items:\", err)\n\t\t\treturn nil, err\n\t\t}\n\n\t\tfor productID, quantity := range items {\n\t\t\tcart.Items[productID] = quantity\n\t\t}\n\t}\n\tif err := rows.Err(); err != nil {\n\t\tm.ErrorLog.Println(\"Error iterating rows:\", err)\n\t\treturn nil, err\n\t}\n\n\treturn cart, nil\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pkg/model/cart.go b/pkg/model/cart.go
+--- a/pkg/model/cart.go	(revision 12720d795f8148d8f92779c537195d25c705757d)
++++ b/pkg/model/cart.go	(date 1715868035275)
+@@ -2,7 +2,7 @@
+ 
+ import (
+ 	"database/sql"
+-	"encoding/json"
++	"errors"
+ 	_ "errors"
+ 	"fmt"
+ 	"log"
+@@ -82,36 +82,95 @@
+ 	return nil
+ }
+ 
+-func (m *CartModel) GetCart(userID string) (*Cart, error) {
+-	rows, err := m.DB.Query("SELECT items FROM cart WHERE userid = $1", userID)
++func (m *CartModel) GetCart(filters Filters) ([]Cart, Metadata, error) {
++	// Construct the base SQL query
++	query := "SELECT items, userid FROM cart"
++
++	// Execute the SQL query
++	rows, err := m.DB.Query(query)
+ 	if err != nil {
+ 		m.ErrorLog.Println("Error getting cart:", err)
+-		return nil, err
++		return nil, Metadata{}, err
+ 	}
+ 	defer rows.Close()
+ 
+-	cart := &Cart{UserID: userID, Items: make(map[string]int)}
++	var carts []Cart
+ 	for rows.Next() {
+-		var itemsJSON []byte
+-		if err := rows.Scan(&itemsJSON); err != nil {
+-			m.ErrorLog.Println("Error scanning cart items:", err)
+-			return nil, err
+-		}
+-
+-		var items map[string]int
+-		if err := json.Unmarshal(itemsJSON, &items); err != nil {
+-			m.ErrorLog.Println("Error unmarshalling cart items:", err)
+-			return nil, err
++		var cart Cart
++		if err := rows.Scan(&cart.Items, &cart.UserID); err != nil {
++			m.ErrorLog.Println("Error scanning cart:", err)
++			return nil, Metadata{}, err
+ 		}
+-
+-		for productID, quantity := range items {
+-			cart.Items[productID] = quantity
+-		}
++		carts = append(carts, cart)
+ 	}
+ 	if err := rows.Err(); err != nil {
+ 		m.ErrorLog.Println("Error iterating rows:", err)
+-		return nil, err
++		return nil, Metadata{}, err
++	}
++
++	// Apply filtering if necessary
++	if filters.Item != "" {
++		carts = FilterByItems(carts, filters.Item)
++	}
++
++	// Apply sorting if necessary
++	if filters.SortBy != "" {
++		switch filters.SortBy {
++		case "userId":
++			carts = SortById(carts, filters.SortBy)
++		default:
++			return nil, Metadata{}, errors.New("unknown sort field")
++		}
+ 	}
+ 
+-	return cart, nil
++	// Paginate the cart slice
++	paginatedCart := PaginateForCarts(carts, filters.Page, filters.PageSize)
++
++	// Calculate metadata based on the number of records after filtering and pagination
++	totalRecords := len(carts)
++	metadata := CalculateMetadata(totalRecords, filters.Page, filters.PageSize)
++
++	return paginatedCart, metadata, nil
+ }
++
++//func (m *CartModel) UpdateCart(userID, productID string, newQuantity int) error {
++//	// Fetch the current cart of the user
++//	cart, err, _ := m.GetCart(userID)
++//	if err != nil {
++//		return err
++//	}
++//
++//	// Check if the product already exists in the cart
++//	_, exists := cart.Items[productID]
++//
++//	// If the product doesn't exist, add it to the cart with the new quantity
++//	if !exists {
++//		cart.AddProduct(productID, newQuantity)
++//	} else {
++//		// Update the quantity of the existing product in the cart
++//		if newQuantity <= 0 {
++//			// If the new quantity is zero or negative, remove the product from the cart
++//			delete(cart.Items, productID)
++//		} else {
++//			// Otherwise, update the quantity
++//			cart.Items[productID] = newQuantity
++//		}
++//	}
++//
++//	// Marshal the cart items into JSON
++//	itemsJSON, err := json.Marshal(cart.Items)
++//	if err != nil {
++//		m.ErrorLog.Println("Error marshalling cart items:", err)
++//		return err
++//	}
++//
++//	// Update the cart in the database
++//	_, err = m.DB.Exec("UPDATE cart SET items = $1 WHERE userid = $2", itemsJSON, userID)
++//	if err != nil {
++//		m.ErrorLog.Println("Error updating cart:", err)
++//		return err
++//	}
++//
++//	m.InfoLog.Println("Cart updated successfully")
++//	return nil
++//}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"2ae80f2e-c511-4d37-926d-faacbb96ccf0\" name=\"Changes\" comment=\"\">\n      <change afterPath=\"$PROJECT_DIR$/pkg/model/utilsforshop.go\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/.gitignore\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/Go_project_spring.iml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/Golang_Project.iml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/Golang_Projects.iml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources.xml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/modules.xml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/sqldialects.xml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/vcs.xml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/api/product.go\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/api/product.go\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/api/routes.go\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/api/routes.go\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/cmd/main.go\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/cmd/main.go\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/pkg/migration/create_tables.sql\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pkg/migration/create_tables.sql\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/pkg/model/product.go\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pkg/model/product.go\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/pkg/model/shop.go\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/pkg/model/shop.go\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/pkg/model/utils.go\" beforeDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Go File\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"GOROOT\" url=\"file://$USER_HOME$/sdk/go1.22rc1\" />\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"GitHubPullRequestSearchHistory\"><![CDATA[{\n  \"lastFilter\": {\n    \"state\": \"OPEN\",\n    \"assignee\": \"pp2-22B030444\"\n  }\n}]]></component>\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\n  \"selectedUrlAndAccountId\": {\n    \"url\": \"https://github.com/AzamatTaubayev/Go_project_spring.git\",\n    \"accountId\": \"9c00ecdf-ecb6-4048-b271-f9fa51831948\"\n  }\n}]]></component>\n  <component name=\"ProjectColorInfo\"><![CDATA[{\n  \"associatedIndex\": 4\n}]]></component>\n  <component name=\"ProjectId\" id=\"2gXwAW62MOtKCYygjvMGVZxyQ0J\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"DefaultGoTemplateProperty\": \"Go File\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"RunOnceActivity.go.formatter.settings.were.checked\": \"true\",\n    \"RunOnceActivity.go.migrated.go.modules.settings\": \"true\",\n    \"RunOnceActivity.go.modules.automatic.dependencies.download\": \"true\",\n    \"RunOnceActivity.go.modules.go.list.on.any.changes.was.set\": \"true\",\n    \"git-widget-placeholder\": \"master\",\n    \"go.import.settings.migrated\": \"true\",\n    \"go.sdk.automatically.set\": \"true\",\n    \"last_opened_file_path\": \"C:/Users/Жасмин\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\"\n  },\n  \"keyToStringList\": {\n    \"DatabaseDriversLRU\": [\n      \"postgresql\"\n    ]\n  }\n}]]></component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-gosdk-33c477a475b1-e0158606a674-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-241.15989.157\" />\n        <option value=\"bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-GO-241.15989.157\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"VgoProject\">\n    <settings-migrated>true</settings-migrated>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 12720d795f8148d8f92779c537195d25c705757d)
++++ b/.idea/workspace.xml	(date 1715864104174)
+@@ -4,24 +4,11 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="2ae80f2e-c511-4d37-926d-faacbb96ccf0" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/pkg/model/utilsforshop.go" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/Go_project_spring.iml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/Golang_Project.iml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/Golang_Projects.iml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/api/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/product.go" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.go" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pkg/migration/create_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/migration/create_tables.sql" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pkg/model/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/product.go" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pkg/model/shop.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/shop.go" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/pkg/model/utils.go" beforeDir="false" />
++    <list default="true" id="2ae80f2e-c511-4d37-926d-faacbb96ccf0" name="Changes" comment="Zhasmin">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/api/cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/cart.go" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/pkg/model/cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/cart.go" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/pkg/model/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/utils.go" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -93,6 +80,10 @@
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
++  </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="Zhasmin" />
++    <option name="LAST_COMMIT_MESSAGE" value="Zhasmin" />
+   </component>
+   <component name="VgoProject">
+     <settings-migrated>true</settings-migrated>

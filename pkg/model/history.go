@@ -57,3 +57,31 @@ func (m *HistoryModel) GetHistory(userID int) (*History, error) {
 
 	return history, nil
 }
+func (m *HistoryModel) UpdateHistory(userID int, userName string, ordersList []*Order) error {
+	ordersJSON, err := json.Marshal(ordersList)
+	if err != nil {
+		m.ErrorLog.Println("Error marshalling orders list:", err)
+		return err
+	}
+
+	_, err = m.DB.Exec("UPDATE history SET user_name = $1, orders_list = $2 WHERE user_id = $3",
+		userName, ordersJSON, userID)
+	if err != nil {
+		m.ErrorLog.Println("Error updating history:", err)
+		return err
+	}
+
+	m.InfoLog.Println("History updated successfully")
+	return nil
+}
+
+func (m *HistoryModel) DeleteHistory(userID int) error {
+	_, err := m.DB.Exec("DELETE FROM history WHERE user_id = $1", userID)
+	if err != nil {
+		m.ErrorLog.Println("Error deleting history:", err)
+		return err
+	}
+
+	m.InfoLog.Println("History deleted successfully")
+	return nil
+}

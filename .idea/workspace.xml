@@ -4,25 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ae80f2e-c511-4d37-926d-faacbb96ccf0" name="Changes" comment="separated each handler function">
-      <change afterPath="$PROJECT_DIR$/api/order.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/migration/create_table_history.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/model/history.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="2ae80f2e-c511-4d37-926d-faacbb96ccf0" name="Changes" comment="Zhasmin">
+      <change afterPath="$PROJECT_DIR$/api/history.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6/storage_v2/_src_/database/jana.KqkxAA/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6/storage_v2/_src_/database/jana.KqkxAA/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6/storage_v2/_src_/database/jana.KqkxAA/schema/public.abK9xQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/3e1f0992-1038-46b4-9455-86b753347af6/storage_v2/_src_/database/jana.KqkxAA/schema/public.abK9xQ.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_05_2024_15_31__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_05_2024_15_31__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_05_2024_15_58__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_05_2024_15_58__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/cart.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/migration/create_tables_orders.sql" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/migration/create_tables_orders.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/migration/drop_tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/migration/drop_tables.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/model.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/model.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/history.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/history.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/model/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/utils.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +26,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" url="file://$USER_HOME$/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.22rc1.windows-amd64" />
+  <component name="GOROOT" url="file://$USER_HOME$/sdk/go1.22rc1" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -49,7 +39,7 @@
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/AzamatTaubayev/Go_project_spring.git",
-    "accountId": "4363e522-0e14-4db5-915e-6f2a180fb3ac"
+    "accountId": "9c00ecdf-ecb6-4048-b271-f9fa51831948"
   }
 }]]></component>
   <component name="ProjectColorInfo">{
@@ -73,7 +63,7 @@
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/azama",
+    "last_opened_file_path": "C:/Users/Жасмин",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm"
