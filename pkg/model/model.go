@@ -23,6 +23,7 @@ type Models struct {
 	Permission PermissionModel
 	Order      OrderModel
 	History    HistoryModel
+	Follow     FollowModel
 }
 
 func NewModels(db *sql.DB) Models {

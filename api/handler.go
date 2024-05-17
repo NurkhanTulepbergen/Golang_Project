@@ -19,6 +19,7 @@ type Response struct {
 	Carts       []model.Cart        `json:"carts"`
 	Orders      []model.Order       `json:"orders"`
 	History     []model.History     `json:"history"`
+	Follow      []model.Follow      `json:"follow"`
 }
 
 type API struct {
@@ -30,10 +31,11 @@ type API struct {
 	CartModel       *model.CartModel
 	OrderModel      *model.OrderModel
 	HistoryModel    *model.HistoryModel
+	FollowModel     *model.FollowModel
 }
 
-func NewAPI(shopModel *model.ShopModel, productModel *model.ProductModel, userModel *model.UserModel, tokenModel *model.TokenModel, permissionModel *model.PermissionModel, cartModel *model.CartModel, orderModel *model.OrderModel, historyModel *model.HistoryModel) *API {
-	return &API{ShopModel: shopModel, ProductModel: productModel, UserModel: userModel, TokenModel: tokenModel, PermissionModel: permissionModel, CartModel: cartModel, OrderModel: orderModel, HistoryModel: historyModel}
+func NewAPI(shopModel *model.ShopModel, productModel *model.ProductModel, userModel *model.UserModel, tokenModel *model.TokenModel, permissionModel *model.PermissionModel, cartModel *model.CartModel, orderModel *model.OrderModel, historyModel *model.HistoryModel, followModel *model.FollowModel) *API {
+	return &API{ShopModel: shopModel, ProductModel: productModel, UserModel: userModel, TokenModel: tokenModel, PermissionModel: permissionModel, CartModel: cartModel, OrderModel: orderModel, HistoryModel: historyModel, FollowModel: followModel}
 }
 
 func (api *API) HealthCheck(w http.ResponseWriter, r *http.Request) {

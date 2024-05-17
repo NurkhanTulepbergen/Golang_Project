@@ -3,7 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.52">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <IntrospectionStateNumber>1686</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1715</IntrospectionStateNumber>
       <ServerVersion>16.0</ServerVersion>
       <StartupTime>1714734807</StartupTime>
       <TimeZones>true ACDT
@@ -800,74 +800,88 @@ false Zulu
 14697||10|C|G
 14697||-9223372036854775808|U|G
 14697||10|U|G</Grants>
-      <IntrospectionStateNumber>1686</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1715</IntrospectionStateNumber>
       <ObjectId>16901</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <database id="3" parent="1" name="lab4">
-      <ObjectId>16493</ObjectId>
-      <OwnerName>postgres</OwnerName>
-    </database>
-    <database id="4" parent="1" name="lab5">
-      <ObjectId>16513</ObjectId>
-      <OwnerName>postgres</OwnerName>
-    </database>
-    <database id="5" parent="1" name="lab6">
-      <ObjectId>16631</ObjectId>
-      <OwnerName>postgres</OwnerName>
-    </database>
-    <database id="6" parent="1" name="lab7">
-      <ObjectId>16681</ObjectId>
-      <OwnerName>postgres</OwnerName>
-    </database>
-    <database id="7" parent="1" name="lab8">
-      <ObjectId>16717</ObjectId>
-      <OwnerName>postgres</OwnerName>
-    </database>
-    <database id="8" parent="1" name="lab10">
+    <database id="3" parent="1" name="lab10">
       <ObjectId>16870</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <role id="9" parent="1" name="pg_checkpoint">
+    <database id="4" parent="1" name="lab4">
+      <ObjectId>16493</ObjectId>
+      <OwnerName>postgres</OwnerName>
+    </database>
+    <database id="5" parent="1" name="lab5">
+      <ObjectId>16513</ObjectId>
+      <OwnerName>postgres</OwnerName>
+    </database>
+    <database id="6" parent="1" name="lab6">
+      <ObjectId>16631</ObjectId>
+      <OwnerName>postgres</OwnerName>
+    </database>
+    <database id="7" parent="1" name="lab7">
+      <ObjectId>16681</ObjectId>
+      <OwnerName>postgres</OwnerName>
+    </database>
+    <database id="8" parent="1" name="lab8">
+      <ObjectId>16717</ObjectId>
+      <OwnerName>postgres</OwnerName>
+    </database>
+    <role id="9" parent="1" name="intern">
+      <ObjectId>16779</ObjectId>
+      <RoleGrants>16750</RoleGrants>
+    </role>
+    <role id="10" parent="1" name="junior_dev">
+      <CanLogin>1</CanLogin>
+      <ObjectId>16750</ObjectId>
+    </role>
+    <role id="11" parent="1" name="pg_checkpoint">
       <ObjectId>4544</ObjectId>
     </role>
-    <role id="10" parent="1" name="pg_database_owner">
+    <role id="12" parent="1" name="pg_create_subscription">
+      <ObjectId>6304</ObjectId>
+    </role>
+    <role id="13" parent="1" name="pg_database_owner">
       <ObjectId>6171</ObjectId>
     </role>
-    <role id="11" parent="1" name="pg_execute_server_program">
+    <role id="14" parent="1" name="pg_execute_server_program">
       <ObjectId>4571</ObjectId>
     </role>
-    <role id="12" parent="1" name="pg_monitor">
+    <role id="15" parent="1" name="pg_monitor">
       <ObjectId>3373</ObjectId>
       <RoleGrants>3374
 3375
 3377</RoleGrants>
     </role>
-    <role id="13" parent="1" name="pg_read_all_data">
+    <role id="16" parent="1" name="pg_read_all_data">
       <ObjectId>6181</ObjectId>
     </role>
-    <role id="14" parent="1" name="pg_read_all_settings">
+    <role id="17" parent="1" name="pg_read_all_settings">
       <ObjectId>3374</ObjectId>
     </role>
-    <role id="15" parent="1" name="pg_read_all_stats">
+    <role id="18" parent="1" name="pg_read_all_stats">
       <ObjectId>3375</ObjectId>
     </role>
-    <role id="16" parent="1" name="pg_read_server_files">
+    <role id="19" parent="1" name="pg_read_server_files">
       <ObjectId>4569</ObjectId>
     </role>
-    <role id="17" parent="1" name="pg_signal_backend">
+    <role id="20" parent="1" name="pg_signal_backend">
       <ObjectId>4200</ObjectId>
     </role>
-    <role id="18" parent="1" name="pg_stat_scan_tables">
+    <role id="21" parent="1" name="pg_stat_scan_tables">
       <ObjectId>3377</ObjectId>
     </role>
-    <role id="19" parent="1" name="pg_write_all_data">
+    <role id="22" parent="1" name="pg_use_reserved_connections">
+      <ObjectId>4550</ObjectId>
+    </role>
+    <role id="23" parent="1" name="pg_write_all_data">
       <ObjectId>6182</ObjectId>
     </role>
-    <role id="20" parent="1" name="pg_write_server_files">
+    <role id="24" parent="1" name="pg_write_server_files">
       <ObjectId>4570</ObjectId>
     </role>
-    <role id="21" parent="1" name="postgres">
+    <role id="25" parent="1" name="postgres">
       <BypassRls>1</BypassRls>
       <CanLogin>1</CanLogin>
       <CreateDb>1</CreateDb>
@@ -876,34 +890,20 @@ false Zulu
       <Replication>1</Replication>
       <SuperRole>1</SuperRole>
     </role>
-    <role id="22" parent="1" name="pg_use_reserved_connections">
-      <ObjectId>4550</ObjectId>
-    </role>
-    <role id="23" parent="1" name="pg_create_subscription">
-      <ObjectId>6304</ObjectId>
-    </role>
-    <role id="24" parent="1" name="junior_dev">
-      <CanLogin>1</CanLogin>
-      <ObjectId>16750</ObjectId>
-    </role>
-    <role id="25" parent="1" name="intern">
-      <ObjectId>16779</ObjectId>
-      <RoleGrants>16750</RoleGrants>
-    </role>
-    <tablespace id="26" parent="1" name="pg_default">
+    <tablespace id="26" parent="1" name="lab5_tablespace">
+      <Location>C:\Program Files\PostgreSQL\16\data</Location>
+      <ObjectId>16514</ObjectId>
+      <StateNumber>902</StateNumber>
+      <OwnerName>postgres</OwnerName>
+    </tablespace>
+    <tablespace id="27" parent="1" name="pg_default">
       <ObjectId>1663</ObjectId>
       <StateNumber>1</StateNumber>
       <OwnerName>postgres</OwnerName>
     </tablespace>
-    <tablespace id="27" parent="1" name="pg_global">
+    <tablespace id="28" parent="1" name="pg_global">
       <ObjectId>1664</ObjectId>
       <StateNumber>1</StateNumber>
-      <OwnerName>postgres</OwnerName>
-    </tablespace>
-    <tablespace id="28" parent="1" name="lab5_tablespace">
-      <Location>C:\Program Files\PostgreSQL\16\data</Location>
-      <ObjectId>16514</ObjectId>
-      <StateNumber>902</StateNumber>
       <OwnerName>postgres</OwnerName>
     </tablespace>
     <schema id="29" parent="2" name="information_schema">
@@ -920,8 +920,8 @@ false Zulu
     <schema id="31" parent="2" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>1686</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2024-05-17.08:54:05</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>1715</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2024-05-17.12:20:54</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>524</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
@@ -2025,7 +2025,17 @@ false Zulu
       <LanguageName>sql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="112" parent="31" name="update_order_total">
+    <routine id="112" parent="31" name="update_follow">
+      <ObjectId>17520</ObjectId>
+      <PgRoutineKind>pg-trigger</PgRoutineKind>
+      <ResultsDefinition>trigger</ResultsDefinition>
+      <Rows>0.0</Rows>
+      <SourceTextLength>926</SourceTextLength>
+      <StateNumber>1703</StateNumber>
+      <LanguageName>plpgsql</LanguageName>
+      <OwnerName>postgres</OwnerName>
+    </routine>
+    <routine id="113" parent="31" name="update_order_total">
       <ObjectId>17438</ObjectId>
       <PgRoutineKind>pg-trigger</PgRoutineKind>
       <ResultsDefinition>trigger</ResultsDefinition>
@@ -2035,7 +2045,17 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <routine id="113" parent="31" name="update_product_price">
+    <routine id="114" parent="31" name="update_product_information">
+      <ObjectId>17536</ObjectId>
+      <PgRoutineKind>pg-trigger</PgRoutineKind>
+      <ResultsDefinition>trigger</ResultsDefinition>
+      <Rows>0.0</Rows>
+      <SourceTextLength>451</SourceTextLength>
+      <StateNumber>1708</StateNumber>
+      <LanguageName>plpgsql</LanguageName>
+      <OwnerName>postgres</OwnerName>
+    </routine>
+    <routine id="115" parent="31" name="update_product_price">
       <ObjectId>17436</ObjectId>
       <PgRoutineKind>pg-trigger</PgRoutineKind>
       <ResultsDefinition>trigger</ResultsDefinition>
@@ -2045,7 +2065,7 @@ false Zulu
       <LanguageName>plpgsql</LanguageName>
       <OwnerName>postgres</OwnerName>
     </routine>
-    <sequence id="114" parent="31" name="order_products_id_seq">
+    <sequence id="116" parent="31" name="order_products_id_seq">
       <DasType>integer|0s</DasType>
       <ObjectId>17491</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -2053,7 +2073,7 @@ false Zulu
       <StateNumber>1684</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="115" parent="31" name="orders_id_seq">
+    <sequence id="117" parent="31" name="orders_id_seq">
       <DasType>integer|0s</DasType>
       <ObjectId>17481</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -2061,7 +2081,7 @@ false Zulu
       <StateNumber>1678</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="116" parent="31" name="permissions_id_seq">
+    <sequence id="118" parent="31" name="permissions_id_seq">
       <DasType>bigint|0s</DasType>
       <ObjectId>17341</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -2069,7 +2089,7 @@ false Zulu
       <StateNumber>1424</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="117" parent="31" name="products_id_seq">
+    <sequence id="119" parent="31" name="products_id_seq">
       <DasType>bigint|0s</DasType>
       <ObjectId>17384</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -2077,7 +2097,7 @@ false Zulu
       <StateNumber>1618</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="118" parent="31" name="shop_id_seq">
+    <sequence id="120" parent="31" name="shop_id_seq">
       <DasType>bigint|0s</DasType>
       <ObjectId>17329</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -2085,7 +2105,7 @@ false Zulu
       <StateNumber>1350</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <sequence id="119" parent="31" name="users_id_seq">
+    <sequence id="121" parent="31" name="users_id_seq">
       <DasType>bigint|0s</DasType>
       <ObjectId>17280</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
@@ -2093,652 +2113,672 @@ false Zulu
       <StateNumber>1320</StateNumber>
       <OwnerName>postgres</OwnerName>
     </sequence>
-    <table id="120" parent="31" name="cart">
+    <table id="122" parent="31" name="cart">
       <ObjectId>17366</ObjectId>
       <StateNumber>1610</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="121" parent="31" name="history">
+    <table id="123" parent="31" name="follow">
+      <ObjectId>17508</ObjectId>
+      <StateNumber>1699</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="124" parent="31" name="follow_list">
+      <ObjectId>17521</ObjectId>
+      <StateNumber>1706</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="125" parent="31" name="history">
       <ObjectId>17471</ObjectId>
       <StateNumber>1672</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="122" parent="31" name="order_products">
+    <table id="126" parent="31" name="order_products">
       <ObjectId>17492</ObjectId>
       <StateNumber>1684</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="123" parent="31" name="orders">
+    <table id="127" parent="31" name="orders">
       <ObjectId>17482</ObjectId>
       <StateNumber>1684</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="124" parent="31" name="permissions">
+    <table id="128" parent="31" name="permissions">
       <ObjectId>17342</ObjectId>
       <StateNumber>1426</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="125" parent="31" name="products">
+    <table id="129" parent="31" name="products">
       <ObjectId>17385</ObjectId>
       <StateNumber>1618</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="126" parent="31" name="shop">
+    <table id="130" parent="31" name="shop">
       <ObjectId>17330</ObjectId>
       <StateNumber>1618</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="127" parent="31" name="tokens">
+    <table id="131" parent="31" name="tokens">
       <ObjectId>17293</ObjectId>
       <StateNumber>1324</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="128" parent="31" name="users">
+    <table id="132" parent="31" name="users">
       <ObjectId>17281</ObjectId>
       <StateNumber>1324</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <table id="129" parent="31" name="users_permissions">
+    <table id="133" parent="31" name="users_permissions">
       <ObjectId>17350</ObjectId>
       <StateNumber>1426</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>postgres</OwnerName>
     </table>
-    <argument id="130" parent="32">
+    <argument id="134" parent="32">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>citext|0s</DasType>
     </argument>
-    <argument id="131" parent="32">
+    <argument id="135" parent="32">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="132" parent="33">
+    <argument id="136" parent="33">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>citext|0s</DasType>
     </argument>
-    <argument id="133" parent="33">
+    <argument id="137" parent="33">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="134" parent="67">
+    <argument id="138" parent="67">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>citext|0s</DasType>
     </argument>
-    <argument id="135" parent="67">
+    <argument id="139" parent="67">
       <DasType>boolean|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="136" parent="68">
+    <argument id="140" parent="68">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>citext|0s</DasType>
     </argument>
-    <argument id="137" parent="68">
+    <argument id="141" parent="68">
       <DasType>char|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="138" parent="69">
+    <argument id="142" parent="69">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>citext|0s</DasType>
     </argument>
-    <argument id="139" parent="69">
+    <argument id="143" parent="69">
       <DasType>inet|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="140" parent="70">
+    <argument id="144" parent="70">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>integer|0s</DasType>
     </argument>
-    <argument id="141" parent="70">
+    <argument id="145" parent="70">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="142" parent="70">
+    <argument id="146" parent="70">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="143" parent="71">
+    <argument id="147" parent="71">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="144" parent="71">
+    <argument id="148" parent="71">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="145" parent="71">
+    <argument id="149" parent="71">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="146" parent="72">
+    <argument id="150" parent="72">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="147" parent="72">
+    <argument id="151" parent="72">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="148" parent="72">
+    <argument id="152" parent="72">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="149" parent="73">
+    <argument id="153" parent="73">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="150" parent="73">
+    <argument id="154" parent="73">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="151" parent="73">
+    <argument id="155" parent="73">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="152" parent="74">
+    <argument id="156" parent="74">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>integer|0s</DasType>
     </argument>
-    <argument id="153" parent="74">
+    <argument id="157" parent="74">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="154" parent="75">
+    <argument id="158" parent="75">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>bigint|0s</DasType>
     </argument>
-    <argument id="155" parent="75">
+    <argument id="159" parent="75">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="156" parent="75">
+    <argument id="160" parent="75">
       <DasType>bigint|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="157" parent="76">
+    <argument id="161" parent="76">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>citext|0s</DasType>
     </argument>
-    <argument id="158" parent="76">
+    <argument id="162" parent="76">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="159" parent="76">
+    <argument id="163" parent="76">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="160" parent="77">
-      <ArgumentDirection>R</ArgumentDirection>
-      <DasType>boolean|0s</DasType>
-    </argument>
-    <argument id="161" parent="77">
-      <DasType>citext|0s</DasType>
-      <Position>1</Position>
-    </argument>
-    <argument id="162" parent="77">
-      <DasType>citext|0s</DasType>
-      <Position>2</Position>
-    </argument>
-    <argument id="163" parent="78">
+    <argument id="164" parent="77">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="164" parent="78">
+    <argument id="165" parent="77">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="165" parent="78">
+    <argument id="166" parent="77">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="166" parent="79">
+    <argument id="167" parent="78">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="167" parent="79">
+    <argument id="168" parent="78">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="168" parent="79">
+    <argument id="169" parent="78">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="169" parent="80">
+    <argument id="170" parent="79">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DasType>boolean|0s</DasType>
+    </argument>
+    <argument id="171" parent="79">
+      <DasType>citext|0s</DasType>
+      <Position>1</Position>
+    </argument>
+    <argument id="172" parent="79">
+      <DasType>citext|0s</DasType>
+      <Position>2</Position>
+    </argument>
+    <argument id="173" parent="80">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>integer|0s</DasType>
     </argument>
-    <argument id="170" parent="80">
+    <argument id="174" parent="80">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="171" parent="80">
+    <argument id="175" parent="80">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="172" parent="81">
+    <argument id="176" parent="81">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="173" parent="81">
+    <argument id="177" parent="81">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="174" parent="81">
+    <argument id="178" parent="81">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="175" parent="82">
+    <argument id="179" parent="82">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="176" parent="82">
+    <argument id="180" parent="82">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="177" parent="82">
+    <argument id="181" parent="82">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="178" parent="83">
+    <argument id="182" parent="83">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="179" parent="83">
+    <argument id="183" parent="83">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="180" parent="83">
+    <argument id="184" parent="83">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="181" parent="84">
+    <argument id="185" parent="84">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="182" parent="84">
+    <argument id="186" parent="84">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="183" parent="84">
+    <argument id="187" parent="84">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="184" parent="85">
+    <argument id="188" parent="85">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>citext|0s</DasType>
     </argument>
-    <argument id="185" parent="85">
+    <argument id="189" parent="85">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="186" parent="85">
+    <argument id="190" parent="85">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="187" parent="86">
+    <argument id="191" parent="86">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>citext|0s</DasType>
     </argument>
-    <argument id="188" parent="86">
+    <argument id="192" parent="86">
       <DasType>cstring|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="189" parent="87">
+    <argument id="193" parent="87">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>cstring|0s</DasType>
     </argument>
-    <argument id="190" parent="87">
+    <argument id="194" parent="87">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="191" parent="88">
+    <argument id="195" parent="88">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>citext|0s</DasType>
     </argument>
-    <argument id="192" parent="88">
+    <argument id="196" parent="88">
       <DasType>internal|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="193" parent="89">
+    <argument id="197" parent="89">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>bytea|0s</DasType>
     </argument>
-    <argument id="194" parent="89">
+    <argument id="198" parent="89">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="195" parent="90">
+    <argument id="199" parent="90">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>text[]|0s</DasType>
     </argument>
-    <argument id="196" parent="90">
+    <argument id="200" parent="90">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="197" parent="90">
+    <argument id="201" parent="90">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="198" parent="91">
+    <argument id="202" parent="91">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>text[]|0s</DasType>
     </argument>
-    <argument id="199" parent="91">
+    <argument id="203" parent="91">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="200" parent="91">
+    <argument id="204" parent="91">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="201" parent="91">
+    <argument id="205" parent="91">
       <DasType>text|0s</DasType>
       <Position>3</Position>
     </argument>
-    <argument id="202" parent="92">
+    <argument id="206" parent="92">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>setof() text[]|0s</DasType>
     </argument>
-    <argument id="203" parent="92">
+    <argument id="207" parent="92">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="204" parent="92">
+    <argument id="208" parent="92">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="205" parent="93">
+    <argument id="209" parent="93">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>setof() text[]|0s</DasType>
     </argument>
-    <argument id="206" parent="93">
+    <argument id="210" parent="93">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="207" parent="93">
+    <argument id="211" parent="93">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="208" parent="93">
+    <argument id="212" parent="93">
       <DasType>text|0s</DasType>
       <Position>3</Position>
     </argument>
-    <argument id="209" parent="94">
+    <argument id="213" parent="94">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>text|0s</DasType>
     </argument>
-    <argument id="210" parent="94">
+    <argument id="214" parent="94">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="211" parent="94">
+    <argument id="215" parent="94">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="212" parent="94">
-      <DasType>text|0s</DasType>
-      <Position>3</Position>
-    </argument>
-    <argument id="213" parent="95">
-      <ArgumentDirection>R</ArgumentDirection>
-      <DasType>text|0s</DasType>
-    </argument>
-    <argument id="214" parent="95">
-      <DasType>citext|0s</DasType>
-      <Position>1</Position>
-    </argument>
-    <argument id="215" parent="95">
-      <DasType>citext|0s</DasType>
-      <Position>2</Position>
-    </argument>
-    <argument id="216" parent="95">
+    <argument id="216" parent="94">
       <DasType>text|0s</DasType>
       <Position>3</Position>
     </argument>
     <argument id="217" parent="95">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DasType>text|0s</DasType>
+    </argument>
+    <argument id="218" parent="95">
+      <DasType>citext|0s</DasType>
+      <Position>1</Position>
+    </argument>
+    <argument id="219" parent="95">
+      <DasType>citext|0s</DasType>
+      <Position>2</Position>
+    </argument>
+    <argument id="220" parent="95">
+      <DasType>text|0s</DasType>
+      <Position>3</Position>
+    </argument>
+    <argument id="221" parent="95">
       <DasType>text|0s</DasType>
       <Position>4</Position>
     </argument>
-    <argument id="218" parent="96">
+    <argument id="222" parent="96">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>text[]|0s</DasType>
     </argument>
-    <argument id="219" parent="96">
+    <argument id="223" parent="96">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="220" parent="96">
+    <argument id="224" parent="96">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="221" parent="97">
+    <argument id="225" parent="97">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>text[]|0s</DasType>
     </argument>
-    <argument id="222" parent="97">
+    <argument id="226" parent="97">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="223" parent="97">
+    <argument id="227" parent="97">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="224" parent="97">
+    <argument id="228" parent="97">
       <DasType>text|0s</DasType>
       <Position>3</Position>
     </argument>
-    <argument id="225" parent="98">
+    <argument id="229" parent="98">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>setof() text|0s</DasType>
     </argument>
-    <argument id="226" parent="98">
+    <argument id="230" parent="98">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="227" parent="98">
+    <argument id="231" parent="98">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="228" parent="99">
+    <argument id="232" parent="99">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>setof() text|0s</DasType>
     </argument>
-    <argument id="229" parent="99">
+    <argument id="233" parent="99">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="230" parent="99">
+    <argument id="234" parent="99">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="231" parent="99">
+    <argument id="235" parent="99">
       <DasType>text|0s</DasType>
       <Position>3</Position>
     </argument>
-    <argument id="232" parent="100">
+    <argument id="236" parent="100">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>text|0s</DasType>
     </argument>
-    <argument id="233" parent="100">
+    <argument id="237" parent="100">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="234" parent="100">
+    <argument id="238" parent="100">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="235" parent="100">
+    <argument id="239" parent="100">
       <DasType>citext|0s</DasType>
       <Position>3</Position>
     </argument>
-    <argument id="236" parent="101">
+    <argument id="240" parent="101">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>text|0s</DasType>
     </argument>
-    <argument id="237" parent="101">
+    <argument id="241" parent="101">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="238" parent="101">
+    <argument id="242" parent="101">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="239" parent="101">
+    <argument id="243" parent="101">
       <DasType>integer|0s</DasType>
       <Position>3</Position>
     </argument>
-    <argument id="240" parent="102">
+    <argument id="244" parent="102">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>integer|0s</DasType>
     </argument>
-    <argument id="241" parent="102">
+    <argument id="245" parent="102">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="242" parent="102">
+    <argument id="246" parent="102">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="243" parent="103">
+    <argument id="247" parent="103">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="244" parent="103">
+    <argument id="248" parent="103">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="245" parent="103">
+    <argument id="249" parent="103">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="246" parent="104">
+    <argument id="250" parent="104">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="247" parent="104">
+    <argument id="251" parent="104">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="248" parent="104">
+    <argument id="252" parent="104">
       <DasType>text|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="249" parent="105">
+    <argument id="253" parent="105">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="250" parent="105">
+    <argument id="254" parent="105">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="251" parent="105">
+    <argument id="255" parent="105">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="252" parent="106">
+    <argument id="256" parent="106">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="253" parent="106">
+    <argument id="257" parent="106">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="254" parent="106">
+    <argument id="258" parent="106">
       <DasType>text|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="255" parent="107">
+    <argument id="259" parent="107">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="256" parent="107">
+    <argument id="260" parent="107">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="257" parent="107">
+    <argument id="261" parent="107">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="258" parent="108">
+    <argument id="262" parent="108">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="259" parent="108">
+    <argument id="263" parent="108">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="260" parent="108">
+    <argument id="264" parent="108">
       <DasType>text|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="261" parent="109">
+    <argument id="265" parent="109">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="262" parent="109">
+    <argument id="266" parent="109">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="263" parent="109">
+    <argument id="267" parent="109">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="264" parent="110">
+    <argument id="268" parent="110">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>boolean|0s</DasType>
     </argument>
-    <argument id="265" parent="110">
+    <argument id="269" parent="110">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="266" parent="110">
+    <argument id="270" parent="110">
       <DasType>text|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="267" parent="111">
+    <argument id="271" parent="111">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>text|0s</DasType>
     </argument>
-    <argument id="268" parent="111">
+    <argument id="272" parent="111">
       <DasType>citext|0s</DasType>
       <Position>1</Position>
     </argument>
-    <argument id="269" parent="111">
+    <argument id="273" parent="111">
       <DasType>citext|0s</DasType>
       <Position>2</Position>
     </argument>
-    <argument id="270" parent="111">
+    <argument id="274" parent="111">
       <DasType>text|0s</DasType>
       <Position>3</Position>
     </argument>
-    <argument id="271" parent="112">
+    <argument id="275" parent="112">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>trigger|0s</DasType>
     </argument>
-    <argument id="272" parent="113">
+    <argument id="276" parent="113">
       <ArgumentDirection>R</ArgumentDirection>
       <DasType>trigger|0s</DasType>
     </argument>
-    <column id="273" parent="120" name="userid">
+    <argument id="277" parent="114">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DasType>trigger|0s</DasType>
+    </argument>
+    <argument id="278" parent="115">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DasType>trigger|0s</DasType>
+    </argument>
+    <column id="279" parent="122" name="userid">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>1610</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="274" parent="120" name="items">
+    <column id="280" parent="122" name="items">
       <DasType>jsonb|0s</DasType>
       <Position>2</Position>
       <StateNumber>1610</StateNumber>
       <TypeId>3802</TypeId>
     </column>
-    <index id="275" parent="120" name="cart_pkey">
+    <index id="281" parent="122" name="cart_pkey">
       <ColNames>userid</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17371</ObjectId>
@@ -2750,32 +2790,129 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="276" parent="120" name="cart_pkey">
+    <key id="282" parent="122" name="cart_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17372</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1610</StateNumber>
       <UnderlyingIndexId>17371</UnderlyingIndexId>
     </key>
-    <column id="277" parent="121" name="user_id">
+    <column id="283" parent="123" name="user_id">
+      <DasType>integer|0s</DasType>
+      <Position>1</Position>
+      <StateNumber>1699</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="284" parent="123" name="user_name">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>2</Position>
+      <StateNumber>1699</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="285" parent="123" name="followed_products">
+      <DasType>jsonb|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>1699</StateNumber>
+      <TypeId>3802</TypeId>
+    </column>
+    <foreign-key id="286" parent="123" name="follow_user_id_fkey">
+      <ColNames>user_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>17513</ObjectId>
+      <StateNumber>1699</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>17281</RefTableId>
+    </foreign-key>
+    <index id="287" parent="123" name="unique_user_id">
+      <ColNames>user_id</ColNames>
+      <ObjectId>17518</ObjectId>
+      <StateNumber>1701</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="288" parent="123" name="unique_user_id">
+      <ObjectId>17519</ObjectId>
+      <StateNumber>1701</StateNumber>
+      <UnderlyingIndexId>17518</UnderlyingIndexId>
+    </key>
+    <column id="289" parent="124" name="user_id">
+      <DasType>integer|0s</DasType>
+      <Position>1</Position>
+      <StateNumber>1706</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="290" parent="124" name="product_id">
+      <DasType>integer|0s</DasType>
+      <Position>2</Position>
+      <StateNumber>1706</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="291" parent="124" name="product_name">
+      <DasType>varchar(255)|0s</DasType>
+      <Position>3</Position>
+      <StateNumber>1706</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="292" parent="124" name="product_description">
+      <DasType>text|0s</DasType>
+      <Position>4</Position>
+      <StateNumber>1706</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <column id="293" parent="124" name="product_price">
+      <DasType>double precision|0s</DasType>
+      <Position>5</Position>
+      <StateNumber>1706</StateNumber>
+      <TypeId>701</TypeId>
+    </column>
+    <foreign-key id="294" parent="124" name="follow_list_user_id_fkey">
+      <ColNames>user_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>17526</ObjectId>
+      <StateNumber>1706</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>17281</RefTableId>
+    </foreign-key>
+    <foreign-key id="295" parent="124" name="follow_list_product_id_fkey">
+      <ColNames>product_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>17531</ObjectId>
+      <StateNumber>1706</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>17385</RefTableId>
+    </foreign-key>
+    <trigger id="296" parent="124" name="after_follow_list_change">
+      <Events>IUD</Events>
+      <ObjectId>17538</ObjectId>
+      <StateNumber>1713</StateNumber>
+      <CallRoutineId>17520</CallRoutineId>
+    </trigger>
+    <trigger id="297" parent="124" name="before_insert_follow_list">
+      <Events>I</Events>
+      <ObjectId>17537</ObjectId>
+      <StateNumber>1711</StateNumber>
+      <Turn>before-row</Turn>
+      <CallRoutineId>17536</CallRoutineId>
+    </trigger>
+    <column id="298" parent="125" name="user_id">
       <DasType>integer|0s</DasType>
       <Position>1</Position>
       <StateNumber>1672</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="278" parent="121" name="user_name">
+    <column id="299" parent="125" name="user_name">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
       <StateNumber>1672</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="279" parent="121" name="orders_list">
+    <column id="300" parent="125" name="orders_list">
       <DasType>jsonb|0s</DasType>
       <Position>3</Position>
       <StateNumber>1672</StateNumber>
       <TypeId>3802</TypeId>
     </column>
-    <foreign-key id="280" parent="121" name="history_user_id_fkey">
+    <foreign-key id="301" parent="125" name="history_user_id_fkey">
       <ColNames>user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17476</ObjectId>
@@ -2783,7 +2920,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>17281</RefTableId>
     </foreign-key>
-    <column id="281" parent="122" name="id">
+    <column id="302" parent="126" name="id">
       <DasType>integer|0s</DasType>
       <DefaultExpression>nextval(&apos;order_products_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -2792,28 +2929,28 @@ false Zulu
       <SequenceId>17491</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="282" parent="122" name="order_id">
+    <column id="303" parent="126" name="order_id">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>1684</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="283" parent="122" name="product_id">
+    <column id="304" parent="126" name="product_id">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>1684</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="284" parent="122" name="quantity">
+    <column id="305" parent="126" name="quantity">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>1684</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <foreign-key id="285" parent="122" name="order_products_order_id_fkey">
+    <foreign-key id="306" parent="126" name="order_products_order_id_fkey">
       <ColNames>order_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17498</ObjectId>
@@ -2822,7 +2959,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>17482</RefTableId>
     </foreign-key>
-    <foreign-key id="286" parent="122" name="order_products_product_id_fkey">
+    <foreign-key id="307" parent="126" name="order_products_product_id_fkey">
       <ColNames>product_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17503</ObjectId>
@@ -2831,7 +2968,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>17385</RefTableId>
     </foreign-key>
-    <index id="287" parent="122" name="order_products_pkey">
+    <index id="308" parent="126" name="order_products_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17496</ObjectId>
@@ -2840,14 +2977,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="288" parent="122" name="order_products_pkey">
+    <key id="309" parent="126" name="order_products_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17497</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1684</StateNumber>
       <UnderlyingIndexId>17496</UnderlyingIndexId>
     </key>
-    <column id="289" parent="123" name="id">
+    <column id="310" parent="127" name="id">
       <DasType>integer|0s</DasType>
       <DefaultExpression>nextval(&apos;orders_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -2856,35 +2993,35 @@ false Zulu
       <SequenceId>17481</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="290" parent="123" name="user_id">
+    <column id="311" parent="127" name="user_id">
       <DasType>integer|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>1678</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="291" parent="123" name="total_amount">
+    <column id="312" parent="127" name="total_amount">
       <DasType>numeric(10,2 digit)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>1678</StateNumber>
       <TypeId>1700</TypeId>
     </column>
-    <column id="292" parent="123" name="delivery_addr">
+    <column id="313" parent="127" name="delivery_addr">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>1678</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="293" parent="123" name="status">
+    <column id="314" parent="127" name="status">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>1678</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="294" parent="123" name="created_at">
+    <column id="315" parent="127" name="created_at">
       <DasType>timestamp|0s</DasType>
       <DefaultExpression>now()</DefaultExpression>
       <NotNull>1</NotNull>
@@ -2892,7 +3029,7 @@ false Zulu
       <StateNumber>1678</StateNumber>
       <TypeId>1114</TypeId>
     </column>
-    <index id="295" parent="123" name="orders_pkey">
+    <index id="316" parent="127" name="orders_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17489</ObjectId>
@@ -2901,14 +3038,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="296" parent="123" name="orders_pkey">
+    <key id="317" parent="127" name="orders_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17490</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1678</StateNumber>
       <UnderlyingIndexId>17489</UnderlyingIndexId>
     </key>
-    <column id="297" parent="124" name="id">
+    <column id="318" parent="128" name="id">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;permissions_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -2917,14 +3054,14 @@ false Zulu
       <SequenceId>17341</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="298" parent="124" name="code">
+    <column id="319" parent="128" name="code">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>1424</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="299" parent="124" name="permissions_pkey">
+    <index id="320" parent="128" name="permissions_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17348</ObjectId>
@@ -2933,14 +3070,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="300" parent="124" name="permissions_pkey">
+    <key id="321" parent="128" name="permissions_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17349</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1424</StateNumber>
       <UnderlyingIndexId>17348</UnderlyingIndexId>
     </key>
-    <column id="301" parent="125" name="id">
+    <column id="322" parent="129" name="id">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;products_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -2949,7 +3086,7 @@ false Zulu
       <SequenceId>17384</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="302" parent="125" name="created_at">
+    <column id="323" parent="129" name="created_at">
       <DasType>timestamp(0) with time zone|0s</DasType>
       <DefaultExpression>now()</DefaultExpression>
       <NotNull>1</NotNull>
@@ -2957,7 +3094,7 @@ false Zulu
       <StateNumber>1618</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <column id="303" parent="125" name="updated_at">
+    <column id="324" parent="129" name="updated_at">
       <DasType>timestamp(0) with time zone|0s</DasType>
       <DefaultExpression>now()</DefaultExpression>
       <NotNull>1</NotNull>
@@ -2965,33 +3102,33 @@ false Zulu
       <StateNumber>1618</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <column id="304" parent="125" name="title">
+    <column id="325" parent="129" name="title">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>1618</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="305" parent="125" name="description">
+    <column id="326" parent="129" name="description">
       <DasType>text|0s</DasType>
       <Position>5</Position>
       <StateNumber>1618</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="306" parent="125" name="price">
+    <column id="327" parent="129" name="price">
       <DasType>double precision|0s</DasType>
       <Position>6</Position>
       <StateNumber>1618</StateNumber>
       <TypeId>701</TypeId>
     </column>
-    <column id="307" parent="125" name="shop_id">
+    <column id="328" parent="129" name="shop_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StateNumber>1618</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="308" parent="125" name="products_shop_id_fkey">
+    <foreign-key id="329" parent="129" name="products_shop_id_fkey">
       <ColNames>shop_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17395</ObjectId>
@@ -3000,7 +3137,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>17330</RefTableId>
     </foreign-key>
-    <index id="309" parent="125" name="products_pkey">
+    <index id="330" parent="129" name="products_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17393</ObjectId>
@@ -3009,14 +3146,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="310" parent="125" name="products_pkey">
+    <key id="331" parent="129" name="products_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17394</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1618</StateNumber>
       <UnderlyingIndexId>17393</UnderlyingIndexId>
     </key>
-    <column id="311" parent="126" name="id">
+    <column id="332" parent="130" name="id">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;shop_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -3025,7 +3162,7 @@ false Zulu
       <SequenceId>17329</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="312" parent="126" name="created_at">
+    <column id="333" parent="130" name="created_at">
       <DasType>timestamp(0) with time zone|0s</DasType>
       <DefaultExpression>now()</DefaultExpression>
       <NotNull>1</NotNull>
@@ -3033,7 +3170,7 @@ false Zulu
       <StateNumber>1350</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <column id="313" parent="126" name="updated_at">
+    <column id="334" parent="130" name="updated_at">
       <DasType>timestamp(0) with time zone|0s</DasType>
       <DefaultExpression>now()</DefaultExpression>
       <NotNull>1</NotNull>
@@ -3041,27 +3178,27 @@ false Zulu
       <StateNumber>1350</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <column id="314" parent="126" name="title">
+    <column id="335" parent="130" name="title">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>1350</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="315" parent="126" name="description">
+    <column id="336" parent="130" name="description">
       <DasType>text|0s</DasType>
       <Position>5</Position>
       <StateNumber>1350</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="316" parent="126" name="type">
+    <column id="337" parent="130" name="type">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>1350</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="317" parent="126" name="shop_pkey">
+    <index id="338" parent="130" name="shop_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17338</ObjectId>
@@ -3070,42 +3207,42 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="318" parent="126" name="shop_pkey">
+    <key id="339" parent="130" name="shop_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17339</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1350</StateNumber>
       <UnderlyingIndexId>17338</UnderlyingIndexId>
     </key>
-    <column id="319" parent="127" name="hash">
+    <column id="340" parent="131" name="hash">
       <DasType>bytea|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>1324</StateNumber>
       <TypeId>17</TypeId>
     </column>
-    <column id="320" parent="127" name="user_id">
+    <column id="341" parent="131" name="user_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>1324</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="321" parent="127" name="expiry">
+    <column id="342" parent="131" name="expiry">
       <DasType>timestamp(0) with time zone|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>1324</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <column id="322" parent="127" name="scope">
+    <column id="343" parent="131" name="scope">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>1324</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <foreign-key id="323" parent="127" name="tokens_user_id_fkey">
+    <foreign-key id="344" parent="131" name="tokens_user_id_fkey">
       <ColNames>user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17300</ObjectId>
@@ -3114,7 +3251,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>17281</RefTableId>
     </foreign-key>
-    <index id="324" parent="127" name="tokens_pkey">
+    <index id="345" parent="131" name="tokens_pkey">
       <ColNames>hash</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17298</ObjectId>
@@ -3123,14 +3260,14 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="325" parent="127" name="tokens_pkey">
+    <key id="346" parent="131" name="tokens_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17299</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1324</StateNumber>
       <UnderlyingIndexId>17298</UnderlyingIndexId>
     </key>
-    <column id="326" parent="128" name="id">
+    <column id="347" parent="132" name="id">
       <DasType>bigint|0s</DasType>
       <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
@@ -3139,7 +3276,7 @@ false Zulu
       <SequenceId>17280</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="327" parent="128" name="created_at">
+    <column id="348" parent="132" name="created_at">
       <DasType>timestamp(0) with time zone|0s</DasType>
       <DefaultExpression>now()</DefaultExpression>
       <NotNull>1</NotNull>
@@ -3147,7 +3284,7 @@ false Zulu
       <StateNumber>1320</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <column id="328" parent="128" name="updated_at">
+    <column id="349" parent="132" name="updated_at">
       <DasType>timestamp(0) with time zone|0s</DasType>
       <DefaultExpression>now()</DefaultExpression>
       <NotNull>1</NotNull>
@@ -3155,38 +3292,38 @@ false Zulu
       <StateNumber>1320</StateNumber>
       <TypeId>1184</TypeId>
     </column>
-    <column id="329" parent="128" name="email">
+    <column id="350" parent="132" name="email">
       <DasType>citext|0s</DasType>
       <Position>4</Position>
       <StateNumber>1320</StateNumber>
       <TypeId>17176</TypeId>
     </column>
-    <column id="330" parent="128" name="name">
+    <column id="351" parent="132" name="name">
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>1320</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="331" parent="128" name="password">
+    <column id="352" parent="132" name="password">
       <DasType>bytea|0s</DasType>
       <Position>6</Position>
       <StateNumber>1320</StateNumber>
       <TypeId>17</TypeId>
     </column>
-    <column id="332" parent="128" name="activated">
+    <column id="353" parent="132" name="activated">
       <DasType>boolean|0s</DasType>
       <Position>7</Position>
       <StateNumber>1320</StateNumber>
       <TypeId>16</TypeId>
     </column>
-    <column id="333" parent="128" name="version">
+    <column id="354" parent="132" name="version">
       <DasType>integer|0s</DasType>
       <Position>8</Position>
       <StateNumber>1320</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <index id="334" parent="128" name="users_pkey">
+    <index id="355" parent="132" name="users_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17289</ObjectId>
@@ -3195,7 +3332,7 @@ false Zulu
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="335" parent="128" name="users_email_key">
+    <index id="356" parent="132" name="users_email_key">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17291</ObjectId>
@@ -3206,34 +3343,34 @@ false Zulu
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="336" parent="128" name="users_pkey">
+    <key id="357" parent="132" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17290</ObjectId>
       <Primary>1</Primary>
       <StateNumber>1320</StateNumber>
       <UnderlyingIndexId>17289</UnderlyingIndexId>
     </key>
-    <key id="337" parent="128" name="users_email_key">
+    <key id="358" parent="132" name="users_email_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17292</ObjectId>
       <StateNumber>1320</StateNumber>
       <UnderlyingIndexId>17291</UnderlyingIndexId>
     </key>
-    <column id="338" parent="129" name="user_id">
+    <column id="359" parent="133" name="user_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>1426</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="339" parent="129" name="permission_id">
+    <column id="360" parent="133" name="permission_id">
       <DasType>bigint|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>1426</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="340" parent="129" name="users_permissions_user_id_fkey">
+    <foreign-key id="361" parent="133" name="users_permissions_user_id_fkey">
       <ColNames>user_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17355</ObjectId>
@@ -3242,7 +3379,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>17281</RefTableId>
     </foreign-key>
-    <foreign-key id="341" parent="129" name="users_permissions_permission_id_fkey">
+    <foreign-key id="362" parent="133" name="users_permissions_permission_id_fkey">
       <ColNames>permission_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17360</ObjectId>
@@ -3251,7 +3388,7 @@ false Zulu
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>17342</RefTableId>
     </foreign-key>
-    <index id="342" parent="129" name="users_permissions_pkey">
+    <index id="363" parent="133" name="users_permissions_pkey">
       <ColNames>user_id
 permission_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
@@ -3261,7 +3398,7 @@ permission_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="343" parent="129" name="users_permissions_pkey">
+    <key id="364" parent="133" name="users_permissions_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>17354</ObjectId>
       <Primary>1</Primary>

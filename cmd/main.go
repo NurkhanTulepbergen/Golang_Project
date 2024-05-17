@@ -110,8 +110,13 @@ func main() {
 		InfoLog:  logger,
 		ErrorLog: logger,
 	}
+	followModel := &model.FollowModel{
+		DB:       db,
+		InfoLog:  logger,
+		ErrorLog: logger,
+	}
 
 	// Start server
-	api := api.NewAPI(shopModel, productModel, userModel, tokenModel, permissionModel, cartModel, orderModel, historyModel)
+	api := api.NewAPI(shopModel, productModel, userModel, tokenModel, permissionModel, cartModel, orderModel, historyModel, followModel)
 	api.StartServer(cfg.port)
 }
