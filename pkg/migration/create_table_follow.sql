@@ -30,6 +30,7 @@ CREATE TRIGGER before_insert_follow_list
 EXECUTE FUNCTION update_product_information();
 
 
+
 create table if not exists follow
 (
     user_id int,

@@ -20,8 +20,7 @@ BEGIN
                                           'user_id', user_id,
                                           'total_amount', total_amount,
                                           'delivery_addr', delivery_addr,
-                                          'status', status,
-                                          'created_at', created_at
+                                          'status', status
                                   )
                           )
                    FROM orders
@@ -41,6 +40,7 @@ CREATE TRIGGER after_add_order
     FOR EACH ROW
 EXECUTE FUNCTION update_history();
 
+
 -- INSERT INTO history (user_id, user_name, orders_list)
 -- SELECT o.user_id, h.user_name, json_agg(json_build_object('id', o.id, 'products', o.products, 'total_amount', o.total_amount, 'delivery_addr', o.delivery_addr, 'status', o.status, 'created_at', o.created_at))
 -- FROM orders o
@@ -48,4 +48,3 @@ EXECUTE FUNCTION update_history();
 -- WHERE o.user_id = 1
 -- GROUP BY o.user_id, h.user_name;
 
-drop table history;

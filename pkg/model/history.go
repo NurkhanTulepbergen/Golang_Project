@@ -101,6 +101,75 @@ func (m *HistoryModel) GetHistory(filter *HistoryFilter) ([]*History, error) {
 	return historyList, nil
 }
 
+//func (m *HistoryModel) GetHistory(filter *HistoryFilter) ([]*History, error) {
+//	// Start building the SQL query
+//	query := "SELECT user_id, user_name, orders_list FROM history WHERE 1 = 1"
+//	args := make([]interface{}, 0)
+//
+//	// Add filters
+//	if filter.UserID != 0 {
+//		query += " AND user_id = ?"
+//		args = append(args, filter.UserID)
+//	}
+//
+//	// Add sorting
+//	if filter.SortBy != "" {
+//		query += " ORDER BY " + filter.SortBy
+//		if filter.Order != "" {
+//			query += " " + filter.Order
+//		}
+//	}
+//
+//	// Add pagination
+//	if filter.Page != 0 && filter.PageSize != 0 {
+//		query += " LIMIT ? OFFSET ?"
+//		args = append(args, filter.PageSize, (filter.Page-1)*filter.PageSize)
+//	}
+//
+//	// Execute the query
+//	rows, err := m.DB.Query(query, args...)
+//	if err != nil {
+//		m.ErrorLog.Println("Error getting history:", err)
+//		return nil, err
+//	}
+//	defer rows.Close()
+//
+//	// Iterate over the result set and build history objects
+//	historyList := make([]*History, 0)
+//	for rows.Next() {
+//		history := &History{}
+//		var ordersJSON []byte
+//
+//		err := rows.Scan(&history.UserID, &history.UserName, &ordersJSON)
+//		if err != nil {
+//			m.ErrorLog.Println("Error scanning row:", err)
+//			continue
+//		}
+//
+//		err = json.Unmarshal(ordersJSON, &history.OrdersList)
+//		if err != nil {
+//			m.ErrorLog.Println("Error unmarshalling orders list:", err)
+//			continue
+//		}
+//
+//		// Iterate over orders and parse time
+//		for _, order := range history.OrdersList {
+//			// Parse time using layout "2006-01-02T15:04:05"
+//			createdAtTime, err := time.Parse("2006-01-02T15:04:05", order.CreatedAt)
+//			if err != nil {
+//				m.ErrorLog.Println("Error parsing time:", err)
+//				continue
+//			}
+//			// Assign parsed time to order's CreatedAt field
+//			order.CreatedAt = createdAtTime
+//		}
+//
+//		historyList = append(historyList, history)
+//	}
+//
+//	return historyList, nil
+//}
+
 func (m *HistoryModel) UpdateHistory(userID int, userName string, ordersList []*Order) error {
 	ordersJSON, err := json.Marshal(ordersList)
 	if err != nil {
