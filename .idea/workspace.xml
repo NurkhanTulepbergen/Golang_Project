@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2ae80f2e-c511-4d37-926d-faacbb96ccf0" name="Changes" comment="added follow entity">
+    <list default="true" id="2ae80f2e-c511-4d37-926d-faacbb96ccf0" name="Changes" comment="added validation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/shop.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/shop.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/order.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/product.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/shop.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/shop.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/shopandproduct.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/model/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/model/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/routes.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +95,8 @@
     <MESSAGE value="separated each handler function" />
     <MESSAGE value="added update method for order entity" />
     <MESSAGE value="added follow entity" />
-    <option name="LAST_COMMIT_MESSAGE" value="added follow entity" />
+    <MESSAGE value="added validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="added validation" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

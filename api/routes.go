@@ -35,15 +35,11 @@ func (api *API) StartServer(port int) {
 	// Token endpoint
 	router.HandleFunc("/tokens/authentication", api.createAuthenticationTokenHandler).Methods("POST")
 
-	router.HandleFunc("/cart", api.AddProductToCart).Methods("POST")
-	router.HandleFunc("/cart", api.RemoveProductFromCart).Methods("PUT")
-	router.HandleFunc("/cart", api.GetCart).Methods("GET")
-
-	router.HandleFunc("/orders", api.CreateOrder).Methods("POST")
-	router.HandleFunc("/orders/{order_id}", api.GetOrder).Methods("GET")
-	router.HandleFunc("/user/{user_id}/orders", api.GetAllOrders).Methods("GET")
-	router.HandleFunc("/orders/{order_id}", api.DeleteOrder).Methods("DELETE")
-	router.HandleFunc("/orders/{order_id}", api.UpdateOrder).Methods("PUT")
+	router.HandleFunc("/orders", api.requireAuthenticatedUser(api.CreateOrder)).Methods("POST")
+	router.HandleFunc("/orders/{order_id}", api.requireAuthenticatedUser(api.GetOrder)).Methods("GET")
+	router.HandleFunc("/user/{user_id}/orders", api.requireAuthenticatedUser(api.GetAllOrders)).Methods("GET")
+	router.HandleFunc("/orders/{order_id}", api.requireAuthenticatedUser(api.DeleteOrder)).Methods("DELETE")
+	router.HandleFunc("/orders/{order_id}", api.requireAuthenticatedUser(api.UpdateOrder)).Methods("PUT")
 
 	router.HandleFunc("/follow/user/{user_id}", api.GetFollowDataByUserID).Methods("GET")
 	router.HandleFunc("/follow", api.AddProductToFollowList).Methods("POST")
